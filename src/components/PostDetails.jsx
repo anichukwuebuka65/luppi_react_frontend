@@ -9,7 +9,7 @@ import ShareIcon from '@mui/icons-material/Share';
 
 const PostDetails = () => {
   return (
-    <div className="bg-slate-200 pb-5 mt-5 rounded ">
+    <div className="bg-slate-200 border-zinc-300 border-2 pb-5 mt-1 rounded ">
       <div className="p-2 relative ">
         <div className="flex justify-between ">
 
@@ -23,12 +23,12 @@ const PostDetails = () => {
 
             <div className="hover:cursor-pointer"><MoreHorizIcon/></div>
 
-            <div className="absolute   top-12 right-2 rounded p-2 bg-slate-300">
+            <div className="absolute shadow-md  top-12 right-2 rounded  p-2 bg-white border-2">
 
               <div className=" relative flex content-center  pr-3 flex-col">
-                <div className=" absolute right-2 -top-3 rotate-45 h-3 w-3 bg-slate-300"></div>
-                <small className=""><span className="pr-2  opacity-50"><HideImageIcon/></span>Hide this post</small>
-                <small><span className="pr-2 opacity-50"><ReportIcon/></span>Report post</small>
+                <div className=" absolute right-2 -top-3 rotate-45 h-3 w-3  bg-white"></div>
+                <small className="mb-1.5 "><span className="pr-2.5 opacity-90 "><HideImageIcon/></span>Hide this post</small>
+                <small  className="mb-1.5 "><span className="pr-2.5 opacity-90 "><ReportIcon/></span>Report post</small>
               </div>
               
             </div> 
