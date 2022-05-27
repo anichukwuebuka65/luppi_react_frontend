@@ -6,8 +6,11 @@ import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
 import ShareIcon from '@mui/icons-material/Share';
+import { useState } from "react";
 
 const PostDetails = () => {
+const [postOptions,SetpostOptions] = useState(false)
+
   return (
     <div className="bg-slate-200 border-zinc-300 border-2 pb-5 mt-1 rounded ">
       <div className="p-2 relative ">
@@ -23,7 +26,7 @@ const PostDetails = () => {
 
             <div className="hover:cursor-pointer"><MoreHorizIcon/></div>
 
-            <div className="absolute shadow-md  top-12 right-2 rounded  p-2 bg-white border-2">
+            { postOptions && <div className="absolute shadow-md  top-12 right-2 rounded  p-2 bg-white border-2">
 
               <div className=" relative flex content-center  pr-3 flex-col">
                 <div className=" absolute right-2 -top-3 rotate-45 h-3 w-3  bg-white"></div>
@@ -31,7 +34,7 @@ const PostDetails = () => {
                 <small  className="mb-1.5 "><span className="pr-2.5 opacity-90 "><ReportIcon/></span>Report post</small>
               </div>
               
-            </div> 
+            </div> }
 
         </div>
           <p className="my-2.5">This is my first post on luppi</p>
@@ -67,7 +70,7 @@ const PostDetails = () => {
           {/*comments */}
           <div className="flex  pt-3">
               <ProfileImage />
-              <input className="rounded-full pl-2 bg-slate-400  focus:outline-none w-full "
+              <input className="rounded-full pl-2 bg-slate-400 focus:bg-slate-300 focus:border-slate-400 border-2  focus:outline-none w-full "
                type="text" placeholder="Write Comments" />
           </div>
 

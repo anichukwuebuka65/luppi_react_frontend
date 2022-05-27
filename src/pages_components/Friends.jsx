@@ -1,13 +1,9 @@
-import LeftSideBar from "../components/LeftSideBar"
 import ProfileImage from "../components/ProfileImage"
 
 const Friends = () => {
   return (
-    <div className = "px-3 py-5 grid grid-cols-4  h-[calc(100vh-56px)] bg-slate-100">
-        <div>
-            <LeftSideBar/>
-        </div>
-
+    <>
+       
         {/*center div */}
         <div className = 'col-span-2 w-4/5 bg-slate-200 border-zinc-300 border-2 rounded mx-auto overflow-auto'>
             <div className="text-3xl font-bold p-6">All Friends</div>
@@ -74,7 +70,7 @@ const Friends = () => {
                   <p>Anthony Frank</p>
             </div>
         </div>
-    </div>
+    </>
   )
 }
 

@@ -1,23 +1,42 @@
-import React from "react";
+import React, { useMemo, useState } from "react";
 import Home from "./pages_components/Home.jsx";
 import Groups from "./pages_components/Groups.jsx";
-import Layout from "./pages_components/Layout.jsx";
 import Friends from "./pages_components/Friends.jsx";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+import ProfilePage from "./pages_components/ProfilePage.jsx";
+import FriendRequests from "./pages_components/FriendRequests.jsx";
+import Notifications from "./pages_components/Notifications.jsx";
+import { AllContext } from "./context/AllContext.jsx";
+
+import Layout from "./components/Layout.jsx";
+import Header from "./components/Header.jsx";
 
 const App = () => {
+  const [chat, setChat] = useState(false);    
+   
+  const toggleChat = () => {
+    setChat((state)=>state=!state)
+  }
+  
+  const toggleChatOff = () => {
+    setChat(false)
+    } 
+  const contextValues = useMemo(() => ({chat,toggleChat,toggleChatOff}),[chat])
   return (
   <div>
-    <Router>
-      <Routes>
-        <Route path="/" element={<Layout/>}>  
-            <Route index element={<Home/>} />
-            <Route path="groups" element={<Groups/>} />
-            <Route path="friends" element={<Friends/>} />
-        </Route>
-        
-      </Routes>    
-    </Router>
+      <AllContext.Provider value={contextValues}> 
+         <Header/>
+        <Routes>
+            <Route path="/" element={<Layout/>}>
+                  <Route index element={<Home/>} />
+                  <Route path="/friends" element={<Friends/>} />
+            </Route>
+            <Route path="/groups" element={<Groups/>} />
+            <Route path="/profilepage" element={<ProfilePage/>} />
+            <Route path="/friendrequest" element={<FriendRequests/>} />
+            <Route path="/notifications" element={<Notifications/>} /> 
+        </Routes>
+      </AllContext.Provider>    
   </div>   
   )     
 }
