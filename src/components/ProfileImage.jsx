@@ -1,5 +1,4 @@
 
-
 const ProfileImage = ({classAttr="h-9 w-9", onlineIcon=""}) => {
 
   return (

@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import Home from "./pages_components/Home.jsx";
 import Groups from "./pages_components/Groups.jsx";
 import Friends from "./pages_components/Friends.jsx";
@@ -12,7 +12,8 @@ import Layout from "./components/Layout.jsx";
 import Header from "./components/Header.jsx";
 
 const App = () => {
-  const [chat, setChat] = useState(false);    
+  const [chat, setChat] = useState(false);
+  const [toggleSideBar, setToggleSideBar] = useState(false)   
    
   const toggleChat = () => {
     setChat((state)=>state=!state)
@@ -21,7 +22,7 @@ const App = () => {
   const toggleChatOff = () => {
     setChat(false)
     } 
-  const contextValues = useMemo(() => ({chat,toggleChat,toggleChatOff}),[chat])
+  const contextValues = {chat,toggleChat,toggleChatOff,toggleSideBar,setToggleSideBar}
   return (
   <div>
       <AllContext.Provider value={contextValues}> 
@@ -29,7 +30,7 @@ const App = () => {
         <Routes>
             <Route path="/" element={<Layout/>}>
                   <Route index element={<Home/>} />
-                  <Route path="/friends" element={<Friends/>} />
+                  <Route path="friends" element={<Friends/>} />
             </Route>
             <Route path="/groups" element={<Groups/>} />
             <Route path="/profilepage" element={<ProfilePage/>} />

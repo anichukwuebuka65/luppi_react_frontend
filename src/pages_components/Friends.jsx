@@ -1,4 +1,4 @@
-import ProfileImage from "../components/ProfileImage"
+import FriendsSideBar from "../components/FriendsSideBar"
 
 const Friends = () => {
   return (
@@ -55,20 +55,8 @@ const Friends = () => {
         </div>
 
         {/*right div */}
-        <div>
-            <h1 className="pl-4 font-bold">Friends of Your Friends</h1>
-            <div className="flex my-4">
-                  <ProfileImage/>
-                  <p>sintia chinyere</p>
-            </div>
-            <div className="flex my-4">
-                  <ProfileImage/>
-                  <p>Theresa May</p>
-            </div>
-            <div className="flex my-4">
-                  <ProfileImage/>
-                  <p>Anthony Frank</p>
-            </div>
+        <div className="hidden lg:block">
+           <FriendsSideBar/>
         </div>
     </>
   )

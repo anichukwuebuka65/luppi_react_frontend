@@ -1,5 +1,5 @@
-
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
+
 const CreatePost = () => {
   return (
     <div className=' border-2 rounded p-3 mb-5 bg-slate-200 shadow-md '>

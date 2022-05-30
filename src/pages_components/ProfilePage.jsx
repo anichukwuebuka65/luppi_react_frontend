@@ -19,6 +19,7 @@ const ProfilePage = () => {
                 </div>
             </div>
             <div className=''>
+                <button className='rounded bg-blue-500 p-1.5 mx-2 text-white font-semibold'>Add Friend</button>
                 <button className='rounded bg-blue-500 p-1.5 mx-2 text-white font-semibold'>Add to Story</button>
                 <button className='rounded bg-blue-500 p-1.5 mx-2 text-white font-semibold'>Edit Profile</button>
             </div>
@@ -28,7 +29,7 @@ const ProfilePage = () => {
         <div className="border-t my-1.5 opacity-20 border-black "></div>
 
         <div className=''>
-            <ul className='mx-auto w-1/2 font-bold text-3xl opacity-90 list-style-none flex justify-center space-x-8'>
+            <ul className='mx-auto w-1/2 font-bold text-2xl opacity-90 list-style-none flex justify-center space-x-8'>
                 <li>Posts</li>
                 <li>Friends</li>
                 <li>Photos</li>

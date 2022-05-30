@@ -8,14 +8,14 @@ const Home = () => {
       <>
 
         {/*center-bar */}
-        <div className = 'col-span-2 w-4/5  mx-auto overflow-auto'>
+        <div className = 'col-span-2 md:w-2/3 lg:w-4/5 pr-2 mx-auto md:overflow-auto'>
            
             {/*mainbar */}
             <MainBar/>
          </div>
 
           {/*right-sidebar */}
-        <div className = ''>
+        <div className = 'hidden lg:block'>
           <RightSideBar/>
         </div>
       </>    

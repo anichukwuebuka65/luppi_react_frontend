@@ -2,11 +2,10 @@ import  CloseIcon  from '@mui/icons-material/Close'
 import React from 'react'
 import ProfileImage from './ProfileImage'
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
-import { memo } from 'react';
 
 const InBox = ({toggleInboxOff}) => {
   return (
-    <div className=' absolute right-0  rounded w-2/3 bg-slate-300 border-2 p-2 overflow-auto'>
+    <div className=' absolute right-0  rounded w-full bg-slate-300 border-2 p-2 overflow-auto'>
 
         <div className='h-16 px-2 bg-slate-400 rounded flex items-center justify-between'>
             <div className='flex space-x-px items-center'>
@@ -49,4 +48,4 @@ const InBox = ({toggleInboxOff}) => {
   )
 }
 
-export default memo(InBox)
+export default InBox

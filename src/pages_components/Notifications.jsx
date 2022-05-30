@@ -1,8 +1,7 @@
 
-
 const Notifications = () => {
   return (
-    <div className='w-2/5 rounded-2xl mt-3 mx-auto bg-slate-200 p-4'>
+    <div className='lg:w-2/5 sm:w-3/4 rounded-2xl mt-3 mx-auto bg-slate-200 p-4'>
       <h1 className='text-2xl font-black '>Notifications</h1>
         <div className='flex space-x-4'>
           <button className='font-semibold '>All</button>

@@ -3,15 +3,17 @@ import Person from '@mui/icons-material/Person'
 import ChatIcon from '@mui/icons-material/Chat'
 import NotificationsIcon from '@mui/icons-material/Notifications'
 import SearchBar from "./SearchBar"
+import MenuIcon from '@mui/icons-material/Menu';
 import { Link } from 'react-router-dom'
 import Chat from "../components/Chat.jsx"
 import InBox from "./InBox.jsx"
 import { useState, useContext } from "react"
 import { AllContext } from '../context/AllContext'
+import LeftSideBar from './LeftSideBar'
 
  const Header = () => {
     const [inbox, setInbox] = useState(false);
-    const {chat, toggleChat} = useContext(AllContext)
+    const {chat, toggleChat,setToggleSideBar} = useContext(AllContext)
     
     const toggleInbox = () => {
     setInbox(true)
@@ -22,50 +24,57 @@ import { AllContext } from '../context/AllContext'
     } 
 
   return (
-    <div className='grid grid-cols-3 bg-blue-700 h-14 content-center shadow-lg relative'>
-        <div className='pl-7 text-white'>
+    <div className='lg:grid  pt-1.5 lg:pt-0 justify-around lg:grid-cols-4 bg-blue-700 h-14 content-center shadow-lg relative'>
+        <div className='pl-7 hidden lg:block text-white'>
             <div className='text-4xl font-bold '>
                <Link to="/">luppi</Link> 
             </div>
         </div>
 
-        <div className=' '>
-            <ul className=' grid grid-cols-4 text-white justify-evenly'>
-                <li>
+        <div className=' max-w-lg mx-auto lg:max-w-none lg:mx-0  lg:col-span-2 pr-9'>
+            <ul className='  flex text-white justify-evenly items-center justify-items-center '>
+                <li className='hover:bg-blue-500 p-1.5  rounded'>
                     <Link to='/'>
                         <HomeIcon fontSize="large"/>
                     </Link>
                 </li>
-                <li  className='relative '>
+                <li  className='relative hover:bg-blue-500 p-1.5  rounded'>
                     <Link to='friendrequest'>
                     <Person fontSize="large" />
                     <span className='w-6 h-6 text-center absolute top-0 left-6 rounded-full bg-red-800 '>2</span>
                     </Link>
                 </li>
-                <li  className='relative hover:cursor-pointer' onClick={toggleChat}><ChatIcon fontSize="large"/>
+                <li  className='relative hover:cursor-pointer hover:bg-blue-500 p-1.5  rounded' onClick={toggleChat}><span className=''><ChatIcon fontSize="large"/></span>
                     <span className='w-6 h-6 text-center absolute top-0 left-6 rounded-full bg-red-800 '>7</span>
                 </li>
-                <li  className='relative'>
+                <li  className='relative hover:bg-blue-500 p-1.5  rounded'>
                     <Link to="notifications">
                         <NotificationsIcon fontSize="large"/>
                         <span className='w-6 h-6 text-center absolute top-0 left-6 rounded-full bg-red-800 '>1</span>
                     </Link>    
                 </li>
+                <li onClick={()=>setToggleSideBar(state=>!state)} className='lg:hidden hover:bg-blue-500 p-1.5 rounded'>
+                    <div >
+                        <MenuIcon fontSize="large"/>
+                    </div>    
+                </li>
                 
             </ul>
         </div>
 
-        <div className= "w-2/3 pl-4 rounded-full pt-1.5 content-center">
+        <div className= "w-2/3 pl-4 hidden lg:block rounded-full pt-1.5 content-center">
             <SearchBar/> 
         </div>
 
          {/*chat component */}
-        { chat && <div className="z-30  w-2/5 absolute top-16 right-1/4"><Chat toggleInbox={toggleInbox} /></div>}
+        { chat && <div className="z-30  lg:w-2/5 w-72 absolute top-16 sm:right-1/4 right-0"><Chat toggleInbox={toggleInbox} /></div>}
 
         {/*chat component */}
-        {inbox && <div className="z-50  w-2/5 absolute top-32 right-20"><InBox toggleInboxOff={toggleInboxOff}/></div>}
+        {inbox && <div className="z-50   w-80 absolute top-32 sm:right-20 right-0" ><InBox toggleInboxOff={toggleInboxOff}/></div>}
 
-
+        <div className='absolute top-14 z-40'>
+            <LeftSideBar/>
+        </div>
     </div>
   )}
 

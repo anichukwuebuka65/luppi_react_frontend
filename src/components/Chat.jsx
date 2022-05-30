@@ -1,14 +1,14 @@
 import SearchBar from '../components/SearchBar'
 import ProfileImage from '../components/ProfileImage'
 import CloseIcon from '@mui/icons-material/Close';
-import { memo, useContext } from 'react';
+import { useContext } from 'react';
 import { AllContext } from '../context/AllContext';
 
 const Chat = ({toggleInbox}) => {
     const {toggleChatOff} = useContext(AllContext)
 
   return (
-    <div className=' absolute  right-0  rounded w-2/3 bg-slate-300 border-2 p-2 overflow-auto'>
+    <div className=' absolute  right-0  rounded lg:w-2/3 w-full w-full bg-slate-300 border-2 p-2 overflow-auto'>
             <div className='flex justify-between items-center '>
                 <h1 className='text-2xl font-bold pt-2 pl-4 mb-3 opacity-90'>Chats</h1>
                 <span onClick={toggleChatOff} className='hover:bg-slate-200 rounded-full'><CloseIcon/></span>
@@ -31,4 +31,4 @@ const Chat = ({toggleInbox}) => {
   )
 }
 
-export default memo(Chat)
+export default Chat
