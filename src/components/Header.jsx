@@ -7,13 +7,19 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { Link } from 'react-router-dom'
 import Chat from "../components/Chat.jsx"
 import InBox from "./InBox.jsx"
-import { useState, useContext } from "react"
+import { useState, useContext, useEffect } from "react"
 import { AllContext } from '../context/AllContext'
 import LeftSideBar from './LeftSideBar'
 
  const Header = () => {
     const [inbox, setInbox] = useState(false);
-    const {chat, toggleChat,setToggleSideBar} = useContext(AllContext)
+    const {chat, setChat, toggleChat,setToggleSideBar} = useContext(AllContext)
+
+    useEffect(() => {
+        setToggleSideBar(true)
+        setInbox(false) 
+        setChat(false) 
+    },[setToggleSideBar, setChat])
     
     const toggleInbox = () => {
     setInbox(true)
@@ -71,10 +77,10 @@ import LeftSideBar from './LeftSideBar'
 
         {/*chat component */}
         {inbox && <div className="z-50   w-80 absolute top-32 sm:right-20 right-0" ><InBox toggleInboxOff={toggleInboxOff}/></div>}
-
-        <div className='absolute top-14 z-40'>
-            <LeftSideBar/>
-        </div>
+       <div className='absolute top-14 h-[calc(100vh-56px)]'>
+           <LeftSideBar/>
+       </div>
+         
     </div>
   )}
 

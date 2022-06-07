@@ -5,7 +5,7 @@ const RightSideBar = () => {
 
   return (
     <div className="h-full ">
-        <div className="h-1/2 rounded   lg:bg-slate-200 bg-slate-100 p-3 mb-3">
+        <div className="h-1/2 rounded   lg:bg-slate-200 bg-white p-3 mb-3">
             <h1 className="font-semibold">People You May Know</h1>
             <div className="flex my-4">
                 <ProfileImage onlineIcon={onlineIcon}/>

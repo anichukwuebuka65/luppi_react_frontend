@@ -8,8 +8,8 @@ import FriendRequests from "./pages_components/FriendRequests.jsx";
 import Notifications from "./pages_components/Notifications.jsx";
 import { AllContext } from "./context/AllContext.jsx";
 
-import Layout from "./components/Layout.jsx";
 import Header from "./components/Header.jsx";
+import Layout from "./components/Layout.jsx";
 
 const App = () => {
   const [chat, setChat] = useState(false);
@@ -22,16 +22,21 @@ const App = () => {
   const toggleChatOff = () => {
     setChat(false)
     } 
-  const contextValues = {chat,toggleChat,toggleChatOff,toggleSideBar,setToggleSideBar}
+  const contextValues = {chat,
+        setChat,
+        toggleChat,
+        toggleChatOff,
+        toggleSideBar,
+        setToggleSideBar}
   return (
   <div>
       <AllContext.Provider value={contextValues}> 
          <Header/>
         <Routes>
-            <Route path="/" element={<Layout/>}>
-                  <Route index element={<Home/>} />
-                  <Route path="friends" element={<Friends/>} />
-            </Route>
+            <Route path="/"exact element={<Layout/>} >
+                <Route index element={<Home/>} />
+                <Route path="friends" element={<Friends/>} />
+             </Route>   
             <Route path="/groups" element={<Groups/>} />
             <Route path="/profilepage" element={<ProfilePage/>} />
             <Route path="/friendrequest" element={<FriendRequests/>} />

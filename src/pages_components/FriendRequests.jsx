@@ -2,7 +2,7 @@ import React from 'react'
 
 const FriendRequests = () => {
   return (
-    <div className='  sm:w-3/4 lg:w-1/2 mx-auto'>
+    <div className='  sm:w-3/4 lg:w-1/2 mx-auto '>
         <div className='border-2 rounded p-2 mt-2'>
             <p className='text-2xl mb-3'><span className='font-bold text-3xl mr-2 '>Isaac</span>sent you a friend request.</p>
             <div className='flex space-x-6'>

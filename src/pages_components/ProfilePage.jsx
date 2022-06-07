@@ -3,11 +3,11 @@ import PostDetails from '../components/PostDetails'
 
 const ProfilePage = () => {
   return (
-    <div className='w-2/3 pb-4 mx-auto '>
+    <div className='lg:w-2/3 pb-4 mx-auto '>
         <div className='w-full -mb-10 '><img className="w-full h-80 rounded-b-3xl object-cover" 
             src="guitar.jpg" alt="coverphoto"/>
         </div>
-        <div className='flex mx-4 justify-between items-center'>
+        <div className='md:flex mx-4 justify-between items-center'>
             <div className="flex items-center">
                 <div>
                     <img className='h-40 w-40 rounded-full border-4 border-slate-300' 
@@ -19,9 +19,9 @@ const ProfilePage = () => {
                 </div>
             </div>
             <div className=''>
-                <button className='rounded bg-blue-500 p-1.5 mx-2 text-white font-semibold'>Add Friend</button>
-                <button className='rounded bg-blue-500 p-1.5 mx-2 text-white font-semibold'>Add to Story</button>
-                <button className='rounded bg-blue-500 p-1.5 mx-2 text-white font-semibold'>Edit Profile</button>
+                <button className='rounded bg-blue-500 p-1.5 mx-2 text-white font-semibold mt-2'>Add Friend</button>
+                <button className='rounded bg-blue-500 p-1.5 mx-2 text-white font-semibold mt-2'>Add to Story</button>
+                <button className='rounded bg-blue-500 p-1.5 mx-2 text-white font-semibold mt-2'>Edit Profile</button>
             </div>
         </div>
 
@@ -40,7 +40,7 @@ const ProfilePage = () => {
         {/*line */}
         <div className="border-t my-1.5 opacity-20 border-black "></div>
 
-        <div  className = 'col-span-2 w-3/5  mx-auto overflow-auto'>
+        <div  className = 'col-span-2 lg:w-4/5 md:w-2/3 mx-auto overflow-auto'>
             <PostDetails/>
         </div>
         
