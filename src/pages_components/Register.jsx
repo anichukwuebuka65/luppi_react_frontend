@@ -15,7 +15,7 @@ const Register = () => {
     const pwdRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%]).{8,20}$/;
     const emailRegex =  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 
-    const handleSubmit = (e) => {
+    const register = (e) => {
         e.preventDefault()
         const validFirstname = nameRegex.test(firstname)
         const validLastname = nameRegex.test(lastname)
@@ -53,7 +53,7 @@ const Register = () => {
                 </div>
                 <div  className="w-3/5 border-2 rounded border-slate-300 shadow-lg px-3 py-5">
                     <small className='text-red-500'>{errMsg}</small>
-                <form onSubmit={handleSubmit} className="flex flex-col  space-y-3  mt-2 ">
+                <form onSubmit={register} className="flex flex-col  space-y-3  mt-2 ">
                     <input value={firstname} onChange={(e) => setFirstname( e.target.value) } className="  border-slate-300 pl-1.5 border-2 h-10 rounded focus:outline-none focus:border-slate-400" type="text" placeholder='Firstname'/>
                     <input value={lastname} onChange={(e) => setLastname( e.target.value) }  className="  border-slate-300 pl-1.5 border-2 h-10 rounded focus:outline-none focus:border-slate-400" type="text" placeholder="Lastname" />
                     <input value={email} onChange={(e) => setEmail( e.target.value) }  className="  border-slate-300 pl-1.5 border-2 h-10 rounded focus:outline-none focus:border-slate-400" type="email" placeholder="E-mail"/>

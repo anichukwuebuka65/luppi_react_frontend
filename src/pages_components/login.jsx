@@ -1,6 +1,15 @@
+import { useState } from "react"
 import { Link } from "react-router-dom"
 
 const Login = () => {
+    const [email, setEmail] = useState("")
+    const [pwd, setPwd] = useState("")
+    const [rememberMe, setRememberMe] = useState(false)
+    const login = (e) => {
+        e.preventDefault()
+        console.log("success")
+    }
+
   return (
     <div className='h-screen'>
         <div  className='grid grid-cols-2 h-full items-center'>
@@ -10,12 +19,12 @@ const Login = () => {
                     <i className="font-bold opacity-90 text-lg ml-6">Connect with your friends online</i>
                 </div>
             </div>
-            <div  className="">
-                <form className="flex flex-col w-3/5 shadow-lg border-2 rounded px-3 py-5 space-y-3">
-                    <input className="border-slate-300  pl-1.5 border-2 h-10 rounded focus:outline-none focus:border-slate-400" type="text" placeholder="E-mail address" autocomplete="off"/>
-                    <input className="border-slate-300 pl-1.5 border-2 h-10 rounded focus:outline-none focus:border-slate-400" type="password" placeholder="Password" autocomplete="off"/>
+            <div  className="w-3/5 shadow-lg border-2 rounded px-3 py-5 ">
+                <form onSubmit={login} className="flex flex-col space-y-3">
+                    <input value={email} onChange={(e) => setEmail( e.target.value) } className="border-slate-300  pl-1.5 border-2 h-10 rounded focus:outline-none focus:border-slate-400" type="text" placeholder="E-mail address" autoComplete="off"/>
+                    <input value={pwd} onChange={(e) => setPwd( e.target.value) } className="border-slate-300 pl-1.5 border-2 h-10 rounded focus:outline-none focus:border-slate-400" type="password" placeholder="Password" autoComplete="off"/>
                     <div>
-                        <input className="hover:cursor-pointer border-2  rounded " type="checkbox" />
+                        <input checked={rememberMe} onChange={() => setRememberMe(!rememberMe)} className="hover:cursor-pointer border-2  rounded " type="checkbox" />
                         <small className="ml-1.5">Remember me</small>
                     </div>
                         <p>No account? <Link to="/register"><i className="text-blue-500">Sign up</i></Link></p>

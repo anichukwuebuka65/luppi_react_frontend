@@ -1,7 +1,6 @@
 import React, { useContext, useEffect } from 'react'
-import { Outlet } from 'react-router-dom'
+import { Outlet, } from 'react-router-dom'
 import { AllContext } from '../context/AllContext'
-
 
 const Layout = () => {
     const {setToggleSideBar} = useContext(AllContext)
@@ -17,6 +16,7 @@ const Layout = () => {
           
         </div>
         <Outlet/>
+        
     </div>
   )
 }
