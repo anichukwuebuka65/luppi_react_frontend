@@ -12,10 +12,11 @@ import LogoutIcon from '@mui/icons-material/Logout';
 const LeftSideBar = () => {
     const {toggleChat,toggleSideBar} = useContext(AllContext)
     let {pathname} = useLocation()
+
   return (
     <div className={`${toggleSideBar && 'hidden' }
-     ${pathname ===  "/friends" && 'lg:block' } 
-     ${pathname ===  "/" && 'lg:block' } 
+     ${pathname ===  "/home/friends" && 'lg:block' } 
+     ${pathname ===  "/home" && 'lg:block' } 
   
      w-72 z-20 absolute h-[calc(100vh-56px)] left-0 top-0`}> 
 
@@ -32,12 +33,12 @@ const LeftSideBar = () => {
                 <div className='font-bold text-xl text-emerald-900'>Groups</div>
             </Link>
             
-            <Link to="/friends" className='flex items-center mb-2  hover:bg-slate-300 rounded pl-2 '>
+            <Link to="/home/friends" className='flex items-center mb-2  hover:bg-slate-300 rounded pl-2 '>
                 <span className='mr-3 text-blue-500'><PeopleIcon fontSize='large'/></span>
                 <div className='font-bold text-xl text-emerald-900'>Friends</div>
             </Link>
         
-            <Link to="/" className='flex items-center mb-2 hover:bg-slate-300 rounded pl-2'>
+            <Link to="home" className='flex items-center mb-2 hover:bg-slate-300 rounded pl-2'>
                 <span className='mr-3 text-blue-500'><ChatBubbleIcon fontSize='large'/></span>
                 <div className='font-bold text-xl text-emerald-900'>Marketplace</div>
             </Link>

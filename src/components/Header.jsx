@@ -33,14 +33,14 @@ import LeftSideBar from './LeftSideBar'
     <div className='lg:grid  pt-1.5 lg:pt-0 justify-around lg:grid-cols-4 bg-blue-700 h-14 content-center shadow-lg relative'>
         <div className='pl-7 hidden lg:block text-white'>
             <div className='text-4xl font-bold '>
-               <Link to="/">luppi</Link> 
+               <Link to="/home">luppi</Link> 
             </div>
         </div>
 
         <div className=' max-w-lg mx-auto lg:max-w-none lg:mx-0  lg:col-span-2 pr-9'>
             <ul className='  flex text-white justify-evenly items-center justify-items-center '>
                 <li className='hover:bg-blue-500 p-1.5  rounded'>
-                    <Link to='/'>
+                    <Link to='/home'>
                         <HomeIcon fontSize="large"/>
                     </Link>
                 </li>

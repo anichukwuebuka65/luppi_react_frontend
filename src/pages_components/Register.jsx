@@ -44,14 +44,14 @@ const Register = () => {
 
   return (
         <div className='h-screen'>
-            <div  className='grid grid-cols-2 h-full items-center'>
-                <div className=" justify-self-center">
-                    <div className="mx-auto">
-                        <h1 className="text-7xl font-extrabold mb-5 text-blue-600">Luppi.com</h1>
+            <div  className='lg:grid md:grid-cols-2 h-full items-center p-4 '>
+                <div className=" lg:justify-self-center  rounded-full flex justify-center mx-auto">
+                    <div className="mx-auto mb-14 ">
+                        <h1 className=" text-5xl md:text-7xl font-extrabold mb-5 text-blue-600">Luppi.com</h1>
                         <i className="font-bold opacity-90 text-lg ml-6">Connect with your friends online</i>
                     </div>
                 </div>
-                <div  className="w-3/5 border-2 rounded border-slate-300 shadow-lg px-3 py-5">
+                <div  className="sm:w-3/5 w-4/5 shadow-lg border-2 rounded px-3 py-5  mx-auto">
                     <small className='text-red-500'>{errMsg}</small>
                 <form onSubmit={register} className="flex flex-col  space-y-3  mt-2 ">
                     <input value={firstname} onChange={(e) => setFirstname( e.target.value) } className="  border-slate-300 pl-1.5 border-2 h-10 rounded focus:outline-none focus:border-slate-400" type="text" placeholder='Firstname'/>
