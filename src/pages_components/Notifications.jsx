@@ -1,5 +1,14 @@
+import { useContext, useEffect } from "react"
+import { AllContext } from "../context/AllContext"
 
 const Notifications = () => {
+  const {setToggleSideBar} = useContext(AllContext)
+
+  useEffect(() => {
+    return () => {
+      setToggleSideBar(true)
+    }
+  },[setToggleSideBar])
   return (
     <div className='lg:w-2/5 sm:w-3/4 rounded-2xl mt-3 mx-auto bg-slate-200 p-4'>
       <h1 className='text-2xl font-black '>Notifications</h1>

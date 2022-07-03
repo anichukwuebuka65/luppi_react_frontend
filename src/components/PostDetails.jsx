@@ -6,10 +6,10 @@ import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
 import ShareIcon from '@mui/icons-material/Share';
-import { useState } from "react";
+import { memo, useState } from "react";
 
-const PostDetails = () => {
-const [postOptions,SetpostOptions] = useState(false)
+const PostDetails = ({post}) => {
+const [postOptions] = useState(false)
 
   return (
     <div className="bg-slate-200 border-zinc-300 border-2 pb-5 mt-1 rounded ">
@@ -37,7 +37,7 @@ const [postOptions,SetpostOptions] = useState(false)
             </div> }
 
         </div>
-          <p className="my-2.5">This is my first post on luppi</p>
+          <p className="my-2.5"> {post.post}</p>
       </div>
         
 
@@ -94,4 +94,4 @@ const [postOptions,SetpostOptions] = useState(false)
   )
 }
 
-export default PostDetails
+export default memo(PostDetails) 

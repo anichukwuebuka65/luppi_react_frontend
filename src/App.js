@@ -17,17 +17,17 @@ const App = () => {
   const [chat, setChat] = useState(false);
   const [toggleSideBar, setToggleSideBar] = useState(false)   
    
-  const toggleChat = () => {
-    setChat((state)=>state=!state)
+  const toggleChat = (offOnly = false) => {
+    if(offOnly) {
+      setChat(false)
+    }else{
+      setChat((state)=>state=!state)
+    }
   }
   
-  const toggleChatOff = () => {
-    setChat(false)
-    } 
   const contextValues = {chat,
         setChat,
         toggleChat,
-        toggleChatOff,
         toggleSideBar,
         setToggleSideBar}
   return (

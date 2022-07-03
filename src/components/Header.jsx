@@ -50,7 +50,7 @@ import LeftSideBar from './LeftSideBar'
                     <span className='w-6 h-6 text-center absolute top-0 left-6 rounded-full bg-red-800 '>2</span>
                     </Link>
                 </li>
-                <li  className='relative hover:cursor-pointer hover:bg-blue-500 p-1.5  rounded' onClick={toggleChat}><span className=''><ChatIcon fontSize="large"/></span>
+                <li  className='relative hover:cursor-pointer hover:bg-blue-500 p-1.5  rounded' onClick={() => toggleChat()}><span className=''><ChatIcon fontSize="large"/></span>
                     <span className='w-6 h-6 text-center absolute top-0 left-6 rounded-full bg-red-800 '>7</span>
                 </li>
                 <li  className='relative hover:bg-blue-500 p-1.5  rounded'>

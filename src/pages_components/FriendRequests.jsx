@@ -1,6 +1,14 @@
-import React from 'react'
+import  { useContext, useEffect } from 'react'
+import { AllContext } from '../context/AllContext'
 
 const FriendRequests = () => {
+  const {setToggleSideBar} = useContext(AllContext)
+
+  useEffect(() => {
+    return () => {
+      setToggleSideBar(true)
+    }
+  },[setToggleSideBar])
   return (
     <div className='  sm:w-3/4 lg:w-1/2 mx-auto '>
         <div className='border-2 rounded p-2 mt-2'>
