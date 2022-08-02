@@ -3,7 +3,6 @@ import RightSideBar from "../components/RightSideBar.jsx"
 
 
 const Home = () => {
-    
   return (
       <>
 

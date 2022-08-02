@@ -19,7 +19,7 @@ const ProfilePage = () => {
                 </div>
             </div>
             <div className=''>
-                <button className='rounded bg-blue-500 p-1.5 mx-2 text-white font-semibold mt-2'>Add Friend</button>
+                <button  className='rounded bg-blue-500 p-1.5 mx-2 text-white font-semibold mt-2'>Add Friend</button>
                 <button className='rounded bg-blue-500 p-1.5 mx-2 text-white font-semibold mt-2'>Add to Story</button>
                 <button className='rounded bg-blue-500 p-1.5 mx-2 text-white font-semibold mt-2'>Edit Profile</button>
             </div>

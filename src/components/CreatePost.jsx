@@ -1,6 +1,21 @@
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
+import axios from 'axios';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 const CreatePost = () => {
+    const [post, setPost] = useState("")
+    const dispatch = useDispatch()
+
+    const addPost = () => {  
+        axios.post('http://localhost:4000/posts', {post: post, user: '13'})
+        .then(response => { console.log(response.data)
+            dispatch({ type:'addPost', payload: response.data})
+            setPost("")
+        })     
+        .catch(error => dispatch({type:'fetchError',payload: error.message}))
+    }
+
   return (
     <div className=' border-2 rounded p-3 mb-5 bg-slate-200 shadow-md '>
         <div>
@@ -13,7 +28,7 @@ const CreatePost = () => {
             </small>
         </div>
         <div>
-            <textarea className='h-20 w-full mt-2 rounded 
+            <textarea value={post} onChange={(e)=> setPost(e.target.value)} className='h-20 w-full mt-2 rounded 
             focus:outline-none border-2 border-neutral-300
             focus:border-neutral-400 focus:bg-white bg-slate-50 px-1.5'></textarea>
         </div>
@@ -23,7 +38,7 @@ const CreatePost = () => {
             <input className=" hidden" type="file" id="imgInput"/>
         </div>
         <div className='text-center' >
-            <button className='w-full rounded text-white hover:bg-blue-600 tracking-wide font-semibold bg-blue-700' >Share</button>
+            <button onClick={addPost} className='w-full rounded text-white hover:bg-blue-600 tracking-wide font-semibold bg-blue-700' >Share</button>
         </div>
     </div>
   )

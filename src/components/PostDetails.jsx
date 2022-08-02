@@ -8,19 +8,18 @@ import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutline
 import ShareIcon from '@mui/icons-material/Share';
 import { memo, useState } from "react";
 
-const PostDetails = ({post}) => {
+const PostDetails = ({post=[]}) => {
 const [postOptions] = useState(false)
-
   return (
     <div className="bg-slate-200 border-zinc-300 border-2 pb-5 mt-1 rounded ">
       <div className="p-2 relative ">
         <div className="flex justify-between ">
-
+          
             <div className="flex  ">
                 <ProfileImage/>
                 <div className="font-semibold">
-                  <div className="-mb-2 text-lg">Ani chukwuebuka</div>
-                  <small >2 days ago</small>
+                <div className="-mb-2 text-lg">Ani chukwuebuka</div>
+                <small>2 days ago</small>
                 </div>
             </div>
 
@@ -94,4 +93,4 @@ const [postOptions] = useState(false)
   )
 }
 
-export default memo(PostDetails) 
+export default memo(PostDetails )

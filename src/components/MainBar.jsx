@@ -1,41 +1,49 @@
-import CreatePost from "../components/CreatePost.jsx"
-import PostDetails from "../components/PostDetails.jsx"
+import CreatePost from "./CreatePost.jsx"
+import PostDetails from "./PostDetails.jsx"
 import {useDispatch, useSelector} from 'react-redux'
-import  { memo, useEffect } from "react"
+import  { memo, useEffect, useMemo, useRef } from "react"
 import axios from 'axios'
 
 const MainBar = () => {
   const posts = useSelector((state) => state.postFeed.posts)
-  const error = useSelector((state) => state.postFeed.error)
+  const ref = useRef(true)
+  //const error = useSelector((state) => state.postFeed.error)
   const dispatch = useDispatch()
-
-
-  const PostList =  posts.map((post) => (<PostDetails key={post.id} post={post}/>))
-    
-    console.log(posts)
+  
+  const sortPosts = (posts) => {
+    if(posts.length === 0) return []
+    const postsCopy = []
+    posts.map((post)=>postsCopy.push(post))
+    return postsCopy.sort((a, b) =>  new Date(b.updatedAt) - new Date(a.updatedAt))
+  }
+  
+  
+  const PostList =  useMemo(()=>sortPosts(posts),[posts])
 
   useEffect(() => {
-    const fetchUserPost = async() => {
-     try {
-     const response = await axios.get('http://localhost:4000/posts?userId=13')
-     //console.log(response.data) 
-      dispatch({type:'fetchPosts', payload: response.data})
 
-     } catch (error) {   
-      dispatch({type:'fetchError', payload: error.message})
-     } 
+    //dispatch({type:'fetchPosts', payload: []})
+    const fetchUserPost = async() => {
+      ref.current = false
+      try {
+          const response = await axios.get('http://localhost:4000/posts?userId=13')
+          dispatch({type:'fetchPosts', payload: response.data})
+      } catch (error) {   
+         dispatch({type:'fetchError', payload: error.message})
+      }
+     
     }
-    fetchUserPost()
+    if (ref.current === true) { fetchUserPost() } 
   },[])
 
   return (
     <>
         <CreatePost/>
-       {error ? error: PostList.length > 0 ? PostList:
+        { PostList.length > 0 ?  PostList.map(post => <PostDetails key={post.id} post={post}/>) :
         <div className='border-2 rounded opacity-90 p-2 shadow-md'>not post found</div>}
         
     </>
   )
 }
 
-export default memo(MainBar) 
+export default memo(MainBar)
