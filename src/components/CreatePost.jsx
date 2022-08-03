@@ -2,14 +2,42 @@ import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import axios from 'axios';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import imageKit from 'imagekit-javascript'
+
 
 const CreatePost = () => {
     const [post, setPost] = useState("")
     const dispatch = useDispatch()
+    const [imageFile, setImageFile] = useState()
+    const imagekit = new imageKit({
+        publicKey: 'public_Xd2RM8ChiA2AeLH5NTe7kHEl8JQ=',
+        urlEndpoint: 'https://ik.imagekit.io/feov916dg',
+        authenticationEndpoint: 'http://localhost:4000/auth'
+    })
 
-    const addPost = () => {  
+     async function uploadAll(){
+        const imageResult = await uploadImage()
+        console.log(imageResult)
+    }
+
+     function uploadImage(e){
+    //     const result = await imagekit.upload({
+    //         file: imageFile,
+    //         filename: imageFile.name
+    //     })
+    //    return result 
+          imagekit.upload({
+            file: imageFile,
+            fileName: imageFile.name
+        },(err, result)=>{
+            if (err) console.log(err) 
+           console.log(result)
+       })
+    }
+
+    const uploadPost = () => {  
         axios.post('http://localhost:4000/posts', {post: post, user: '13'})
-        .then(response => { console.log(response.data)
+        .then(response => { 
             dispatch({ type:'addPost', payload: response.data})
             setPost("")
         })     
@@ -35,10 +63,10 @@ const CreatePost = () => {
         <div className='float-right '>
             
             <label className=' text-gray-500 mr-2 hover:cursor' htmlFor='imgInput'><i>photo</i><AddAPhotoIcon/></label>
-            <input className=" hidden" type="file" id="imgInput"/>
+            <input className="hidden" multiple onChange={(e)=>{setImageFile(e.target.files[0])}} type="file" id="imgInput"/>
         </div>
         <div className='text-center' >
-            <button onClick={addPost} className='w-full rounded text-white hover:bg-blue-600 tracking-wide font-semibold bg-blue-700' >Share</button>
+            <button onClick={uploadImage} className='w-full rounded text-white hover:bg-blue-600 tracking-wide font-semibold bg-blue-700' >Share</button>
         </div>
     </div>
   )

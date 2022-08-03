@@ -32,23 +32,23 @@ const App = () => {
         setToggleSideBar}
   return (
   <div>
-      <AllContext.Provider value={contextValues}>     
-        <Routes>
-          <Route exact path="/" element={<Layout2/>}>
-            <Route path="home" element={<Layout/>} >
-                <Route index element={<Home/>} />
-                <Route path="friends" element={<Friends/>} />
-             </Route>   
-            <Route path="groups" element={<Groups/>} />
-            <Route path="profilepage" element={<ProfilePage/>} />
-            <Route path="friendrequest" element={<FriendRequests/>} />
-            <Route path="notifications" element={<Notifications/>} />
-          </Route>
-          <Route path="/login" element={<Login/>}/>
-          <Route path="/register" element={<Register/>}/>
-          <Route path="*" element={<PageNotFound/>}/>
+      <AllContext.Provider value={contextValues}> 
+          <Routes>
+            <Route exact path="/" element={<Layout2/>}>
+              <Route path="home" element={<Layout/>} >
+                  <Route index element={<Home/>} />
+                  <Route path="friends" element={<Friends/>} />
+              </Route>   
+              <Route path="groups" element={<Groups/>} />
+              <Route path="profilepage" element={<ProfilePage/>} />
+              <Route path="friendrequest" element={<FriendRequests/>} />
+              <Route path="notifications" element={<Notifications/>} />
+            </Route>
+            <Route path="/login" element={<Login/>}/>
+            <Route path="/register" element={<Register/>}/>
+            <Route path="*" element={<PageNotFound/>}/>
 
-        </Routes>
+          </Routes> 
       </AllContext.Provider>    
   </div>   
   )     
