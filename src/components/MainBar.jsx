@@ -1,7 +1,7 @@
 import CreatePost from "./CreatePost.jsx"
 import PostDetails from "./PostDetails.jsx"
 import {useDispatch, useSelector} from 'react-redux'
-import  { memo, useEffect, useMemo, useRef } from "react"
+import  { memo, useEffect, useMemo, useRef, useState } from "react"
 import axios from 'axios'
 
 const MainBar = () => {
@@ -9,6 +9,8 @@ const MainBar = () => {
   const ref = useRef(true)
   //const error = useSelector((state) => state.postFeed.error)
   const dispatch = useDispatch()
+  const [imageError, setImageError] = useState()
+
   
   const sortPosts = (posts) => {
     if(posts.length === 0) return []
@@ -28,6 +30,7 @@ const MainBar = () => {
       try {
           const response = await axios.get('http://localhost:4000/posts?userId=13')
           dispatch({type:'fetchPosts', payload: response.data})
+          console.log(response.data)
       } catch (error) {   
          dispatch({type:'fetchError', payload: error.message})
       }
@@ -38,7 +41,9 @@ const MainBar = () => {
 
   return (
     <>
-        <CreatePost/>
+        <CreatePost setImageError={setImageError}/>
+        
+        {imageError && <div className="text-center italic text-red-500">{imageError}</div>}
         { PostList.length > 0 ?  PostList.map(post => <PostDetails key={post.id} post={post}/>) :
         <div className='border-2 rounded opacity-90 p-2 shadow-md'>not post found</div>}
         

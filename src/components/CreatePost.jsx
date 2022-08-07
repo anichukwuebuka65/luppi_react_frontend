@@ -5,43 +5,75 @@ import { useDispatch } from 'react-redux';
 import imageKit from 'imagekit-javascript'
 
 
-const CreatePost = () => {
+const CreatePost = ({setImageError}) => {
     const [post, setPost] = useState("")
-    const dispatch = useDispatch()
+    const [clicked, setClicked] = useState(false)
     const [imageFile, setImageFile] = useState()
+    
+    const dispatch = useDispatch()
     const imagekit = new imageKit({
         publicKey: 'public_Xd2RM8ChiA2AeLH5NTe7kHEl8JQ=',
         urlEndpoint: 'https://ik.imagekit.io/feov916dg',
         authenticationEndpoint: 'http://localhost:4000/auth'
     })
 
-     async function uploadAll(){
-        const imageResult = await uploadImage()
-        console.log(imageResult)
+    async function upload() {
+        setClicked(true)
+        setInterval(()=>setClicked(false),500)
+
+        if (imageFile) {
+            const imageResult = await uploadImage()
+            setImageFile('')
+            if (imageResult.url) {
+                const postResult = await uploadPost({
+                    imageUrl: imageResult.url,
+                    post, 
+                })
+                if (!postResult.data) {
+                    dispatch({type:'fetchError',payload: 'unable to upload post, pls try again'}) 
+                }
+                if (postResult.data) dispatch({ type:'addPost', payload: postResult.data})
+                setPost('')
+
+            } else {
+                setImageError('unable to upload image, try again')
+            }
+        }
+       
+       if (!imageFile && post) {
+            const uploadResult = await uploadPost({post})
+            console.log(uploadResult)
+            if (!uploadResult.data) {
+                dispatch({type:'fetchError',payload: 'unable to upload post, pls try again'})
+                return 
+            }
+            if (uploadResult.data) dispatch({ type:'addPost', payload: uploadResult.data})
+            setPost('')
+       } 
     }
 
-     function uploadImage(e){
-    //     const result = await imagekit.upload({
-    //         file: imageFile,
-    //         filename: imageFile.name
-    //     })
-    //    return result 
-          imagekit.upload({
-            file: imageFile,
-            fileName: imageFile.name
-        },(err, result)=>{
-            if (err) console.log(err) 
-           console.log(result)
-       })
+    async function uploadImage(e){
+        try {
+                const result = await imagekit.upload({
+                    file: imageFile,
+                    fileName: imageFile.name
+                })
+                return result
+        } catch (error) {
+                return error  
+        }
+    
     }
 
-    const uploadPost = () => {  
-        axios.post('http://localhost:4000/posts', {post: post, user: '13'})
-        .then(response => { 
-            dispatch({ type:'addPost', payload: response.data})
-            setPost("")
-        })     
-        .catch(error => dispatch({type:'fetchError',payload: error.message}))
+    const uploadPost = async(fetchparams) => { 
+        try {
+            const response = await axios.post('http://localhost:4000/posts', fetchparams)
+            return response
+            //dispatch({ type:'addPost', payload: response.data})
+        } catch (error) {
+             return error.message
+            //dispatch({type:'fetchError',payload: error.message}))
+        }
     }
 
   return (
@@ -66,7 +98,10 @@ const CreatePost = () => {
             <input className="hidden" multiple onChange={(e)=>{setImageFile(e.target.files[0])}} type="file" id="imgInput"/>
         </div>
         <div className='text-center' >
-            <button onClick={uploadImage} className='w-full rounded text-white hover:bg-blue-600 tracking-wide font-semibold bg-blue-700' >Share</button>
+            <button onClick={upload} 
+            className={`w-full rounded text-white  tracking-wide font-semibold ${!clicked && "hover:bg-blue-600 bg-blue-700"}
+             ${clicked && "bg-blue-400 h-7"}`} 
+            >Share</button>
         </div>
     </div>
   )

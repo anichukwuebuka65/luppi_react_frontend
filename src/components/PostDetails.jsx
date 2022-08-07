@@ -8,8 +8,12 @@ import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutline
 import ShareIcon from '@mui/icons-material/Share';
 import { memo, useState } from "react";
 
-const PostDetails = ({post=[]}) => {
+const PostDetails = ({post}) => {
 const [postOptions] = useState(false)
+const [comments, setComments] = useState(post?.comments)
+const [likes, setLikes] = useState(post.like?.likes)
+const [shares, setShares] = useState(post.share?.shares)
+
   return (
     <div className="bg-slate-200 border-zinc-300 border-2 pb-5 mt-1 rounded ">
       <div className="p-2 relative ">
@@ -18,7 +22,7 @@ const [postOptions] = useState(false)
             <div className="flex  ">
                 <ProfileImage/>
                 <div className="font-semibold">
-                <div className="-mb-2 text-lg">Ani chukwuebuka</div>
+                <div className="-mb-2 text-lg">{post.user?.firstName} {post.user?.lastName}</div>
                 <small>2 days ago</small>
                 </div>
             </div>
@@ -36,23 +40,26 @@ const [postOptions] = useState(false)
             </div> }
 
         </div>
-          <p className="my-2.5"> {post.post}</p>
+          <p className="my-2.5"> {post?.post}</p>
       </div>
         
 
         {/*image */}
         <div>
-          <img className="w-full object-fill" src="guitar.jpg" alt="profileImage"/>
+          { post.image && post.image !== null &&
+           <img className="w-full object-fill" 
+           src={post.image.imageUrl} alt="profileImage" /> }
         </div>
-
+        
         <div className="px-2">
           {/*likes and share */}
           <div className="flex justify-between py-2">
             <div className=" ">
               <small className="text-blue-500 mr-px"><ThumbUpIcon fontSize="small"/></small>
-              <small className="text-red-400 mr-3"><FavoriteIcon fontSize="small"/></small>10
+              <small className="text-red-400 mr-3"><FavoriteIcon fontSize="small"/></small>
+              <span>{likes}</span>
             </div>
-            <div>15 comments<span className="ml-3">12 shares</span></div>
+            <div>{comments.length} comments<span className="ml-3">{shares} {shares === 1 ? 'share' : 'shares'} </span></div>
           </div>
           {/*line */}
           <div className="border-t opacity-20 border-black "></div>
@@ -69,24 +76,25 @@ const [postOptions] = useState(false)
           {/*comments */}
           <div className="flex  pt-3">
               <ProfileImage />
-              <input className="rounded-full pl-2 bg-slate-400 focus:bg-slate-300 focus:border-slate-400 border-2  focus:outline-none w-full "
+              <input className="rounded-full pl-2 border-2 border-slate-300 focus:bg-slate-100 focus:border-slate-400 border-2  focus:outline-none w-full "
                type="text" placeholder="Write Comments" />
           </div>
-
-          <div className="flex p-px mt-5">
-              <ProfileImage />
-              <div className="w-4/5">
-                    <div className=" p-2 bg-slate-400 rounded-2xl">
-                      <p>This is a comment.thisis is a comment. this is a comment. this is a comment</p>
-                    </div>
-                    <div className="flex space-x-3">
-                      <small>Like</small>
-                      <small>Share</small>
-                      <small>Reply</small>
-                    </div>
+            {comments.length > 0 && comments.map((comment) => (
+              <div className="flex p-px mt-5">
+                <ProfileImage />
+                <div className="w-4/5">
+                      <div className=" p-2 bg-slate-400 rounded-2xl">
+                        <p>{comment.comments}</p>
+                      </div>
+                      <div className="flex space-x-3">
+                        <small>Like</small>
+                        <small>Share</small>
+                        <small>Reply</small>
+                      </div>
+                </div>
               </div>
-
-          </div>
+            ))}
+          
 
         </div>  
   </div>      

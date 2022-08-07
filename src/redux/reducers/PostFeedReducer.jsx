@@ -14,13 +14,22 @@ const postFeedReducer = createReducer(initialState, (builder) => {
         return {posts: action.payload}
     })
     .addCase(fetchError,(state, action) => {
-        return {error : action.payload }
+        return {posts:[],
+                error : action.payload }
     })
     .addCase(addPost,(state, action) => {
-       return { post: [state ,{
-            id:action.payload.id,
-             post: action.payload.post,
-            updatedAt: Date()
+       return { 
+            posts: [...state.posts ,{
+                id:action.payload.id,
+                post: action.payload.post,
+                updatedAt: Date(),
+                image: {
+                    imageUrl: action.payload.imageUrl
+                },
+                user: {
+                    firstName: 'love',
+                    lastName: 'paul',
+                }
             }
        ]}    
     })
