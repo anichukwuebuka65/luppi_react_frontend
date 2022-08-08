@@ -1,7 +1,7 @@
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import axios from 'axios';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import imageKit from 'imagekit-javascript'
 
 
@@ -9,6 +9,7 @@ const CreatePost = ({setImageError}) => {
     const [post, setPost] = useState("")
     const [clicked, setClicked] = useState(false)
     const [imageFile, setImageFile] = useState()
+    const {firstName, lastName} = useSelector(state => state.user)
     
     const dispatch = useDispatch()
     const imagekit = new imageKit({
@@ -79,7 +80,7 @@ const CreatePost = ({setImageError}) => {
   return (
     <div className=' border-2 rounded p-3 mb-5 bg-slate-200 shadow-md '>
         <div>
-            <p className='font-semibold'>Ani Chukwuebuka</p>
+            <p className='font-semibold'>{firstName} {lastName}</p>
             <small>share with:
                 <select className='focus:outline-none rounded outline-none'>
                     <option className='border-solid' value="">Public</option>

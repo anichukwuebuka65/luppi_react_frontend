@@ -8,8 +8,10 @@ import {Link, useLocation} from "react-router-dom"
 import { useContext } from 'react';
 import { AllContext } from '../context/AllContext.jsx';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { useSelector } from 'react-redux';
 
 const LeftSideBar = () => {
+    const userId = useSelector(state => state.user.id)
     const {toggleChat,toggleSideBar} = useContext(AllContext)
     let {pathname} = useLocation()
 
@@ -46,7 +48,7 @@ const LeftSideBar = () => {
                 <span className='mr-3 text-blue-500'><StoreIcon fontSize='large'/></span>
                 <div className='font-bold text-xl text-emerald-900'>Chats</div>
             </div>
-            <Link to="/ProfilePage" className='flex items-center mb-2 hover:bg-slate-300 rounded pl-2'>
+            <Link to={`/ProfilePage?Id=${userId}`} className='flex items-center mb-2 hover:bg-slate-300 rounded pl-2'>
                 <span className='mr-3 text-blue-500'><AccountBoxIcon fontSize='large'/></span>
                 <div className='font-bold text-xl text-emerald-900'>Profile</div>
             </Link>

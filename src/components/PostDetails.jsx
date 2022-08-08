@@ -10,19 +10,19 @@ import { memo, useState } from "react";
 
 const PostDetails = ({post}) => {
 const [postOptions] = useState(false)
-const [comments, setComments] = useState(post?.comments)
-const [likes, setLikes] = useState(post.like?.likes)
-const [shares, setShares] = useState(post.share?.shares)
+const [comments, setComments] = useState(post.comments)
+const [likes, setLikes] = useState(post.like.likes)
+const [shares, setShares] = useState(post.share.shares)
 
   return (
-    <div className="bg-slate-200 border-zinc-300 border-2 pb-5 mt-1 rounded ">
+    <div  className="bg-slate-200 border-zinc-300 border-2 pb-5 mt-1 rounded ">
       <div className="p-2 relative ">
         <div className="flex justify-between ">
           
             <div className="flex  ">
                 <ProfileImage/>
                 <div className="font-semibold">
-                <div className="-mb-2 text-lg">{post.user?.firstName} {post.user?.lastName}</div>
+                <div className="-mb-2 text-lg">{post?.user.firstName} {post?.user.lastName}</div>
                 <small>2 days ago</small>
                 </div>
             </div>
@@ -46,7 +46,7 @@ const [shares, setShares] = useState(post.share?.shares)
 
         {/*image */}
         <div>
-          { post.image && post.image !== null &&
+          { post?.image && post.image !== null &&
            <img className="w-full object-fill" 
            src={post.image.imageUrl} alt="profileImage" /> }
         </div>
@@ -80,7 +80,7 @@ const [shares, setShares] = useState(post.share?.shares)
                type="text" placeholder="Write Comments" />
           </div>
             {comments.length > 0 && comments.map((comment) => (
-              <div className="flex p-px mt-5">
+              <div key={comment.id} className="flex p-px mt-5">
                 <ProfileImage />
                 <div className="w-4/5">
                       <div className=" p-2 bg-slate-400 rounded-2xl">

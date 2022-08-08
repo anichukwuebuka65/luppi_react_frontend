@@ -2,7 +2,7 @@ import CreatePost from "./CreatePost.jsx"
 import PostDetails from "./PostDetails.jsx"
 import {useDispatch, useSelector} from 'react-redux'
 import  { memo, useEffect, useMemo, useRef, useState } from "react"
-import axios from 'axios'
+import { axiosInstance } from "../axios.js"
 
 const MainBar = () => {
   const posts = useSelector((state) => state.postFeed.posts)
@@ -23,14 +23,11 @@ const MainBar = () => {
   const PostList =  useMemo(()=>sortPosts(posts),[posts])
 
   useEffect(() => {
-
-    //dispatch({type:'fetchPosts', payload: []})
     const fetchUserPost = async() => {
       ref.current = false
       try {
-          const response = await axios.get('http://localhost:4000/posts?userId=13')
+          const response = await axiosInstance.get('posts?userId=13')
           dispatch({type:'fetchPosts', payload: response.data})
-          console.log(response.data)
       } catch (error) {   
          dispatch({type:'fetchError', payload: error.message})
       }

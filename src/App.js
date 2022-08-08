@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import Home from "./pages_components/Home.jsx";
 import Groups from "./pages_components/Groups.jsx";
 import Friends from "./pages_components/Friends.jsx";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import ProfilePage from "./pages_components/ProfilePage.jsx";
 import FriendRequests from "./pages_components/FriendRequests.jsx";
 import Notifications from "./pages_components/Notifications.jsx";
@@ -12,10 +12,12 @@ import PageNotFound from "./pages_components/PageNotFound.jsx";
 import Layout2 from "./pages_components/Layout2.jsx";
 import Login from './pages_components/Login'
 import Register from './pages_components/Register'
+import { useDispatch } from "react-redux";
 
 const App = () => {
   const [chat, setChat] = useState(false);
-  const [toggleSideBar, setToggleSideBar] = useState(false)   
+  const [toggleSideBar, setToggleSideBar] = useState(false)
+  const dispatch = useDispatch()
    
   const toggleChat = (offOnly = false) => {
     if(offOnly) {
@@ -29,12 +31,24 @@ const App = () => {
         setChat,
         toggleChat,
         toggleSideBar,
-        setToggleSideBar}
+        setToggleSideBar
+      }
+
+  let isLoggedIn = sessionStorage.getItem("isLoggedIn")
+  if ( isLoggedIn) {
+    isLoggedIn = true
+  }  
+ 
+  useEffect(() => {
+    const data =sessionStorage.getItem("user")
+    dispatch({type:'fetchUser', payload: data ? JSON.parse(data) : {}})
+  })
+
   return (
   <div>
       <AllContext.Provider value={contextValues}> 
           <Routes>
-            <Route exact path="/" element={<Layout2/>}>
+            <Route exact path="/" element={isLoggedIn ? <Layout2 /> : <Navigate to="/login" replace/>}>
               <Route path="home" element={<Layout/>} >
                   <Route index element={<Home/>} />
                   <Route path="friends" element={<Friends/>} />
