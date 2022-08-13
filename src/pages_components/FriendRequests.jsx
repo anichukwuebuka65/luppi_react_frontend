@@ -2,32 +2,36 @@ import { useState } from 'react'
 import  { useContext, useEffect } from 'react'
 import { axiosInstance } from '../axios'
 import { AllContext } from '../context/AllContext'
+import { useNavigate } from 'react-router-dom'
 
 const FriendRequests = () => {
   const {setToggleSideBar} = useContext(AllContext)
   const [requestDetails, setRequestDetails] = useState([])
   const [acceptError, setAcceptError] = useState('')
+  const [fetchError, setFetchError] = useState('')
+  const navigate = useNavigate()
 
   async function acceptRequest(id){
     const response = await axiosInstance({
       method: 'post',
       url: '/friendrequest?status=accept',
       data: {
-          userId: '13',
-          allfriendId: id
+          friendId: id
       }
     })
+    console.log(response)
+
     const filteredRequest = requestDetails.filter(item => item.id != id)
     response.data[0] == 1 ? setRequestDetails(filteredRequest) : setAcceptError('an error occured, try again')
-
   }
+
   async function declineRequest(id){
     const response = await axiosInstance({
       method: 'post',
       url: '/friendrequest?status=decline',
       data: {
           userId: '13',
-          allfriendId: id
+          friendId: id
       }
     })
     console.log(response)
@@ -36,15 +40,23 @@ const FriendRequests = () => {
   }
 
   useEffect(() => {
-    axiosInstance.get('/friendrequest?userId=13')
+    axiosInstance.get('/friendrequest',)
     .then((response) => {
-      setRequestDetails(response.data)
+      console.log(response)
+      if(response.data !== 'invalid token') {
+        setRequestDetails(response.data)
+      }else{
+        navigate('/login',{replace: true})
+      }
+    }).catch((error)=>{
+      console.log(error)
+    setFetchError(error.message)//'Something went wrong, try again later')
     })
     return () => {
       setToggleSideBar(true)
     }
   },[setToggleSideBar])
-
+  if (fetchError) return <div>{fetchError}</div>
   return (
       <div className='  sm:w-3/4 lg:w-1/2 mx-auto '>
         {acceptError && acceptError}

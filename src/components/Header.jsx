@@ -10,23 +10,32 @@ import InBox from "./InBox.jsx"
 import { useState, useContext, useEffect } from "react"
 import { AllContext } from '../context/AllContext'
 import LeftSideBar from './LeftSideBar'
+import { axiosInstance } from "../axios.js";
+
 
  const Header = () => {
     const [inbox, setInbox] = useState(false);
     const {chat, setChat, toggleChat,setToggleSideBar} = useContext(AllContext)
+    const [reqCount, setReqCount] = useState()
 
     useEffect(() => {
         setToggleSideBar(true)
         setInbox(false) 
         setChat(false) 
-    },[setToggleSideBar, setChat])
-    
-    const toggleInbox = () => {
-    setInbox(true)
-    } 
 
-    const toggleInboxOff = () => {
-    setInbox(false)
+         axiosInstance.get('/friendrequest/count')
+        .then(data => {
+        setReqCount(data)
+        })
+        .catch(error => console.log(error))
+        },[setToggleSideBar, setChat])
+    
+        const toggleInbox = () => {
+        setInbox(true)
+        } 
+
+        const toggleInboxOff = () => {
+        setInbox(false)
     } 
 
   return (
@@ -47,7 +56,7 @@ import LeftSideBar from './LeftSideBar'
                 <li  className='relative hover:bg-blue-500 p-1.5  rounded'>
                     <Link to='friendrequest'>
                     <Person fontSize="large" />
-                    <span className='w-6 h-6 text-center absolute top-0 left-6 rounded-full bg-red-800 '>2</span>
+                    { reqCount > 0 && <span className='w-6 h-6 text-center absolute top-0 left-6 rounded-full bg-red-800 '>{reqCount}</span>}
                     </Link>
                 </li>
                 <li  className='relative hover:cursor-pointer hover:bg-blue-500 p-1.5  rounded' onClick={() => toggleChat()}><span className=''><ChatIcon fontSize="large"/></span>

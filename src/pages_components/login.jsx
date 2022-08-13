@@ -1,15 +1,17 @@
 import { useState } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { Link, useNavigate } from "react-router-dom"
 import { axiosInstance } from "../axios"
 
 const Login = () => {
+    const isLoggedIn = useSelector(state => state.user.isLoggedIn)
+    const navigate = useNavigate()
+    if(isLoggedIn) navigate(-1)
     const [email, setEmail] = useState("")
     const [pwd, setPwd] = useState("")
     const [rememberMe, setRememberMe] = useState(false)
     const [isEmpty, setIsEmpty] = useState()
     const dispatch = useDispatch()
-    const navigate = useNavigate()
 
     const login = async(e) => {
         e.preventDefault()
@@ -18,14 +20,14 @@ const Login = () => {
             return
         }
         try {
-            const response = await axiosInstance.post('/login',{email, password: pwd})
-            console.log(response)
-            dispatch({type:'fetchUser', payload: response.data})
-            sessionStorage.setItem("isLoggedIn","true")
-            sessionStorage.setItem("user", JSON.stringify(response.data))
+            const {data} = await axiosInstance.post('/login',{email, password: pwd},{headers: {'Content-Type' : 'Application/json'},withCredentials: true})
+            console.log(data)
+            dispatch({type:'fetchUser', payload: data})
+            sessionStorage.setItem("user", JSON.stringify(data))
             navigate("/home")
         } catch (error) {
-            dispatch({type:'fetchUserError', payload: error.message})
+            console.log(error)
+             dispatch({type:'fetchUserError', payload: error.message})
         }
     }
 

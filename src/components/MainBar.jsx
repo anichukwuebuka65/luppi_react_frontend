@@ -5,13 +5,13 @@ import  { memo, useEffect, useMemo, useRef, useState } from "react"
 import { axiosInstance } from "../axios.js"
 
 const MainBar = () => {
-  const posts = useSelector((state) => state.postFeed.posts)
+  const [posts, setPosts] = useState([])
+  const id = useSelector((state) => state.user.id)
+  const [userId, setUserId] = useState()
   const ref = useRef(true)
   //const error = useSelector((state) => state.postFeed.error)
   const dispatch = useDispatch()
   const [imageError, setImageError] = useState()
-
-  
   const sortPosts = (posts) => {
     if(posts.length === 0) return []
     const postsCopy = []
@@ -21,20 +21,20 @@ const MainBar = () => {
   
   
   const PostList =  useMemo(()=>sortPosts(posts),[posts])
-
+  
   useEffect(() => {
     const fetchUserPost = async() => {
       ref.current = false
       try {
-          const response = await axiosInstance.get('posts?userId=13')
-          dispatch({type:'fetchPosts', payload: response.data})
-      } catch (error) {   
-         dispatch({type:'fetchError', payload: error.message})
+        const {data} = await axiosInstance.get(`posts?userId=14`)
+        setPosts(data)
+        } catch (error) {   
+          console.log(error)
       }
      
     }
-    if (ref.current === true) { fetchUserPost() } 
-  },[])
+     fetchUserPost() 
+  },[userId])
 
   return (
     <>

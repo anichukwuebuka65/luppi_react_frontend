@@ -2,6 +2,25 @@ import GroupImage from "../components/GroupImage"
 import PostDetails from "../components/PostDetails"
 import GroupRightSideBar from "../components/GroupRightSideBar"
 const Groups = () => {
+  const post = {
+    id:1,
+    post: 'This is a hardcodes post for tst purposes',
+    updatedAt: Date(),
+    comments: [],
+    like: {
+      likes: 10
+    },
+    share: {
+      shares: 6
+    },
+    image: {
+        imageUrl: 'https://ik.imagekit.io/feov916dg/images__1__uQYdFmxK6.jpg'
+    },
+    user: {
+        firstName: 'love',
+        lastName: 'paul',
+    }
+  }
   return (
     <div>
 
@@ -9,7 +28,7 @@ const Groups = () => {
         <div  className = "px-3 py-5 lg:grid lg:grid-cols-4 overflow-hidden sm:h-[calc(100vh-56px)] bg-slate-100">
             <GroupRightSideBar/>
             <div className = 'col-span-2 sm:w-4/5  mx-auto overflow-scroll'>
-              <PostDetails/>
+              <PostDetails post={post}/>
             </div>
             <div className="hidden lg:block">
                   <div className="font-semibold mb-4">Suggested Groups You May Like</div>
