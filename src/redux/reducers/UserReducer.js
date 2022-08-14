@@ -3,6 +3,7 @@ import { createReducer, createAction} from '@reduxjs/toolkit'
 const fetchUser = createAction('fetchUser')
 const fetchUserError = createAction('fetchUserError')
 const isLoggedIn = createAction('islogged')
+const logOut = createAction('logout')
 
 const initialState = {}
 
@@ -20,6 +21,10 @@ const UserReducer = createReducer(initialState, (builder) => {
         return {
             isLoggedIn : action.payload 
         }
+    })
+    .addCase(logOut,(state, action) => {
+        sessionStorage.removeItem('user')
+        return { }
     })
 })
 

@@ -42,7 +42,6 @@ const FriendRequests = () => {
   useEffect(() => {
     axiosInstance.get('/friendrequest',)
     .then((response) => {
-      console.log(response)
       if(response.data !== 'invalid token') {
         setRequestDetails(response.data)
       }else{
@@ -53,7 +52,7 @@ const FriendRequests = () => {
     setFetchError(error.message)//'Something went wrong, try again later')
     })
     return () => {
-      setToggleSideBar(true)
+      setToggleSideBar(false)
     }
   },[setToggleSideBar])
   if (fetchError) return <div>{fetchError}</div>

@@ -1,16 +1,17 @@
+import { useEffect } from "react"
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { Link, useNavigate } from "react-router-dom"
+import { Link , useNavigate} from "react-router-dom"
 import { axiosInstance } from "../axios"
 
 const Login = () => {
     const isLoggedIn = useSelector(state => state.user.isLoggedIn)
-    const navigate = useNavigate()
-    if(isLoggedIn) navigate(-1)
     const [email, setEmail] = useState("")
     const [pwd, setPwd] = useState("")
     const [rememberMe, setRememberMe] = useState(false)
     const [isEmpty, setIsEmpty] = useState()
+    const navigate = useNavigate()
+    const [error, setError] = useState()
     const dispatch = useDispatch()
 
     const login = async(e) => {
@@ -20,16 +21,28 @@ const Login = () => {
             return
         }
         try {
-            const {data} = await axiosInstance.post('/login',{email, password: pwd},{headers: {'Content-Type' : 'Application/json'},withCredentials: true})
-            console.log(data)
-            dispatch({type:'fetchUser', payload: data})
-            sessionStorage.setItem("user", JSON.stringify(data))
-            navigate("/home")
+            const response = await axiosInstance.post('/login',{
+                email, 
+                password: pwd
+                },{
+                headers: {'Content-Type' : 'Application/json'},
+                withCredentials: true
+            })
+            if (response.status === 200) {
+                 dispatch({type:'fetchUser', payload: response.data})
+                sessionStorage.setItem("user", JSON.stringify(response.data))
+                navigate("/home")
+            } 
+           
         } catch (error) {
-            console.log(error)
-             dispatch({type:'fetchUserError', payload: error.message})
+            setError(error.response.data)
+            dispatch({type:'fetchUserError', payload: error.message})
         }
     }
+
+    useEffect(() => {
+       if(isLoggedIn) navigate("/home")
+    },[])
 
   return (
     <div className='h-screen'>
@@ -41,12 +54,12 @@ const Login = () => {
                 </div>
             </div>
             <div  className="sm:w-3/5 w-4/5 shadow-lg border-2 rounded px-3 py-5  mx-auto">
-                {isEmpty && <p className="italic text-red-500">{isEmpty}</p>}
+                {isEmpty || error ? <p className="italic text-red-500">{isEmpty}{error}</p> : null}
                 <form onSubmit={login} className="flex flex-col space-y-3">
                     <input value={email} 
-                    onChange={(e) => {setEmail( e.target.value); setIsEmpty("")}}
+                    onChange={(e) => {setEmail( e.target.value); setIsEmpty(""); setError("")}}
                     className="border-slate-300  pl-1.5 border-2 h-10 rounded focus:outline-none focus:border-slate-400" type="text" placeholder="E-mail address" autoComplete="off"/>
-                    <input value={pwd} onChange={(e) => {setPwd( e.target.value); setIsEmpty("") }} className="border-slate-300 pl-1.5 border-2 h-10 rounded focus:outline-none focus:border-slate-400" type="password" placeholder="Password" autoComplete="off"/>
+                    <input value={pwd} onChange={(e) => {setPwd( e.target.value); setIsEmpty("") ; setError("")}} className="border-slate-300 pl-1.5 border-2 h-10 rounded focus:outline-none focus:border-slate-400" type="password" placeholder="Password" autoComplete="off"/>
                     <div>
                         <input checked={rememberMe} onChange={() => setRememberMe(!rememberMe)} className="hover:cursor-pointer border-2  rounded " type="checkbox" />
                         <small className="ml-1.5">Remember me</small>

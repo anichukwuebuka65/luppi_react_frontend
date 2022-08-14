@@ -17,6 +17,7 @@ import { axiosInstance } from "../axios.js";
     const [inbox, setInbox] = useState(false);
     const {chat, setChat, toggleChat,setToggleSideBar} = useContext(AllContext)
     const [reqCount, setReqCount] = useState()
+    const [messageCount, setMessageCount] = useState()
 
     useEffect(() => {
         setToggleSideBar(true)
@@ -24,11 +25,11 @@ import { axiosInstance } from "../axios.js";
         setChat(false) 
 
          axiosInstance.get('/friendrequest/count')
-        .then(data => {
-        setReqCount(data)
+        .then(response => {
+        setReqCount(response.data)
         })
         .catch(error => console.log(error))
-        },[setToggleSideBar, setChat])
+    },[setToggleSideBar, setChat])
     
         const toggleInbox = () => {
         setInbox(true)
@@ -36,7 +37,7 @@ import { axiosInstance } from "../axios.js";
 
         const toggleInboxOff = () => {
         setInbox(false)
-    } 
+        } 
 
   return (
     <div className='lg:grid  pt-1.5 lg:pt-0 justify-around lg:grid-cols-4 bg-blue-700 h-14 content-center shadow-lg relative'>
@@ -60,12 +61,12 @@ import { axiosInstance } from "../axios.js";
                     </Link>
                 </li>
                 <li  className='relative hover:cursor-pointer hover:bg-blue-500 p-1.5  rounded' onClick={() => toggleChat()}><span className=''><ChatIcon fontSize="large"/></span>
-                    <span className='w-6 h-6 text-center absolute top-0 left-6 rounded-full bg-red-800 '>7</span>
+                   {messageCount > 0 && <span className='w-6 h-6 text-center absolute top-0 left-6 rounded-full bg-red-800 '>{messageCount}</span>}
                 </li>
                 <li  className='relative hover:bg-blue-500 p-1.5  rounded'>
                     <Link to="notifications">
                         <NotificationsIcon fontSize="large"/>
-                        <span className='w-6 h-6 text-center absolute top-0 left-6 rounded-full bg-red-800 '>1</span>
+                        <span className='w-6 h-6 text-center absolute top-0 left-6 rounded-full bg-red-800 '>2</span>
                     </Link>    
                 </li>
                 <li onClick={()=>setToggleSideBar(state=>!state)} className='lg:hidden hover:bg-blue-500 p-1.5 rounded'>

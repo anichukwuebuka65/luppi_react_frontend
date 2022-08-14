@@ -38,8 +38,7 @@ const InBox = ({toggleInboxOff}) => {
             <div className='w-4/5 rounded-full px-3 pt-px bg-white hover:border-slate-300 border-2 border-slate-400'>
                 <input className='focus:outline-none ' 
                 type="text" name='message' placeholder="write message"/>
-                <label htmlFor='sendphoto' className='float-right opacity-50'><AddAPhotoIcon/></label>
-                <input className='hidden' type="file" id="sendphoto" name="sendphoto"/>
+                
             </div>
             <button className='bg-blue-600 text-white px-2 rounded hover:bg-blue-500'>Send</button>
         </div>

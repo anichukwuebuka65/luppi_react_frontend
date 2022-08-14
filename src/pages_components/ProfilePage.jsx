@@ -26,6 +26,7 @@ const ProfilePage = () => {
         })
         if(response.data === 'success') {
             setAddedStatus('request sent')
+            setInterval(()=>setAddedStatus(""),500)
         } else {
             setAddedStatus('something went wrong, try again')
         }
@@ -35,7 +36,6 @@ const ProfilePage = () => {
         async function fetchProfile() {
             try {
                 const {data} = await axiosInstance.get(`/profile?id=${id}`)
-                console.log(data)
                 setPosts(data.userPosts)
                 setUser(data.userPosts[0].user)
                 setProfilePic(data.profile.profilepicture)
@@ -66,9 +66,17 @@ const ProfilePage = () => {
                     </div>
                 </div>
                 <div className='relative'>
-                    <button onClick={() => addFriend(id)}  className={`rounded ${clicked && 'h-8'} bg-blue-500 hover:bg-blue-400 p-1.5 mx-2 text-white font-semibold mt-2`}>Add Friend</button>
+                    {userId !== parseInt(id) &&
+                    <button onClick={() => addFriend(id)} 
+                     className={`rounded ${clicked && 'h-8'} bg-blue-500 hover:bg-blue-400 p-1.5 mx-2 text-white font-semibold mt-2`}>
+                        Add Friend 
+                    </button> }
+                    {userId === parseInt(id) && 
+                    <>
                     <button className='rounded bg-blue-500 hover:bg-blue-400 p-1.5 mx-2 text-white font-semibold mt-2'>Add to Story</button>
                     <button className='rounded bg-blue-500 hover:bg-blue-400 p-1.5 mx-2 text-white font-semibold mt-2'>Edit Profile</button>
+                    </>
+                    }
                     {addedStatus && <small className='absolute top-12 left-3 border rounded opacity-90 italic border-slate-400 px-2'>{addedStatus}</small>}
                 </div>
             </div>

@@ -1,6 +1,14 @@
+import { useContext, useEffect } from "react"
 import FriendsSideBar from "../components/FriendsSideBar"
+import { AllContext } from "../context/AllContext"
 
 const Friends = () => {
+    const {setToggleSideBar} = useContext(AllContext)
+
+    useEffect(()=>{
+        setToggleSideBar(false)
+    },[])
+
   return (
     <>
        

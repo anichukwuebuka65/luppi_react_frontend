@@ -11,8 +11,8 @@ import { memo, useState } from "react";
 const PostDetails = ({post}) => {
 const [postOptions] = useState(false)
 const [comments, setComments] = useState(post.comments)
-const [likes, setLikes] = useState(post.like.likes)
-const [shares, setShares] = useState(post.share.shares)
+const [likes, setLikes] = useState(post.like?.likes)
+const [shares, setShares] = useState(post.share?.shares)
 
   return (
     <div  className="bg-slate-200 border-zinc-300 border-2 pb-5 mt-1 rounded ">
@@ -57,9 +57,9 @@ const [shares, setShares] = useState(post.share.shares)
             <div className=" ">
               <small className="text-blue-500 mr-px"><ThumbUpIcon fontSize="small"/></small>
               <small className="text-red-400 mr-3"><FavoriteIcon fontSize="small"/></small>
-              <span>{likes}</span>
+              <span>{likes ? likes : 0}</span>
             </div>
-            <div>{comments.length} comments<span className="ml-3">{shares} {shares === 1 ? 'share' : 'shares'} </span></div>
+            <div>{comments?.length} comments<span className="ml-3">{shares ? shares : 0} {shares === 1 ? 'share' : 'shares'} </span></div>
           </div>
           {/*line */}
           <div className="border-t opacity-20 border-black "></div>
@@ -79,7 +79,7 @@ const [shares, setShares] = useState(post.share.shares)
               <input className="rounded-full pl-2 border-2 border-slate-300 focus:bg-slate-100 focus:border-slate-400 border-2  focus:outline-none w-full "
                type="text" placeholder="Write Comments" />
           </div>
-            {comments.length > 0 && comments.map((comment) => (
+            {comments?.length > 0 && comments.map((comment) => (
               <div key={comment.id} className="flex p-px mt-5">
                 <ProfileImage />
                 <div className="w-4/5">

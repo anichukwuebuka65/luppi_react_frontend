@@ -1,6 +1,7 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import {useState} from 'react'
+import { axiosInstance } from '../axios'
 
 const Register = () => {
     const [firstname, setFirstname] = useState("")
@@ -10,18 +11,16 @@ const Register = () => {
     const [confirmPwd, setConfirmPwd] = useState("")
     const [rememberMe, setRememberMe] = useState(false)
     const [errMsg, setErrMsg] = useState()
-
+    const navigate = useNavigate()
     const nameRegex = /^[A-Za-z0-9]{3,15}$/;
     const pwdRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%]).{8,20}$/;
     const emailRegex =  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 
-    const register = (e) => {
-        e.preventDefault()
+    const validate = () => {
         const validFirstname = nameRegex.test(firstname)
         const validLastname = nameRegex.test(lastname)
         const validPwd = pwdRegex.test(pwd)
         const validEmail = emailRegex.test(email)
-
 
         if(!validFirstname || !validLastname) 
             return setErrMsg("Names must be alphanumerical,more than 3 and less than 15 characters!")
@@ -31,15 +30,28 @@ const Register = () => {
             return setErrMsg("Password must contain atleast one uppercase letter, one lowercase letter, a number and one special character!")
         if(pwd !== confirmPwd) 
             return setErrMsg("Passwords do not match!")
-        
-        setFirstname("")
-        setLastname("")
-        setEmail("")
-        setPwd("")
-        setConfirmPwd("")
-        setErrMsg("")
+        return "validated"
+    }
 
-        console.log ("success")
+    async function register(e){
+        e.preventDefault()
+        const validated = validate()
+        if(!validated) return
+        try {
+           const response = await axiosInstance.post("/register",{firstname,lastname,email, pwd})
+           if (response.status === 200){
+            console.log(response)
+            // setFirstname("")
+            // setLastname("")
+            // setEmail("")
+            // setPwd("")
+            // setConfirmPwd("")
+            // setErrMsg("")
+            navigate("/login")
+           } 
+        } catch (error) {
+            setErrMsg(error?.response?.data)
+        }  
     }
 
   return (

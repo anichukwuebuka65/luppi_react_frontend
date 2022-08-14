@@ -7,12 +7,8 @@ const Groups = () => {
     post: 'This is a hardcodes post for tst purposes',
     updatedAt: Date(),
     comments: [],
-    like: {
-      likes: 10
-    },
-    share: {
-      shares: 6
-    },
+    like: {likes: 10},
+    share: {shares: 6},
     image: {
         imageUrl: 'https://ik.imagekit.io/feov916dg/images__1__uQYdFmxK6.jpg'
     },
@@ -26,7 +22,9 @@ const Groups = () => {
 
         {/*body */}
         <div  className = "px-3 py-5 lg:grid lg:grid-cols-4 overflow-hidden sm:h-[calc(100vh-56px)] bg-slate-100">
+            <div className="hidden lg:block">
             <GroupRightSideBar/>
+            </div>
             <div className = 'col-span-2 sm:w-4/5  mx-auto overflow-scroll'>
               <PostDetails post={post}/>
             </div>

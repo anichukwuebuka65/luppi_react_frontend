@@ -5,7 +5,7 @@ import SearchBar from './SearchBar'
 const GroupRightSideBar = () => {
   return (
     <>
-        <div className="hidden lg:block">
+        <div className="">
               <SearchBar placeholder="search for a group"/>
                 <button className="rounded bg-blue-600 text-white p-2 w-full my-5">
                 <span className="mr-2">&#43;</span>Create Group</button>

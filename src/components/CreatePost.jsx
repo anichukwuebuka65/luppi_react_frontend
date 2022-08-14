@@ -3,9 +3,10 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import imageKit from 'imagekit-javascript'
+import { axiosInstance } from '../axios';
 
 
-const CreatePost = ({setImageError}) => {
+const CreatePost = ({setImageError, updatePost}) => {
     const [post, setPost] = useState("")
     const [clicked, setClicked] = useState(false)
     const [imageFile, setImageFile] = useState()
@@ -48,7 +49,7 @@ const CreatePost = ({setImageError}) => {
                 dispatch({type:'fetchError',payload: 'unable to upload post, pls try again'})
                 return 
             }
-            if (uploadResult.data) dispatch({ type:'addPost', payload: uploadResult.data})
+            if (uploadResult.data) updatePost({...uploadResult.data,user:{firstName,lastName}})
             setPost('')
        } 
     }
@@ -68,7 +69,7 @@ const CreatePost = ({setImageError}) => {
 
     const uploadPost = async(fetchparams) => { 
         try {
-            const response = await axios.post('http://localhost:4000/posts', fetchparams)
+            const response = await axiosInstance.post('/posts', fetchparams)
             return response
             //dispatch({ type:'addPost', payload: response.data})
         } catch (error) {
