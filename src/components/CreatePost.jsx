@@ -6,7 +6,7 @@ import imageKit from 'imagekit-javascript'
 import { axiosInstance } from '../axios';
 
 
-const CreatePost = ({setImageError, updatePost}) => {
+const CreatePost = ({setImageError, updatePost,setPostError}) => {
     const [post, setPost] = useState("")
     const [clicked, setClicked] = useState(false)
     const [imageFile, setImageFile] = useState()
@@ -16,7 +16,7 @@ const CreatePost = ({setImageError, updatePost}) => {
     const imagekit = new imageKit({
         publicKey: 'public_Xd2RM8ChiA2AeLH5NTe7kHEl8JQ=',
         urlEndpoint: 'https://ik.imagekit.io/feov916dg',
-        authenticationEndpoint: 'http://localhost:4000/auth'
+        authenticationEndpoint: 'http://localhost:5000/auth'
     })
 
     async function upload() {
@@ -31,12 +31,9 @@ const CreatePost = ({setImageError, updatePost}) => {
                     imageUrl: imageResult.url,
                     post, 
                 })
-                if (!postResult.data) {
-                    dispatch({type:'fetchError',payload: 'unable to upload post, pls try again'}) 
-                }
-                if (postResult.data) dispatch({ type:'addPost', payload: postResult.data})
+                if (!postResult.data) setPostError("unable to upload post")
+                if (postResult.data) updatePost({...postResult.data,user:{firstName,lastName}})
                 setPost('')
-
             } else {
                 setImageError('unable to upload image, try again')
             }

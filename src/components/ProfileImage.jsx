@@ -1,7 +1,7 @@
 import {useSelector} from 'react-redux' 
 
 const ProfileImage = ({classAttr="h-9 w-9", onlineIcon=""}) => {
-  const profilePics = useSelector(state => state.user.profilepic)
+  const profilePics = useSelector(state => state.user.profilepicture)
   return (
         <div className="relative">
             <img src={profilePics} alt="profile_picture"

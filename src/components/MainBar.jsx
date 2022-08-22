@@ -6,10 +6,12 @@ import { axiosInstance } from "../axios.js"
 
 const MainBar = () => {
   const [posts, setPosts] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
   const [userId, setUserId] = useState()
   const ref = useRef(true)
   const dispatch = useDispatch()
   const [imageError, setImageError] = useState()
+  const [postError, setpostError] = useState()
 
   const sortPosts = (posts) => {
     if(posts.length === 0) return []
@@ -20,19 +22,20 @@ const MainBar = () => {
   
   function updatePost(value){
     setPosts((prev) => ([value,...prev]))
-    console.log(posts)
   }
   
   const PostList =  useMemo(()=>sortPosts(posts),[posts])
   
   useEffect(() => {
     const fetchUserPost = async() => {
+      setIsLoading(true)
       ref.current = false
       try {
         const {data} = await axiosInstance.get(`posts`)
+        setIsLoading(false)
         setPosts(data)
         } catch (error) {   
-          //console.log(error)
+          console.log(error)
       }
     }
      fetchUserPost() 
@@ -40,9 +43,10 @@ const MainBar = () => {
 
   return (
     <>
-        <CreatePost updatePost={updatePost} setImageError={setImageError}/>
-        
+        <CreatePost updatePost={updatePost} setImageError={setImageError} setpostError={setpostError}/>
+        {isLoading && <div>Loading...</div>}
         {imageError && <div className="text-center italic text-red-500">{imageError}</div>}
+        {postError && <div className="text-center italic text-red-500">{postError}</div>}
         { PostList.length > 0 ?  PostList.map(post => <PostDetails key={post.id} post={post}/>) :
         <div className='border-2 rounded opacity-90 p-2 shadow-md'>not post found</div>}
         
