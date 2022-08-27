@@ -35,7 +35,9 @@ const MainBar = () => {
         const {data} = await axiosInstance.get(`posts`)
         setIsLoading(false)
         setPosts(data)
-        } catch (error) {   
+        } 
+        catch (error) { 
+          setIsLoading(false)  
           console.log(error)
       }
     }
