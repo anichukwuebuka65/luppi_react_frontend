@@ -48,12 +48,12 @@ const MainBar = () => {
 
   return (
     <>
-        <CreatePost updatePost={updatePost} setImageError={setImageError} setpostError={setpostError}/>
-        {imageError && <div className="text-center italic text-red-500">{imageError}</div>}
-        {postError &&  <div className="text-center italic text-red-500">{postError}</div>}
-        { PostList.length > 0  ?  PostList.map(post => <PostDetails key={post.id} post={post}/>) :
-          !isLoading &&
-        <div className='border-2 rounded opacity-90 p-2 shadow-md'>not post found</div>}
+      <CreatePost updatePost={updatePost} setImageError={setImageError} setpostError={setpostError}/>
+      {imageError && <div className="text-center italic text-red-500">{imageError}</div>}
+      {postError &&  <div className="text-center italic text-red-500">{postError}</div>}
+      { PostList.length > 0  ?  PostList.map(post => <PostDetails key={post.id} post={post}/>) :
+        !isLoading &&
+      <div className='border-2 rounded opacity-90 p-2 shadow-md'>not post found</div>}
         
     </>
   )

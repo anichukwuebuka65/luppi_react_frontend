@@ -51,6 +51,8 @@ async function addLike(postId){
       setComment("")
     } catch (error) {
       setError("unable to add comment, try again")
+      setInterval(() => setError(""),1000)
+      setLoading(false)
     }  
  }
 
