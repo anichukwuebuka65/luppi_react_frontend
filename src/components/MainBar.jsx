@@ -44,10 +44,11 @@ const MainBar = () => {
      fetchUserPost() 
   },[userId])
 
+  if (isLoading) return <div className='italic text-2xl mt-5 text-center'>Loading...</div>
+
   return (
     <>
         <CreatePost updatePost={updatePost} setImageError={setImageError} setpostError={setpostError}/>
-        {isLoading && <div>Loading...</div>}
         {imageError && <div className="text-center italic text-red-500">{imageError}</div>}
         {postError &&  <div className="text-center italic text-red-500">{postError}</div>}
         { PostList.length > 0  ?  PostList.map(post => <PostDetails key={post.id} post={post}/>) :
