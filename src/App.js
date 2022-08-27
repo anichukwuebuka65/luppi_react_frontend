@@ -10,8 +10,8 @@ import { AllContext } from "./context/AllContext.jsx";
 import Layout from "./components/Layout.jsx";
 import PageNotFound from "./pages_components/PageNotFound.jsx";
 import Layout2 from "./pages_components/Layout2.jsx";
-import Login from './pages_components/Login'
-import Register from './pages_components/Register'
+import Login from './pages_components/Login.jsx'
+import Register from './pages_components/Register.jsx'
 import { useDispatch, useSelector} from "react-redux";
 
 const App = () => {
