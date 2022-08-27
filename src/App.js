@@ -15,7 +15,8 @@ import Register from './pages_components/Register.jsx'
 import { useDispatch} from "react-redux";
 
 const App = () => {
-  const [chat, setChat] = useState(false);
+  const [chat, setChat] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const [toggleSideBar, setToggleSideBar] = useState(false)
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -23,7 +24,8 @@ const App = () => {
   const toggleChat = (offOnly = false) => {
     if(offOnly) {
       setChat(false)
-    }else{
+    }
+    else{
       setChat((state)=>state=!state)
     }
   }
@@ -33,7 +35,9 @@ const App = () => {
         setChat,
         toggleChat,
         toggleSideBar,
-        setToggleSideBar
+        setToggleSideBar,
+        isLoading,
+        setIsLoading
       }
 
   useEffect(() => {

@@ -64,14 +64,14 @@ const Register = () => {
                         <i className="font-bold opacity-90 text-lg ml-6">Connect with your friends online</i>
                     </div>
                 </div>
-                <div  className="sm:w-3/5 w-4/5 shadow-lg border-2 rounded px-3 py-5  mx-auto">
+                <div  className="sm:w-3/5 w-4/5 shadow-lg border rounded-lg px-5 py-7  mx-auto">
                     <small className='text-red-500'>{errMsg}</small>
-                <form onSubmit={register} className="flex flex-col  space-y-3  mt-2 ">
-                    <input value={firstname} onChange={(e) => setFirstname( e.target.value) } className="  border-slate-300 pl-1.5 border-2 h-10 rounded focus:outline-none focus:border-slate-400" type="text" placeholder='Firstname'/>
-                    <input value={lastname} onChange={(e) => setLastname( e.target.value) }  className="  border-slate-300 pl-1.5 border-2 h-10 rounded focus:outline-none focus:border-slate-400" type="text" placeholder="Lastname" />
-                    <input value={email} onChange={(e) => setEmail( e.target.value) }  className="  border-slate-300 pl-1.5 border-2 h-10 rounded focus:outline-none focus:border-slate-400" type="email" placeholder="E-mail"/>
-                    <input value={pwd} onChange={(e) => setPwd( e.target.value) }  className="  border-slate-300 pl-1.5 border-2 h-10 rounded focus:outline-none focus:border-slate-400" type="password" placeholder="Password"/>
-                    <input value={confirmPwd} onChange={(e) => setConfirmPwd( e.target.value) }  className="  border-slate-300 pl-1.5 border-2 h-10 rounded focus:outline-none focus:border-slate-400" type="password" placeholder="Confirm Password"/>
+                <form onSubmit={register} className="flex flex-col  space-y-5 ">
+                    <input value={firstname} onChange={(e) => setFirstname( e.target.value) } className=" border-slate-300  pl-1.5 border shadow-md h-10 rounded-lg focus:outline-none focus:border-slate-400" type="text" placeholder='Firstname'/>
+                    <input value={lastname} onChange={(e) => setLastname( e.target.value) }  className=" border-slate-300  pl-1.5 border shadow-md h-10 rounded-lg focus:outline-none focus:border-slate-400" type="text" placeholder="Lastname" />
+                    <input value={email} onChange={(e) => setEmail( e.target.value) }  className=" border-slate-300  pl-1.5 border shadow-md h-10 rounded-lg focus:outline-none focus:border-slate-400" type="email" placeholder="E-mail"/>
+                    <input value={pwd} onChange={(e) => setPwd( e.target.value) }  className="  border-slate-300  pl-1.5 border shadow-md h-10 rounded-lg focus:outline-none focus:border-slate-400" type="password" placeholder="Password"/>
+                    <input value={confirmPwd} onChange={(e) => setConfirmPwd( e.target.value) }  className="  border-slate-300  pl-1.5 border shadow-md h-10 rounded-lg focus:outline-none focus:border-slate-400" type="password" placeholder="Confirm Password"/>
                     <div>
                         <input checked={rememberMe} onChange={() => setRememberMe(!rememberMe)} className="hover:cursor-pointer border-2  rounded " type="checkbox" />
                         <small className="ml-1.5">Remember me</small>

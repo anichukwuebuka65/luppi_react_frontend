@@ -1,12 +1,13 @@
 import CreatePost from "./CreatePost.jsx"
 import PostDetails from "./PostDetails.jsx"
 import {useDispatch} from 'react-redux'
-import  { memo, useEffect, useMemo, useRef, useState } from "react"
+import  { memo, useContext, useEffect, useMemo, useRef, useState } from "react"
 import { axiosInstance } from "../axios"
+import { AllContext } from "../context/AllContext.jsx"
 
 const MainBar = () => {
   const [posts, setPosts] = useState([])
-  const [isLoading, setIsLoading] = useState(false)
+  const {isLoading, setIsLoading} = useContext(AllContext)
   const [userId, setUserId] = useState()
   const ref = useRef(true)
   const dispatch = useDispatch()
