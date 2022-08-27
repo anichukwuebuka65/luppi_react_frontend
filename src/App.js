@@ -12,7 +12,7 @@ import PageNotFound from "./pages_components/PageNotFound.jsx";
 import Layout2 from "./pages_components/Layout2.jsx";
 import Login from './pages_components/login.jsx'
 import Register from './pages_components/Register.jsx'
-import { useDispatch, useSelector} from "react-redux";
+import { useDispatch} from "react-redux";
 
 const App = () => {
   const [chat, setChat] = useState(false);
