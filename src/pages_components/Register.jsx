@@ -11,7 +11,10 @@ const Register = () => {
     const [confirmPwd, setConfirmPwd] = useState("")
     const [rememberMe, setRememberMe] = useState(false)
     const [errMsg, setErrMsg] = useState()
+    const [fetchErrMsg, setFetchErrMsg] = useState()
     const navigate = useNavigate()
+    const [isLoading, setIsLoading] = useState(false)
+
     const nameRegex = /^[A-Za-z0-9]{3,15}$/;
     const pwdRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%]).{8,20}$/;
     const emailRegex =  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
@@ -38,25 +41,26 @@ const Register = () => {
         const validated = validate()
         if(!validated) return
         try {
+            setIsLoading(true)
            const response = await axiosInstance.post("/register",{firstname,lastname,email, pwd})
-           console.log(response)
            if (response.status === 200){
-            // setFirstname("")
-            // setLastname("")
-            // setEmail("")
-            // setPwd("")
-            // setConfirmPwd("")
-            // setErrMsg("")
+            setFirstname("")
+            setLastname("")
+            setEmail("")
+            setPwd("")
+            setConfirmPwd("")
+            setErrMsg("")
+            setIsLoading(false)
             navigate("/login")
            } 
         } catch (error) {
-            //setErrMsg(error?.response?.data)
-            console.log(error)
+            setFetchErrMsg("something went wrong")
+            setIsLoading(false)
         }  
     }
 
   return (
-        <div className='h-screen'>
+        <div className='md:h-screen'>
             <div  className='lg:grid md:grid-cols-2 h-full items-center p-4 '>
                 <div className=" lg:justify-self-center  rounded-full flex justify-center mx-auto">
                     <div className="mx-auto mb-14 ">
@@ -79,6 +83,8 @@ const Register = () => {
                         <p>Already have an account? <Link to="/login"><i className="text-blue-500">Login</i></Link></p>
                     <button className="border-slate-300 hover:bg-blue-500 font-bold text-lg text-white h-9 rounded  bg-blue-600" type="submit" >Signup</button>
                 </form>
+                {isLoading && <div className='italic text-2xl mt-5 opacity-80 text-center'>Loading...</div>}
+                {fetchErrMsg && <div className='italic text-2xl mt-5 text-red opacity-80 text-center'>{fetchErrMsg}</div>}
                 </div>
             </div>
         </div>

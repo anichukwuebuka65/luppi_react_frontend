@@ -8,6 +8,7 @@ import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutline
 import ShareIcon from '@mui/icons-material/Share';
 import { memo, useState } from "react";
 import {axiosInstance} from "../axios"
+import { useSelector } from "react-redux";
 
 const PostDetails = ({post}) => {
 const [postOptions] = useState(false)
@@ -17,13 +18,17 @@ const [error, setError] = useState()
 const [loading, setLoading] = useState(false)
 const [likes, setLikes] = useState(post.like?.likes)
 const [shares, setShares] = useState(post.share?.shares)
+const profilePicture = useSelector((state) => state.user.profilepicture)
 
 async function addLike(postId){
   try {
+
+    setLikes((count) => count + 1)
     const response = await axiosInstance.post("like",{postId})
-    if(response.data) setLikes((count) => count + 1)
+    if(!response.data) setLikes((count) => count - 1)
   } catch (error) {
-    console.log(error)
+    setLikes((count) => count - 1)
+    //console.log(error)
   }
 }
 
@@ -127,9 +132,10 @@ async function addLike(postId){
           {error && <div className="italic bg-red">{error}</div>}
           {loading && <div className="italic ">loading...</div>}
             {comments?.length > 0 && comments.map((comment) =>{
+              
               return(
               <div key={comment.id} className="flex pt-1.5 ml-6 pr-10">
-                <ProfileImage image={comment?.user?.user_profile?.profilepicture} />
+                <ProfileImage image={comment?.user?.user_profile?.profilepicture ?? profilePicture} />
                 <div className="w-4/5">
                       <div className=" py-px px-2 bg-slate-100 border-slate-300 border-2 shadow-sm rounded-2xl">
                         <p className="text-sm  italic">{comment.comments}</p>

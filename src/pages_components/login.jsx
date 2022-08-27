@@ -52,7 +52,7 @@ const Login = () => {
     },[])
 
   return (
-    <div className='h-screen '>
+    <div className='md:h-screen '>
         <div  className='lg:grid md:grid-cols-2 h-full items-center p-4 mt-10 '>
             <div className=" lg:justify-self-center  rounded-full flex justify-center mx-auto mb-16">
                 <div className="mx-auto mb-9 ">
@@ -76,9 +76,9 @@ const Login = () => {
                         <p>No account? <Link to="/register"><i className="text-blue-500">Sign up</i></Link></p>
                     <button className="border-slate-300 hover:bg-blue-500 text-white h-9 rounded font-bold text-lg bg-blue-600" type="submit" >Login</button>
                 </form>
+        {isLoading && <div className='italic text-2xl mt-5 opacity-80 text-center'>Loading...</div>}
             </div>
         </div>
-        {isLoading && <div className='italic text-2xl mt-5 text-center'>Loading...</div>}
 
     </div>
   )
