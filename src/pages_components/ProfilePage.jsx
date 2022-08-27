@@ -16,6 +16,7 @@ const ProfilePage = () => {
     const [clicked, setClicked] = useState(false)
     const [addedStatus, setAddedStatus] = useState()
     const [error, setError] = useState("")
+    const [loading, setLoading] = useState(true)
 
     async function addFriend(id) {
         setClicked(true)
@@ -40,6 +41,7 @@ const ProfilePage = () => {
                 setUser(data.userPosts[0].user)
                 setProfilePic(data.profile.profilepicture)
                 setFriendsCount(data.friendsCount)
+                setLoading(false)
             } catch (error) {
                 setError("couldn't find profile")
             }
@@ -48,7 +50,7 @@ const ProfilePage = () => {
     },[id])
  
     if(error.length > 1) return <div>{error}</div>
-
+    if (loading) return <div className='italic text-center'>loading...</div>
     return (
         <div className='lg:w-2/3 pb-4 mx-auto '>
             <div className='w-full -mb-10 '><img className="w-full h-80 rounded-b-3xl object-cover" 

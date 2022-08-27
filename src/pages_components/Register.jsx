@@ -39,8 +39,8 @@ const Register = () => {
         if(!validated) return
         try {
            const response = await axiosInstance.post("/register",{firstname,lastname,email, pwd})
+           console.log(response)
            if (response.status === 200){
-            console.log(response)
             // setFirstname("")
             // setLastname("")
             // setEmail("")
@@ -50,7 +50,8 @@ const Register = () => {
             navigate("/login")
            } 
         } catch (error) {
-            setErrMsg(error?.response?.data)
+            //setErrMsg(error?.response?.data)
+            console.log(error)
         }  
     }
 

@@ -25,29 +25,32 @@ const Login = () => {
                 email, 
                 password: pwd
                 },{
-                headers: {'Content-Type' : 'Application/json'},
-                withCredentials: true
+                headers: {'Content-Type' : 'Application/json'}
             })
             if (response.status === 200) {
                  dispatch({type:'fetchUser', payload: response.data})
                 sessionStorage.setItem("user", JSON.stringify(response.data))
                 navigate("/home")
             } 
-           
         } catch (error) {
             setError(error.response.data)
             dispatch({type:'fetchUserError', payload: error.message})
+            console.log(error)
         }
     }
 
+
+
     useEffect(() => {
+        axiosInstance.get("/")
+
        if(isLoggedIn) navigate("/home")
     },[])
 
   return (
-    <div className='h-screen'>
-        <div  className='lg:grid md:grid-cols-2 h-full items-center p-4 '>
-            <div className=" lg:justify-self-center  rounded-full flex justify-center mx-auto">
+    <div className='h-screen '>
+        <div  className='lg:grid md:grid-cols-2 h-full items-center p-4 mt-20 '>
+            <div className=" lg:justify-self-center  rounded-full flex justify-center mx-auto mb-16">
                 <div className="mx-auto mb-14 ">
                     <h1 className=" text-5xl md:text-7xl font-extrabold mb-5 text-blue-600">Luppi.com</h1>
                     <i className="font-bold opacity-90 text-lg ml-6">Connect with your friends online</i>

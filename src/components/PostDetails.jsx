@@ -7,15 +7,55 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
 import ShareIcon from '@mui/icons-material/Share';
 import { memo, useState } from "react";
+import {axiosInstance} from "../axios"
 
 const PostDetails = ({post}) => {
 const [postOptions] = useState(false)
 const [comments, setComments] = useState(post.comments)
+const [comment, setComment] = useState("")
+const [error, setError] = useState()
+const [loading, setLoading] = useState(false)
 const [likes, setLikes] = useState(post.like?.likes)
 const [shares, setShares] = useState(post.share?.shares)
 
+async function addLike(postId){
+  try {
+    const response = await axiosInstance.post("like",{postId})
+    if(response.data) setLikes((count) => count + 1)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+ async function fetchComment(offset, postId){
+    setLoading(true)
+    try {
+      const response = await axiosInstance.get("comment",{offset,postId})
+      if(response.data !== "success" ) setComments((comments) => [response.data, ...comments])
+      console.log(response)
+      setLoading(false)
+    } catch (error) {
+      setError("couldnt fetch comments, try again")
+      setLoading(false)
+      setInterval(()=> setError(""),1000)
+
+    }  
+ }
+
+ async function addComment( postId){
+  setLoading(true)
+    try {
+      const response = await axiosInstance.post("comment",{comment,postId})
+      if(response.data) setComments((comments) => [response.data, ...comments])
+      setLoading(false)
+      setComment("")
+    } catch (error) {
+      setError("unable to add comment, try again")
+    }  
+ }
+
   return (
-    <div  className="bg-slate-200 border-zinc-300 border-2 pb-5 mt-1 rounded ">
+    <div  className="bg-slate-50 border-zinc-300 border-2 shadow pb-5 mt-3 rounded ">
       <div className="p-2 relative ">
         <div className="flex justify-between ">
           
@@ -40,13 +80,13 @@ const [shares, setShares] = useState(post.share?.shares)
             </div> }
 
         </div>
-          <p className="my-2.5"> {post?.post}</p>
+          {post?.post && <p className="my-2.5 rounded  shadow p-2"> {post?.post}</p>}
       </div>
         
 
         {/*image */}
         <div>
-          { post?.image && post.image !== null &&
+          { post?.image && post.image !== null && post.image.imageUrl &&
            <img className="w-full object-fill" 
            src={post.image.imageUrl} alt="profileImage" /> }
         </div>
@@ -65,7 +105,7 @@ const [shares, setShares] = useState(post.share?.shares)
           <div className="border-t opacity-20 border-black "></div>
 
           <div className="flex justify-around py-2">
-            <div><span className="mr-2 opacity-90"><ThumbUpIcon/></span>like</div>
+            <button onClick={()=>addLike(post.id)}><span className="mr-2 opacity-90"><ThumbUpIcon/></span>like</button>
             <div><span className="mr-2 opacity-80"><ChatBubbleOutlineOutlinedIcon/></span>comment</div>
             <div><span className="mr-2 opacity-80"><ShareIcon/></span>share</div>
           </div>
@@ -74,26 +114,32 @@ const [shares, setShares] = useState(post.share?.shares)
           <div className="border-t opacity-20 border-black "></div>
 
           {/*comments */}
-          <div className="flex  pt-3">
+          <div className="flex  mb-3 pt-3">
               <ProfileImage />
-              <input className="rounded-full pl-2 border-2 border-slate-300 focus:bg-slate-100 focus:border-slate-400 border-2  focus:outline-none w-full "
-               type="text" placeholder="Write Comments" />
+              <form className="flex w-full">
+                <input onChange={(e)=>setComment(e.target.value)} value={comment} className="rounded-full shadow-sm px-2 border-2 border-slate-300 focus:bg-slate-100 focus:border-slate-400 border-2  focus:outline-none w-full "
+                  type="text" placeholder="Write Comments" />
+                <button onClick={(e)=> {e.preventDefault(); addComment(post.id)}} className="bg-blue-400 shadow text-white p-2 mx-3 hover:bg-blue-600 rounded">Add</button>
+               </form>
           </div>
-            {comments?.length > 0 && comments.map((comment) => (
-              <div key={comment.id} className="flex p-px mt-5">
-                <ProfileImage />
+          {error && <div className="italic bg-red">{error}</div>}
+          {loading && <div className="italic ">loading...</div>}
+            {comments?.length > 0 && comments.map((comment) =>{
+              return(
+              <div key={comment.id} className="flex pt-1.5 ml-6 pr-10">
+                <ProfileImage image={comment?.user?.user_profile?.profilepicture} />
                 <div className="w-4/5">
-                      <div className=" p-2 bg-slate-400 rounded-2xl">
-                        <p>{comment.comments}</p>
+                      <div className=" py-px px-2 bg-slate-100 border-slate-300 border-2 shadow-sm rounded-2xl">
+                        <p className="text-sm  italic">{comment.comments}</p>
                       </div>
-                      <div className="flex space-x-3">
+                      <div className="flex space-x-2">
                         <small>Like</small>
                         <small>Share</small>
                         <small>Reply</small>
                       </div>
                 </div>
               </div>
-            ))}
+            )})}
           
 
         </div>  
