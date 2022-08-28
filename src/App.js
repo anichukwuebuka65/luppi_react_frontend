@@ -13,12 +13,26 @@ import Layout2 from "./pages_components/Layout2.jsx";
 import Login from './pages_components/login.jsx'
 import Register from './pages_components/Register.jsx'
 import { useDispatch} from "react-redux";
+import axios from "axios";
 
 const App = () => {
   const [chat, setChat] = useState(false)
   const [toggleSideBar, setToggleSideBar] = useState(false)
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const [token, setToken] = useState("")
+
+
+ const axiosInstance = axios.create({
+    baseURL: 'https://luppi.herokuapp.com/',
+    //baseURL: 'http://localhost:5000/',
+    withCredentials: true,
+    headers: {
+      "Content-Type":"application/json",
+      "Authorization": token
+    }
+})
+
   
   const toggleChat = (offOnly = false) => {
     if(offOnly) {
@@ -35,6 +49,8 @@ const App = () => {
         toggleChat,
         toggleSideBar,
         setToggleSideBar,
+        setToken,
+        axiosInstance
       }
 
   useEffect(() => {
@@ -53,7 +69,7 @@ const App = () => {
   <div>
       <AllContext.Provider value={contextValues}> 
           <Routes>
-            <Route exact path="/" element={ <Layout2 />}>
+            <Route exact path="/" element={ token ? <Layout2 /> : <Login/>}>
               <Route path="home" element={<Layout/>} >
                   <Route index element={<Home/>} />
                   <Route path="friends" element={<Friends/>} />

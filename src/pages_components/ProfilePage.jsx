@@ -1,9 +1,10 @@
-import React from 'react'
+import  { useContext } from 'react'
 import PostDetails from '../components/PostDetails'
 import {useSearchParams} from 'react-router-dom'
-import { axiosInstance } from '../axios'
+//import { axiosInstance } from '../axios'
 import { useEffect,useState } from 'react'
 import { useSelector } from 'react-redux'
+import { AllContext } from '../context/AllContext'
 
 const ProfilePage = () => {
     const userId = useSelector(state => state.user.id)
@@ -17,6 +18,8 @@ const ProfilePage = () => {
     const [addedStatus, setAddedStatus] = useState()
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(true)
+    const {axiosInstance} = useContext(AllContext)
+
 
     async function addFriend(id) {
         setClicked(true)

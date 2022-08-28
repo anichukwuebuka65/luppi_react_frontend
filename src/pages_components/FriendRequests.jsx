@@ -10,6 +10,8 @@ const FriendRequests = () => {
   const [acceptError, setAcceptError] = useState('')
   const [fetchError, setFetchError] = useState('')
   const navigate = useNavigate()
+  const {axiosInstance} = useContext(AllContext)
+
 
   async function acceptRequest(id){
     const response = await axiosInstance({

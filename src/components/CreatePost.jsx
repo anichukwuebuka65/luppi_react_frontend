@@ -1,9 +1,10 @@
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import axios from 'axios';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import imageKit from 'imagekit-javascript'
 import { axiosInstance } from '../axios';
+import { AllContext } from '../context/AllContext';
 
 
 const CreatePost = ({setImageError, updatePost,setPostError}) => {
@@ -12,6 +13,7 @@ const CreatePost = ({setImageError, updatePost,setPostError}) => {
     const [imageFile, setImageFile] = useState()
     const [loading, setLoading] = useState(false)
     const {firstName, lastName} = useSelector(state => state.user)
+    const {axiosInstance} = useContext(AllContext)
     
     const dispatch = useDispatch()
     const imagekit = new imageKit({

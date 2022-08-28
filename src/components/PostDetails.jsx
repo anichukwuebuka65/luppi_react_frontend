@@ -6,9 +6,10 @@ import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
 import ShareIcon from '@mui/icons-material/Share';
-import { memo, useState } from "react";
+import { memo, useContext, useState } from "react";
 import {axiosInstance} from "../axios"
 import { useSelector } from "react-redux";
+import { AllContext } from "../context/AllContext.jsx";
 
 const PostDetails = ({post}) => {
 const [postOptions] = useState(false)
@@ -19,6 +20,8 @@ const [loading, setLoading] = useState(false)
 const [likes, setLikes] = useState(post.like?.likes)
 const [shares, setShares] = useState(post.share?.shares)
 const profilePicture = useSelector((state) => state.user.profilepicture)
+const {axiosInstance} = useContext(AllContext)
+
 
 async function addLike(postId){
   try {
@@ -62,7 +65,7 @@ async function addLike(postId){
  }
 
   return (
-    <div  className="bg-slate-50 border-zinc-300 border-2 shadow pb-5 mt-3 rounded ">
+    <div  className="bg-slate-50  border-2 shadow-lg pb-5 mt-3 rounded-lg ">
       <div className="p-2 relative ">
         <div className="flex justify-between ">
           

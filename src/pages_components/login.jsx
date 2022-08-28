@@ -1,11 +1,12 @@
-import { useEffect } from "react"
+import { useContext, useEffect } from "react"
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link , useNavigate} from "react-router-dom"
 import { axiosInstance } from "../axios"
+import { AllContext } from "../context/AllContext"
 
 const Login = () => {
-    const isLoggedIn = useSelector(state => state.user.isLoggedIn)
+    //const isLoggedIn = useSelector(state => state.user.isLoggedIn)
     const [email, setEmail] = useState("")
     const [pwd, setPwd] = useState("")
     const [rememberMe, setRememberMe] = useState(false)
@@ -14,6 +15,8 @@ const Login = () => {
     const navigate = useNavigate()
     const [error, setError] = useState()
     const dispatch = useDispatch()
+    const {setToken, axiosInstance} = useContext(AllContext)
+
 
     const login = async(e) => {
         e.preventDefault()
@@ -30,8 +33,10 @@ const Login = () => {
                 headers: {'Content-Type' : 'Application/json'}
             })
             if (response.status === 200) {
-                 dispatch({type:'fetchUser', payload: response.data})
-                sessionStorage.setItem("user", JSON.stringify(response.data))
+                const {data} = response
+                setToken(data.token)
+                 dispatch({type:'fetchUser', payload: data})
+                sessionStorage.setItem("user", JSON.stringify(data))
                 setIsLoading(false)
                 navigate("/home")
             } 
@@ -45,9 +50,9 @@ const Login = () => {
 
 
 
-    useEffect(() => {
-       if(isLoggedIn) navigate("/home")
-    },[])
+    // useEffect(() => {
+    //    if(isLoggedIn) navigate("/home")
+    // },[])
 
   return (
     <div className='md:h-screen '>

@@ -1,7 +1,8 @@
-import React from 'react'
+import  { useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import {useState} from 'react'
-import { axiosInstance } from '../axios'
+import { AllContext } from '../context/AllContext'
+//import { axiosInstance } from '../axios'
 
 const Register = () => {
     const [firstname, setFirstname] = useState("")
@@ -14,6 +15,8 @@ const Register = () => {
     const [fetchErrMsg, setFetchErrMsg] = useState()
     const navigate = useNavigate()
     const [isLoading, setIsLoading] = useState(false)
+    const {axiosInstance} = useContext(AllContext)
+
 
     const nameRegex = /^[A-Za-z0-9]{3,15}$/;
     const pwdRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%]).{8,20}$/;

@@ -14,20 +14,20 @@ import GroupRightSideBar from './GroupRightSideBar.jsx';
 
 const LeftSideBar = () => {
     const userId = useSelector(state => state.user.id)
-    const {toggleChat,toggleSideBar,setToggleSideBar} = useContext(AllContext)
+    const {setToken,toggleChat,toggleSideBar,setToggleSideBar} = useContext(AllContext)
     let {pathname} = useLocation()
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
-    async function logOut() {
-        try {
-            const {data} = await axiosInstance.get('/logout')
-            if (data === 'loggedOut' )
-                dispatch({type: 'logout'})
-                navigate('/login')
-        } catch (error) {
-            console.log(error)
-        } 
+     function logOut() {
+        setToken("")
+        navigate('/login')
+        // try {
+        //     // const {data} = await axiosInstance.get('/logout')
+        //     // if (data === 'loggedOut' )
+        // } catch(error) {
+        //     //console.log(error)
+        // } 
     }
 
   return (

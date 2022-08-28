@@ -10,12 +10,12 @@ import InBox from "./InBox.jsx"
 import { useState, useContext, useEffect } from "react"
 import { AllContext } from '../context/AllContext'
 import LeftSideBar from './LeftSideBar'
-import { axiosInstance } from "../axios.js";
+//import { axiosInstance } from "../axios.js";
 
 
  const Header = () => {
     const [inbox, setInbox] = useState(false);
-    const {chat, setChat, toggleChat,setToggleSideBar} = useContext(AllContext)
+    const {axiosInstance,chat, setChat, toggleChat,setToggleSideBar} = useContext(AllContext)
     const [reqCount, setReqCount] = useState()
     const [messageCount, setMessageCount] = useState()
 

@@ -3,15 +3,18 @@ import PostDetails from "./PostDetails.jsx"
 import {useDispatch} from 'react-redux'
 import  { memo, useContext, useEffect, useMemo, useRef, useState } from "react"
 import { axiosInstance } from "../axios"
+import { AllContext } from "../context/AllContext.jsx"
 
 const MainBar = () => {
   const [posts, setPosts] = useState([])
-  const {isLoading, setIsLoading} = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const [userId, setUserId] = useState()
   const ref = useRef(true)
   const dispatch = useDispatch()
   const [imageError, setImageError] = useState()
   const [postError, setpostError] = useState()
+  const {axiosInstance} = useContext(AllContext)
+
 
   const sortPosts = (posts) => {
     if(posts.length === 0) return []
@@ -27,8 +30,8 @@ const MainBar = () => {
   const PostList =  useMemo(()=>sortPosts(posts),[posts])
   
   useEffect(() => {
+    setIsLoading(true)
     const fetchUserPost = async() => {
-      setIsLoading(true)
       ref.current = false
       try {
         const {data} = await axiosInstance.get('posts')
