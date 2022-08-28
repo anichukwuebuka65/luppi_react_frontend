@@ -16,7 +16,6 @@ import { useDispatch} from "react-redux";
 
 const App = () => {
   const [chat, setChat] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
   const [toggleSideBar, setToggleSideBar] = useState(false)
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -36,8 +35,6 @@ const App = () => {
         toggleChat,
         toggleSideBar,
         setToggleSideBar,
-        isLoading,
-        setIsLoading
       }
 
   useEffect(() => {

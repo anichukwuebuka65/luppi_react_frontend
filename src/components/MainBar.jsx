@@ -7,7 +7,7 @@ import { AllContext } from "../context/AllContext.jsx"
 
 const MainBar = () => {
   const [posts, setPosts] = useState([])
-  const {isLoading, setIsLoading} = useContext(AllContext)
+  const {isLoading, setIsLoading} = useState(false)
   const [userId, setUserId] = useState()
   const ref = useRef(true)
   const dispatch = useDispatch()
@@ -44,7 +44,7 @@ const MainBar = () => {
      fetchUserPost() 
   },[userId])
 
-  if (isLoading) return <div className='italic text-2xl mt-5 text-center'>Loading...</div>
+  if (isLoading) return(<div className='italic text-2xl mt-5 text-center'>Loading...</div>)
 
   return (
     <>
