@@ -69,7 +69,7 @@ const CreatePost = ({setImageError, updatePost,setPostError}) => {
 
     const uploadPost = async(fetchparams) => { 
         try {
-            const response = await axiosInstance.post('/posts', fetchparams)
+            const response = await axiosInstance.post('posts', fetchparams)
             return response
             //dispatch({ type:'addPost', payload: response.data})
         } catch (error) {

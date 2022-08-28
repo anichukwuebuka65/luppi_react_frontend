@@ -42,7 +42,7 @@ const Register = () => {
         if(!validated) return
         try {
             setIsLoading(true)
-           const response = await axiosInstance.post("/register",{firstname,lastname,email, pwd})
+           const response = await axiosInstance.post("register",{firstname,lastname,email, pwd})
            if (response.status === 200){
             setFirstname("")
             setLastname("")

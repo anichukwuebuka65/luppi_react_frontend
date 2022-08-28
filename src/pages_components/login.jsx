@@ -23,7 +23,7 @@ const Login = () => {
         }
         try {
             setIsLoading(true)
-            const response = await axiosInstance.post('/login',{
+            const response = await axiosInstance.post('login',{
                 email, 
                 password: pwd
                 },{
@@ -46,8 +46,6 @@ const Login = () => {
 
 
     useEffect(() => {
-        axiosInstance.get("/")
-
        if(isLoggedIn) navigate("/home")
     },[])
 

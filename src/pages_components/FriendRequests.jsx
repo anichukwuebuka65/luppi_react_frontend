@@ -14,12 +14,11 @@ const FriendRequests = () => {
   async function acceptRequest(id){
     const response = await axiosInstance({
       method: 'post',
-      url: '/friendrequest?status=accept',
+      url: 'friendrequest?status=accept',
       data: {
           friendId: id
       }
     })
-    console.log(response)
 
     const filteredRequest = requestDetails.filter(item => item.id != id)
     response.data[0] == 1 ? setRequestDetails(filteredRequest) : setAcceptError('an error occured, try again')
@@ -28,19 +27,18 @@ const FriendRequests = () => {
   async function declineRequest(id){
     const response = await axiosInstance({
       method: 'post',
-      url: '/friendrequest?status=decline',
+      url: 'friendrequest?status=decline',
       data: {
           userId: '13',
           friendId: id
       }
     })
-    console.log(response)
     const filteredRequest = requestDetails.filter(item => item.id != id)
     response.data == 1 ? setRequestDetails(filteredRequest) : setAcceptError('an error occured, try again')
   }
 
   useEffect(() => {
-    axiosInstance.get('/friendrequest',)
+    axiosInstance.get('friendrequest',)
     .then((response) => {
       if(response.data !== 'invalid token') {
         setRequestDetails(response.data)

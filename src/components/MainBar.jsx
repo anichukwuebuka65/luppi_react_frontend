@@ -3,7 +3,6 @@ import PostDetails from "./PostDetails.jsx"
 import {useDispatch} from 'react-redux'
 import  { memo, useContext, useEffect, useMemo, useRef, useState } from "react"
 import { axiosInstance } from "../axios"
-import { AllContext } from "../context/AllContext.jsx"
 
 const MainBar = () => {
   const [posts, setPosts] = useState([])
@@ -32,7 +31,7 @@ const MainBar = () => {
       setIsLoading(true)
       ref.current = false
       try {
-        const {data} = await axiosInstance.get(`posts`)
+        const {data} = await axiosInstance.get('posts')
         setIsLoading(false)
         setPosts(data)
         } 

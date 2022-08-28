@@ -21,7 +21,7 @@ const ProfilePage = () => {
     async function addFriend(id) {
         setClicked(true)
         setInterval(()=>setClicked(false),500)
-        const response = await axiosInstance.post('/friendrequest?status=add',{
+        const response = await axiosInstance.post('friendrequest?status=add',{
             friendId: id,
             userId: userId
         })
@@ -36,7 +36,7 @@ const ProfilePage = () => {
     useEffect(() => {
         async function fetchProfile() {
             try {
-                const {data} = await axiosInstance.get(`/profile?id=${id}`)
+                const {data} = await axiosInstance.get(`profile?id=${id}`)
                 setPosts(data.userPosts)
                 setUser(data.userPosts[0].user)
                 setProfilePic(data.profile.profilepicture)
