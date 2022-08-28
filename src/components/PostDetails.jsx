@@ -7,7 +7,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
 import ShareIcon from '@mui/icons-material/Share';
 import { memo, useContext, useState } from "react";
-import {axiosInstance} from "../axios"
+//import {axiosInstance} from "../axios"
 import { useSelector } from "react-redux";
 import { AllContext } from "../context/AllContext.jsx";
 
@@ -18,7 +18,7 @@ const [comment, setComment] = useState("")
 const [error, setError] = useState()
 const [loading, setLoading] = useState(false)
 const [likes, setLikes] = useState(post.like?.likes)
-const [shares, setShares] = useState(post.share?.shares)
+const [shares] = useState(post.share?.shares)
 const profilePicture = useSelector((state) => state.user.profilepicture)
 const {axiosInstance} = useContext(AllContext)
 
@@ -35,26 +35,26 @@ async function addLike(postId){
   }
 }
 
- async function fetchComment(offset, postId){
-    setLoading(true)
-    try {
-      const response = await axiosInstance.get("comment",{offset,postId})
-      if(response.data !== "success" ) setComments((comments) => [response.data, ...comments])
-      console.log(response)
-      setLoading(false)
-    } catch (error) {
-      setError("couldnt fetch comments, try again")
-      setLoading(false)
-      setInterval(()=> setError(""),1000)
+//  async function fetchComment(offset, postId){
+//     setLoading(true)
+//     try {
+//       const response = await axiosInstance.get("comment",{offset,postId})
+//       if(response.data !== "success" ) setComments((comments) => [response.data, ...comments])
+//       console.log(response)
+//       setLoading(false)
+//     } catch (error) {
+//       setError("couldnt fetch comments, try again")
+//       setLoading(false)
+//       setInterval(()=> setError(""),1000)
 
-    }  
- }
+//     }  
+//  }
 
  async function addComment( postId){
   setLoading(true)
     try {
       const response = await axiosInstance.post("comment",{comment,postId})
-      if(response.data) setComments((comments) => [response.data, ...comments])
+      if(response.data !== "success") setComments((comments) => [response.data, ...comments])
       setLoading(false)
       setComment("")
     } catch (error) {

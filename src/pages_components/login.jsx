@@ -1,8 +1,8 @@
-import { useContext, useEffect } from "react"
+import { useContext } from "react"
 import { useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { Link , useNavigate} from "react-router-dom"
-import { axiosInstance } from "../axios"
+//import { axiosInstance } from "../axios"
 import { AllContext } from "../context/AllContext"
 
 const Login = () => {
@@ -63,7 +63,7 @@ const Login = () => {
                     <i className="font-bold opacity-90 text-lg ml-6">Connect with your friends online</i>
                 </div>
             </div>
-            <div  className="sm:w-3/5 w-4/5 shadow-lg border rounded-lg px-5 py-7  mx-auto">
+            <div  className="sm:w-3/5 max-w-sm  shadow-lg border rounded-lg px-5 py-7  mx-auto">
                 {isEmpty || error ? <p className="italic text-red-500">{isEmpty}{error}</p> : null}
                 <form onSubmit={login} className="flex flex-col space-y-5">
                     <input value={email} 

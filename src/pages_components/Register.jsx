@@ -71,7 +71,7 @@ const Register = () => {
                         <i className="font-bold opacity-90 text-lg ml-6">Connect with your friends online</i>
                     </div>
                 </div>
-                <div  className="sm:w-3/5 w-4/5 shadow-lg border rounded-lg px-5 py-7  mx-auto">
+                <div  className="sm:w-3/5 max-w-sm shadow-lg border rounded-lg px-5 py-7  mx-auto">
                     <small className='text-red-500'>{errMsg}</small>
                 <form onSubmit={register} className="flex flex-col  space-y-5 ">
                     <input value={firstname} onChange={(e) => setFirstname( e.target.value) } className=" border-slate-300  pl-1.5 border shadow-md h-10 rounded-lg focus:outline-none focus:border-slate-400" type="text" placeholder='Firstname'/>

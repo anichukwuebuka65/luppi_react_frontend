@@ -37,7 +37,7 @@ const LeftSideBar = () => {
   
      w-72 z-20 absolute h-[calc(100vh-56px)]  left-0 top-0`}> 
 
-        <div className='bg-slate-100 shadow-lg border'>
+        <div className='bg-slate-100 shadow-lg lg:shadow-none lg:border-none border'>
             {pathname !== "/groups" &&
             <>
             {/*profileImage */}
