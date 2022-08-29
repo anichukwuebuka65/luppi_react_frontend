@@ -32,7 +32,11 @@ const App = () => {
       "Content-Type":"application/json",
       "Authorization": token
     }
-})
+ })
+
+ const capitalizeFirstLetter = (word) => {
+    return word.substring(0,1).toUpperCase() + word.substring(1)
+ }
  
   const toggleChat = (offOnly = false) => {
     if(offOnly) {
@@ -54,7 +58,8 @@ const App = () => {
         reqCount,
         setReqCount,
         requestDetails,
-        setRequestDetails
+        setRequestDetails,
+        capitalizeFirstLetter
       }
 
   useEffect(() => {

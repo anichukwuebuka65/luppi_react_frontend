@@ -61,7 +61,7 @@ const ProfilePage = () => {
             src={profilepic} alt="coverphoto"/>
             </div>
             <div className='md:flex mx-4 justify-between items-center'>
-                <div className="flex items-center">
+                <div className="flex items-center space-x-2">
                     <div>
                         <img className='h-40 w-40 rounded-full border-4 border-slate-300' 
                         src={profilepic} alt="profilephoto"/>

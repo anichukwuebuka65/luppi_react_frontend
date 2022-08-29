@@ -24,7 +24,7 @@ const MainBar = () => {
   }
   
   function updatePost(value){
-    setPosts((prev) => ([value,...prev]))
+    setPosts((prev) => ([].concat(value, prev)))
   }
   
   const PostList =  useMemo(()=>sortPosts(posts),[posts])

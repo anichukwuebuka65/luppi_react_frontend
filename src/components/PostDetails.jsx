@@ -6,7 +6,7 @@ import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
 import ShareIcon from '@mui/icons-material/Share';
-import { memo, useContext, useState } from "react";
+import { memo, useContext, useEffect, useState } from "react";
 //import {axiosInstance} from "../axios"
 import { useSelector } from "react-redux";
 import { AllContext } from "../context/AllContext.jsx";
@@ -15,14 +15,15 @@ const PostDetails = ({post}) => {
 const [postOptions] = useState(false)
 const [comments, setComments] = useState(post.comments)
 const [comment, setComment] = useState("")
+const [commentCount, setCommentCount] = useState(0)
 const [error, setError] = useState()
 const [loading, setLoading] = useState(false)
 const [likes, setLikes] = useState(post.like?.likes)
 const [shares] = useState(post.share?.shares)
 const profilePicture = useSelector((state) => state.user.profilepicture)
-const {axiosInstance} = useContext(AllContext)
+const {axiosInstance, capitalizeFirstLetter} = useContext(AllContext)
 const [ifLiked,setIfLiked] = useState(false)
-
+const [offset, setOffset] = useState(3)
 
 async function addLike(postId){
   try {
@@ -42,26 +43,28 @@ async function addLike(postId){
   }
 }
 
-//  async function fetchComment(offset, postId){
-//     setLoading(true)
-//     try {
-//       const response = await axiosInstance.get("comment",{offset,postId})
-//       if(response.data !== "success" ) setComments((comments) => [response.data, ...comments])
-//       console.log(response)
-//       setLoading(false)
-//     } catch (error) {
-//       setError("couldnt fetch comments, try again")
-//       setLoading(false)
-//       setInterval(()=> setError(""),1000)
+ async function fetchComments(offset, postId){
+    setLoading(true)
+    try {
+      const response = await axiosInstance.get(`comment?offset=${offset}&postId=${postId}`)
+      setComments((comments) => [].concat(response.data, comments))
+      console.log(response)
+      setLoading(false)
+      setOffset((value) => value + 5)
+    } catch (error) {
+      setError("couldnt fetch comments, try again")
+      setLoading(false)
+      setInterval(()=> setError(""),1000)
 
-//     }  
-//  }
+    }  
+ }
 
  async function addComment( postId){
   setLoading(true)
+  const capitalized = capitalizeFirstLetter(comment)
     try {
-      const {data} = await axiosInstance.post("comment",{comment,postId})
-      if(data !== "success"){setComments((comments) => [data, ...comments])}
+      const {data} = await axiosInstance.post("comment",{comment:capitalized,postId})
+      if(data !== "success"){setComments((comment) => [].concat(data, comment))}
       setLoading(false)
       setComment("")
     } catch (error) {
@@ -70,7 +73,9 @@ async function addLike(postId){
       setLoading(false)
     }  
  }
-
+ useEffect(() => {
+   if(comments?.length > 0) setCommentCount(comments.length)
+ },[comments])
   return (
     <div  className="bg-slate-50  border-2 shadow-lg pb-5 mt-3 rounded-lg ">
       <div className="p-2 relative ">
@@ -79,7 +84,7 @@ async function addLike(postId){
             <div className="flex  ">
                 <ProfileImage/>
                 <div className="font-semibold">
-                <div className="-mb-2 text-lg">{post?.user.firstName} {post?.user.lastName}</div>
+                <div className="-mb-2 text-lg text-zinc-900">{post?.user.firstName} {post?.user.lastName}</div>
                 <small>2 days ago</small>
                 </div>
             </div>
@@ -97,7 +102,7 @@ async function addLike(postId){
             </div> }
 
         </div>
-          {post?.post && <p className="my-2.5 rounded  shadow p-2"> {post?.post}</p>}
+          {post?.post && <p className="my-2.5 rounded text-sm tracking-wide p-2"> {post?.post}</p>}
       </div>
         
 
@@ -116,15 +121,15 @@ async function addLike(postId){
               <small className="text-red-400 mr-3"><FavoriteIcon fontSize="small"/></small>
               <span>{likes ? likes : 0}</span>
             </div>
-            <div>{comments?.length} comments<span className="ml-3">{shares ? shares : 0} {shares === 1 ? 'share' : 'shares'} </span></div>
+            <div className="text-zinc-900">{comments?.length} comments<span className="ml-3 text-zinc-900">{shares ? shares : 0} {shares === 1 ? 'share' : 'shares'} </span></div>
           </div>
           {/*line */}
           <div className="border-t opacity-20 border-black "></div>
 
           <div className="flex justify-around py-2">
             <button onClick={()=>addLike(post.id)}><span className="mr-2 opacity-90"><ThumbUpIcon/></span>like</button>
-            <div><span className="mr-2 opacity-80"><ChatBubbleOutlineOutlinedIcon/></span>comment</div>
-            <div><span className="mr-2 opacity-80"><ShareIcon/></span>share</div>
+            <div className="text-zinc-900"><span className="mr-2 opacity-70"><ChatBubbleOutlineOutlinedIcon/></span>comment</div>
+            <div className="text-zinc-900"><span className="mr-2 opacity-70"><ShareIcon/></span>share</div>
           </div>
 
           {/*line */}
@@ -141,14 +146,14 @@ async function addLike(postId){
           </div>
           {error && <div className="italic bg-red">{error}</div>}
           {loading && <div className="italic ">loading...</div>}
-            {comments?.length > 0 && comments.map((comment) =>{
-              
+            {comments && comments.length !== "undefined" && comments?.length > 0 && comments.map((comment) =>{
               return(
               <div key={comment.id} className="flex pt-1.5 ml-6 pr-10">
                 <ProfileImage image={comment?.user?.user_profile?.profilepicture ?? profilePicture} />
                 <div className="w-4/5">
-                      <div className=" py-px px-2 bg-slate-100 border-slate-300 border-2 shadow-sm rounded-2xl">
-                        <p className="text-sm  italic">{comment.comments}</p>
+                      <div className=" leading-none inline-block py-1.5 p-2 bg-slate-300 border shadow-sm rounded-md">
+                        <p className="font-bold mb-1.5">{comment?.user?.firstName ?? post?.user?.firstName} {comment?.user?.lastName ?? post?.user?.lastName}</p>
+                        <p className="text-sm ">{comment.comments}</p>
                       </div>
                       <div className="flex space-x-2">
                         <small>Like</small>
@@ -158,8 +163,7 @@ async function addLike(postId){
                 </div>
               </div>
             )})}
-          
-
+          {commentCount > 2 && <button onClick={()=>fetchComments(offset, post.id)} className="italic ml-10 font-bold opacity-90">load more comments..</button>}
         </div>  
   </div>      
   )

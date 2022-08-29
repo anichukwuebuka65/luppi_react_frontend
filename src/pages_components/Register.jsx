@@ -15,7 +15,7 @@ const Register = () => {
     const [fetchErrMsg, setFetchErrMsg] = useState()
     const navigate = useNavigate()
     const [isLoading, setIsLoading] = useState(false)
-    const {axiosInstance} = useContext(AllContext)
+    const {axiosInstance, capitalizeFirstLetter} = useContext(AllContext)
 
 
     const nameRegex = /^[A-Za-z0-9]{3,15}$/;
@@ -45,7 +45,13 @@ const Register = () => {
         if(!validated) return
         try {
             setIsLoading(true)
-           const response = await axiosInstance.post("register",{firstname,lastname,email, pwd})
+            const capitalizedFirst = capitalizeFirstLetter(firstname)
+            const capitalizedLast = capitalizeFirstLetter(lastname)
+           const response = await axiosInstance.post("register",{
+            firstname: capitalizedFirst,
+            lastname: capitalizedLast,
+            email, 
+            pwd})
            if (response.status === 200){
             setFirstname("")
             setLastname("")

@@ -3,24 +3,32 @@ import { useContext, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import imageKit from 'imagekit-javascript'
 import { AllContext } from '../context/AllContext';
-
+import { height } from '@mui/system';
 
 const CreatePost = ({setImageError, updatePost,setPostError}) => {
     const [post, setPost] = useState("")
+    const [height, setHeight] = useState()
     const [clicked, setClicked] = useState(false)
     const [imageFile, setImageFile] = useState()
     const [loading, setLoading] = useState(false)
     const {firstName, lastName} = useSelector(state => state.user)
-    const {axiosInstance} = useContext(AllContext)
+    const {axiosInstance, capitalizeFirstLetter} = useContext(AllContext)
     
     const dispatch = useDispatch()
     const imagekit = new imageKit({
         publicKey: 'public_Xd2RM8ChiA2AeLH5NTe7kHEl8JQ=',
         urlEndpoint: 'https://ik.imagekit.io/feov916dg',
-        authenticationEndpoint: 'https://luppi.herokuapp.com/auth'
+        //authenticationEndpoint: 'https://luppi.herokuapp.com/auth'
+        authenticationEndpoint: 'http://localhost:5000/auth'
     })
 
+    function changeheight(e) {
+        setPost(e.target.value)
+       if(e.target.scrollHeight > 80) setHeight(e.target.scrollHeight + "px")
+    }
+
     async function upload() {
+        const capitalized = capitalizeFirstLetter(post)
         setClicked(true)
         setInterval(()=>setClicked(false),500)
         setLoading(true)
@@ -30,7 +38,7 @@ const CreatePost = ({setImageError, updatePost,setPostError}) => {
                 if (imageResult.url) {
                     const postResult = await uploadPost({
                         imageUrl: imageResult.url,
-                        post, 
+                        post: capitalized 
                     })
                     if (!postResult.data) setPostError("unable to upload post")
                     if (postResult.data) updatePost({...postResult.data,user:{firstName,lastName}})
@@ -42,15 +50,14 @@ const CreatePost = ({setImageError, updatePost,setPostError}) => {
             }
         
         if (!imageFile && post) {
-                const uploadResult = await uploadPost({post})
-                console.log(uploadResult)
-                if (!uploadResult.data) {
-                    dispatch({type:'fetchError',payload: 'unable to upload post, pls try again'})
-                    setLoading(false)
-                }
-                if (uploadResult.data) updatePost({...uploadResult.data,user:{firstName,lastName}})
-                setPost('')
+            const uploadResult = await uploadPost({post:capitalized})
+            if (!uploadResult.data) {
+                dispatch({type:'fetchError',payload: 'unable to upload post, pls try again'})
                 setLoading(false)
+            }
+            if (uploadResult.data) updatePost({...uploadResult.data,user:{firstName,lastName}})
+            setPost('')
+            setLoading(false)
         } 
     }
 
@@ -79,7 +86,7 @@ const CreatePost = ({setImageError, updatePost,setPostError}) => {
     }
 
   return (
-    <div className=' border-2 rounded p-3 mb-5 bg-slate-200 shadow-md '>
+    <div className=' border-2 rounded p-3 mb-5  bg-slate-200 shadow-md '>
         <div>
             <p className='font-semibold'>{firstName} {lastName}</p>
             <small>share with:
@@ -90,9 +97,9 @@ const CreatePost = ({setImageError, updatePost,setPostError}) => {
             </small>
         </div>
         <div>
-            <textarea value={post} onChange={(e)=> setPost(e.target.value)} className='h-20 w-full mt-2 rounded 
+            <textarea value={post} onChange={changeheight} style={{height: height ?? ""}} className={`${!height && "h-20"} w-full mt-2 rounded 
             focus:outline-none border-2 border-neutral-300
-            focus:border-neutral-400 focus:bg-white bg-slate-50 px-1.5'></textarea>
+            focus:border-neutral-400 focus:bg-white bg-slate-50 px-1.5`}></textarea>
         </div>
         <div className='float-right '>
             
