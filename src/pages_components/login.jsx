@@ -13,7 +13,7 @@ const Login = () => {
     const [isEmpty, setIsEmpty] = useState()
     const [isLoading, setIsLoading] = useState(false)
     const navigate = useNavigate()
-    const [error, setError] = useState()
+    const [error, setError] = useState("")
     const dispatch = useDispatch()
     const {setToken, axiosInstance} = useContext(AllContext)
 
@@ -44,7 +44,7 @@ const Login = () => {
             setError(error.response.data)
             setIsLoading(false)
             dispatch({type:'fetchUserError', payload: error.message})
-            console.log(error)
+            //console.log(error)
         }
     }
 
@@ -64,7 +64,8 @@ const Login = () => {
                 </div>
             </div>
             <div  className="sm:w-3/5 max-w-sm  shadow-lg border rounded-lg px-5 py-7  mx-auto">
-                {isEmpty || error ? <p className="italic text-red-500">{isEmpty}{error}</p> : null}
+                {isEmpty  && <p className="italic text-red-500">{isEmpty}{error}</p> }
+                { error && <p className="italic text-red-500">{isEmpty}{error}</p> }
                 <form onSubmit={login} className="flex flex-col space-y-5">
                     <input value={email} 
                     onChange={(e) => {setEmail( e.target.value); setIsEmpty(""); setError("")}}

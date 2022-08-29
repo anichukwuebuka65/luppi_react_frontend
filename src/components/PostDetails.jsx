@@ -21,16 +21,23 @@ const [likes, setLikes] = useState(post.like?.likes)
 const [shares] = useState(post.share?.shares)
 const profilePicture = useSelector((state) => state.user.profilepicture)
 const {axiosInstance} = useContext(AllContext)
+const [ifLiked,setIfLiked] = useState(false)
 
 
 async function addLike(postId){
   try {
-
-    setLikes((count) => count + 1)
-    const response = await axiosInstance.post("like",{postId})
-    if(!response.data) setLikes((count) => count - 1)
+    if(!ifLiked){
+      setLikes((count) => count + 1)
+      setIfLiked(true)
+      const response = await axiosInstance.post("like",{postId})
+      if(!response.data) {
+        setLikes((count) => count - 1)
+        setIfLiked(false)
+      }
+    }
   } catch (error) {
     setLikes((count) => count - 1)
+    setIfLiked(false)
     //console.log(error)
   }
 }
@@ -53,8 +60,8 @@ async function addLike(postId){
  async function addComment( postId){
   setLoading(true)
     try {
-      const response = await axiosInstance.post("comment",{comment,postId})
-      if(response.data !== "success") setComments((comments) => [response.data, ...comments])
+      const {data} = await axiosInstance.post("comment",{comment,postId})
+      if(data !== "success"){setComments((comments) => [data, ...comments])}
       setLoading(false)
       setComment("")
     } catch (error) {

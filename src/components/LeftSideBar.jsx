@@ -5,18 +5,17 @@ import StoreIcon from '@mui/icons-material/Store';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import ProfileImage from "./ProfileImage.jsx"
 import {Link, useLocation, useNavigate} from "react-router-dom"
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { AllContext } from '../context/AllContext.jsx';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { useDispatch, useSelector } from 'react-redux';
-import { axiosInstance } from '../axios.js';
+import {  useSelector } from 'react-redux';
+//import { axiosInstance } from '../axios.js';
 import GroupRightSideBar from './GroupRightSideBar.jsx';
 
 const LeftSideBar = () => {
     const userId = useSelector(state => state.user.id)
     const {setToken,toggleChat,toggleSideBar,setToggleSideBar} = useContext(AllContext)
     let {pathname} = useLocation()
-    const dispatch = useDispatch()
     const navigate = useNavigate()
 
      function logOut() {
@@ -37,7 +36,7 @@ const LeftSideBar = () => {
   
      w-72 z-20 absolute h-[calc(100vh-56px)]  left-0 top-0`}> 
 
-        <div className='bg-slate-100 shadow-lg lg:shadow-none lg:border-none border'>
+        <div className='bg-slate-100 shadow-lg md:shadow-none md:border-none border'>
             {pathname !== "/groups" &&
             <>
             {/*profileImage */}

@@ -41,18 +41,19 @@ const ProfilePage = () => {
             try {
                 const {data} = await axiosInstance.get(`profile?id=${id}`)
                 setPosts(data.userPosts)
-                setUser(data.userPosts[0].user)
+                setUser(data.profile.user)
                 setProfilePic(data.profile.profilepicture)
                 setFriendsCount(data.friendsCount)
                 setLoading(false)
             } catch (error) {
+                console.log(error)
                 setError("couldn't find profile")
             }
         }
         fetchProfile()
     },[id])
  
-    if(error.length > 1) return <div>{error}</div>
+    if(error) return <div>{error}</div>
     if (loading) return <div className='italic text-center'>loading...</div>
     return (
         <div className='lg:w-2/3 pb-4 mx-auto '>
@@ -102,7 +103,8 @@ const ProfilePage = () => {
             <div className="border-t my-1.5 opacity-20 border-black "></div>
 
             <div  className = 'col-span-2 lg:w-4/5 md:w-2/3 mx-auto overflow-auto'>
-                { posts.map(post => (<PostDetails key={post.id} post={post} />))}
+                { posts.length > 0 ? posts.map(post => (<PostDetails key={post.id} post={post} />)) 
+                : <div className='text-center text-lg font-bold'>No posts</div>}
             </div>
             
         </div>

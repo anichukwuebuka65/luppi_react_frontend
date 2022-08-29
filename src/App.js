@@ -21,11 +21,12 @@ const App = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [token, setToken] = useState("")
-
+  const [requestDetails, setRequestDetails] = useState([])
+  const [reqCount, setReqCount] = useState(0)
 
  const axiosInstance = axios.create({
-    baseURL: 'https://luppi.herokuapp.com/',
-    //baseURL: 'http://localhost:5000/',
+    //baseURL: 'https://luppi.herokuapp.com/',
+    baseURL: 'http://localhost:5000/',
     withCredentials: true,
     headers: {
       "Content-Type":"application/json",
@@ -49,7 +50,11 @@ const App = () => {
         toggleSideBar,
         setToggleSideBar,
         setToken,
-        axiosInstance
+        axiosInstance,
+        reqCount,
+        setReqCount,
+        requestDetails,
+        setRequestDetails
       }
 
   useEffect(() => {

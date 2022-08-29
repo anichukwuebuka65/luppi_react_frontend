@@ -1,9 +1,7 @@
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
-import axios from 'axios';
 import { useContext, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import imageKit from 'imagekit-javascript'
-import { axiosInstance } from '../axios';
 import { AllContext } from '../context/AllContext';
 
 
@@ -103,7 +101,7 @@ const CreatePost = ({setImageError, updatePost,setPostError}) => {
         </div>
         <div className='text-center' >
             <button onClick={upload} 
-            className={`w-full rounded text-white  tracking-wide font-semibold ${!clicked && "hover:bg-blue-600 bg-blue-700"}
+            className={`w-full rounded text-white  tracking-wide font-semibold ${!clicked && "hover:bg-blue-600 bg-blue-500"}
              ${clicked && "bg-blue-400 h-7"}`} 
             >Share</button>
         </div>

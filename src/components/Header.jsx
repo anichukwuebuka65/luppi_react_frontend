@@ -15,32 +15,36 @@ import LeftSideBar from './LeftSideBar'
 
  const Header = () => {
     const [inbox, setInbox] = useState(false);
-    const {axiosInstance,chat, setChat, toggleChat,setToggleSideBar} = useContext(AllContext)
-    const [reqCount, setReqCount] = useState()
-    const [messageCount, setMessageCount] = useState()
+    const [messageCount] = useState()
+    const {axiosInstance,
+           chat, 
+           setChat,
+           toggleChat,
+           setToggleSideBar,
+           reqCount,
+           setReqCount} = useContext(AllContext)
 
     useEffect(() => {
         setToggleSideBar(true)
         setInbox(false) 
         setChat(false) 
 
-         axiosInstance.get('/friendrequest/count')
-        .then(response => {
-        setReqCount(response.data)
-        })
-        .catch(error => console.log(error))
+        axiosInstance.get("friendrequest/count")
+        .then((response) => setReqCount(response.data))
+        .catch((error) => console.log("something went wrong"))
+
     },[setToggleSideBar, setChat])
     
-        const toggleInbox = () => {
+    const toggleInbox = () => {
         setInbox(true)
-        } 
+    } 
 
-        const toggleInboxOff = () => {
+    const toggleInboxOff = () => {
         setInbox(false)
-        } 
+    } 
 
   return (
-    <div className='lg:grid  pt-1.5 lg:pt-0 justify-around lg:grid-cols-4 bg-blue-700 h-14 content-center shadow-lg relative'>
+    <div className='lg:grid  pt-1.5 lg:pt-0 justify-around lg:grid-cols-4 bg-blue-500 h-14 content-center shadow-lg relative'>
         <div className='pl-7 hidden lg:block text-white'>
             <div className='text-4xl font-bold '>
                <Link to="/home">luppi</Link> 

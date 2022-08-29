@@ -1,16 +1,18 @@
 import { useState } from 'react'
 import  { useContext, useEffect } from 'react'
-import { axiosInstance } from '../axios'
+//import { axiosInstance } from '../axios'
 import { AllContext } from '../context/AllContext'
 import { useNavigate } from 'react-router-dom'
 
 const FriendRequests = () => {
-  const {setToggleSideBar} = useContext(AllContext)
-  const [requestDetails, setRequestDetails] = useState([])
+  const {axiosInstance,
+    setToggleSideBar,
+    requestDetails, 
+    setRequestDetails,
+    setReqCount} = useContext(AllContext)
   const [acceptError, setAcceptError] = useState('')
   const [fetchError, setFetchError] = useState('')
   const navigate = useNavigate()
-  const {axiosInstance} = useContext(AllContext)
 
 
   async function acceptRequest(id){
@@ -21,9 +23,9 @@ const FriendRequests = () => {
           friendId: id
       }
     })
-
     const filteredRequest = requestDetails.filter(item => item.id != id)
-    response.data[0] == 1 ? setRequestDetails(filteredRequest) : setAcceptError('an error occured, try again')
+    response.data[0] >= 1 ? setRequestDetails(filteredRequest) : setAcceptError('an error occured, try again')
+    setReqCount(filteredRequest.length)
   }
 
   async function declineRequest(id){
@@ -37,9 +39,12 @@ const FriendRequests = () => {
     })
     const filteredRequest = requestDetails.filter(item => item.id != id)
     response.data == 1 ? setRequestDetails(filteredRequest) : setAcceptError('an error occured, try again')
+    setReqCount(filteredRequest.length)
+
   }
 
   useEffect(() => {
+
     axiosInstance.get('friendrequest',)
     .then((response) => {
       if(response.data !== 'invalid token') {
@@ -51,6 +56,7 @@ const FriendRequests = () => {
       console.log(error)
     setFetchError(error.message)//'Something went wrong, try again later')
     })
+
     return () => {
       setToggleSideBar(false)
     }
