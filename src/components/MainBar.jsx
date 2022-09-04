@@ -9,8 +9,6 @@ const MainBar = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [isLoadingNext, setIsLoadingNext] = useState(false)
   const [userId, setUserId] = useState()
-  const ref = useRef(true)
-  const ref2 = useRef(true)
   const dispatch = useDispatch()
   const [imageError, setImageError] = useState()
   const [postError, setpostError] = useState()
@@ -47,36 +45,29 @@ const MainBar = () => {
       }
   }
 
-
-   function loadNextPosts(e){
-     if (e.currentTarget) {
-       const {scrollTop, clientHeight, scrollHeight} = e.currentTarget
-       if ((scrollTop + clientHeight === scrollHeight) && ref2.current === true && !finished) {
-              setIsLoadingNext(true)
-              fetchUserPost(offset)
-              ref2.current = false
-              setTimeout(() => ref2.current = true, 500)
-          }
-      }
-  }
-
+  function loadNextPosts(e){
+    if (e.currentTarget) {
+      const {scrollTop, clientHeight, scrollHeight} = e.currentTarget
+      if ((scrollTop + clientHeight === scrollHeight) &&  !finished) {
+             setIsLoadingNext(true)
+             fetchUserPost(offset)
+         }
+     }
+ }
 
   useEffect(() => {
-    setIsLoading(true)
-    if(ref.current === true){
-          fetchUserPost(offset) 
-    }
-    ref.current = false
+      setIsLoading(true)
+      fetchUserPost(offset) 
   },[userId])
 
   if (isLoading) return(<div className='italic text-2xl mt-5 text-center'>Loading...</div>)
 
   return (
-    <div  className = 'col-span-2 w-full sm:w-2/3 lg:w-4/5 pl-3 mx-auto md:overflow-auto' onScroll={loadNextPosts} >
+    <div  className = 'col-span-2 w-full sm:w-2/3 lg:w-4/5 pl-3 mx-auto md:overflow-auto overflow-scroll' onScroll={loadNextPosts} >
       <CreatePost updatePost={updatePost} setImageError={setImageError} setpostError={setpostError}/>
       {imageError && <div className="text-center italic text-red-500">{imageError}</div>}
       {postError &&  <div className="text-center italic text-red-500">{postError}</div>}
-      { PostList.length > 0  ?  PostList.map(post => <PostDetails key={post.id} post={post}/>) :
+      { PostList.length > 0  ?  PostList.map((post,i) => <PostDetails key={i} post={post}/>) :
         !isLoading && <div className='border-2 rounded opacity-90 p-2 shadow-md'>not post found</div>}
       { isLoadingNext && (<div className='italic text-xl mt-5 text-center'>Loading...</div>)}  
     </div>

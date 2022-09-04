@@ -16,11 +16,12 @@ const CreatePost = ({setImageError, updatePost,setPostError}) => {
     const imagekit = new imageKit({
         publicKey: 'public_Xd2RM8ChiA2AeLH5NTe7kHEl8JQ=',
         urlEndpoint: 'https://ik.imagekit.io/feov916dg',
-        //authenticationEndpoint: 'https://luppi.herokuapp.com/auth'
-        authenticationEndpoint: 'http://localhost:5000/auth'
+        authenticationEndpoint: 'https://luppi.herokuapp.com/auth'
+        //authenticationEndpoint: 'http://localhost:5000/auth'
     })
 
     async function upload() {
+        if (!post && !imageFile) return
         const capitalized = capitalizeFirstLetter(post)
         setClicked(true)
         setInterval(()=>setClicked(false),500)
@@ -102,7 +103,7 @@ const CreatePost = ({setImageError, updatePost,setPostError}) => {
         <div className='text-center' >
             <button onClick={upload} 
             className={`w-full rounded text-white  tracking-wide font-semibold ${!clicked && "hover:bg-blue-600 bg-blue-500"}
-             ${clicked && "bg-blue-400 h-7"}`} 
+             ${clicked && " h-7"}`} 
             >Share</button>
         </div>
         {loading && <div className="italics opacity-70">loading...</div>}

@@ -44,7 +44,7 @@ import LeftSideBar from './LeftSideBar'
     } 
 
   return (
-    <div className='lg:grid  pt-1.5 lg:pt-0 justify-around lg:grid-cols-4 bg-blue-500 h-14 content-center shadow-lg relative'>
+    <div className='lg:grid  pt-1.5 lg:pt-0 justify-around lg:grid-cols-4 bg-blue-500  h-12 content-center shadow-lg relative'>
         <div className='pl-7 hidden lg:block text-white'>
             <div className='text-4xl font-bold '>
                <Link to="/home">luppi</Link> 

@@ -41,9 +41,8 @@ const Login = () => {
                 navigate("/home")
             } 
         } catch (error) {
-            setError(error.response.data)
+            setError("something went wrong")
             setIsLoading(false)
-            dispatch({type:'fetchUserError', payload: error.message})
             console.log(error)
         }
     }

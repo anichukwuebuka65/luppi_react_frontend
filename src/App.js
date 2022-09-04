@@ -25,8 +25,8 @@ const App = () => {
   const [reqCount, setReqCount] = useState(0)
 
  const axiosInstance = axios.create({
-    baseURL: 'https://luppi.herokuapp.com/',
-    //baseURL: 'http://localhost:5000/',
+    //baseURL: 'https://luppi.herokuapp.com/',
+    baseURL: 'http://localhost:5000/',
     withCredentials: true,
     headers: {
       "Content-Type":"application/json",
@@ -59,7 +59,7 @@ const App = () => {
         setReqCount,
         requestDetails,
         setRequestDetails,
-        capitalizeFirstLetter
+        capitalizeFirstLetter,
       }
 
   useEffect(() => {
@@ -75,7 +75,7 @@ const App = () => {
   },[])
 
   return (
-  <div>
+  <div >
       <AllContext.Provider value={contextValues}> 
           <Routes>
             <Route exact path="/" element={ token ? <Layout2 /> : <Login/>}>
