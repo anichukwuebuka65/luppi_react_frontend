@@ -3,11 +3,9 @@ import { useContext, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import imageKit from 'imagekit-javascript'
 import { AllContext } from '../context/AllContext';
-import { height } from '@mui/system';
 
 const CreatePost = ({setImageError, updatePost,setPostError}) => {
     const [post, setPost] = useState("")
-    const [height, setHeight] = useState()
     const [clicked, setClicked] = useState(false)
     const [imageFile, setImageFile] = useState()
     const [loading, setLoading] = useState(false)
@@ -21,11 +19,6 @@ const CreatePost = ({setImageError, updatePost,setPostError}) => {
         //authenticationEndpoint: 'https://luppi.herokuapp.com/auth'
         authenticationEndpoint: 'http://localhost:5000/auth'
     })
-
-    function changeheight(e) {
-        setPost(e.target.value)
-       if(e.target.scrollHeight > 80) setHeight(e.target.scrollHeight + "px")
-    }
 
     async function upload() {
         const capitalized = capitalizeFirstLetter(post)
@@ -97,9 +90,9 @@ const CreatePost = ({setImageError, updatePost,setPostError}) => {
             </small>
         </div>
         <div>
-            <textarea value={post} onChange={changeheight} style={{height: height ?? ""}} className={`${!height && "h-20"} w-full mt-2 rounded 
-            focus:outline-none border-2 border-neutral-300
-            focus:border-neutral-400 focus:bg-white bg-slate-50 px-1.5`}></textarea>
+            <textarea rows="4" value={post} onChange={(e)=>setPost(e.target.value)} className=" w-full  mt-2 rounded 
+            focus:outline-none border-2 border-neutral-200 overflow-hidden
+            focus:border-neutral-300 focus:bg-white bg-slate-50 px-1.5"></textarea>
         </div>
         <div className='float-right '>
             

@@ -25,8 +25,8 @@ const App = () => {
   const [reqCount, setReqCount] = useState(0)
 
  const axiosInstance = axios.create({
-    //baseURL: 'https://luppi.herokuapp.com/',
-    baseURL: 'http://localhost:5000/',
+    baseURL: 'https://luppi.herokuapp.com/',
+    //baseURL: 'http://localhost:5000/',
     withCredentials: true,
     headers: {
       "Content-Type":"application/json",

@@ -25,15 +25,15 @@ import LeftSideBar from './LeftSideBar'
            setReqCount} = useContext(AllContext)
 
     useEffect(() => {
-        setToggleSideBar(true)
+        setToggleSideBar(false)
         setInbox(false) 
         setChat(false) 
 
         axiosInstance.get("friendrequest/count")
-        .then((response) => setReqCount(response.data))
+        .then((response) =>{ setReqCount(response.data)})
         .catch((error) => console.log("something went wrong"))
 
-    },[setToggleSideBar, setChat])
+    },[])
     
     const toggleInbox = () => {
         setInbox(true)
