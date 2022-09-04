@@ -44,7 +44,7 @@ const Login = () => {
             setError(error.response.data)
             setIsLoading(false)
             dispatch({type:'fetchUserError', payload: error.message})
-            //console.log(error)
+            console.log(error)
         }
     }
 
@@ -80,7 +80,7 @@ const Login = () => {
                         <p>No account? <Link to="/register"><i className="text-blue-500">Sign up</i></Link></p>
                     <button className="border-slate-300 hover:bg-blue-500 text-white h-9 rounded font-bold text-lg bg-blue-600" type="submit" >Login</button>
                 </form>
-        {isLoading && <div className='italic text-2xl mt-5 opacity-80 text-center'>Loading...</div>}
+        {isLoading && <div className='italic text-xl mt-5 opacity-80 text-center'>Loading...</div>}
             </div>
         </div>
 

@@ -77,7 +77,7 @@ async function addLike(postId){
    if(comments?.length > 0) setCommentCount(comments.length)
  },[comments])
   return (
-    <div  className="bg-slate-50  border-2 shadow-lg pb-5 mt-3 rounded-lg ">
+    <div  className="bg-slate-50 shadow-md pb-5 mt-5 rounded-lg ">
       <div className="p-2 relative ">
         <div className="flex justify-between ">
           

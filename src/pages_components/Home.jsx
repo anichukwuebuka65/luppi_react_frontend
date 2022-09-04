@@ -6,6 +6,8 @@ import { AllContext } from "../context/AllContext.jsx"
 const Home = () => {
   const {setToggleSideBar} = useContext(AllContext)
 
+
+
   useEffect(()=>{
     setToggleSideBar(false)
     return ()=>{
@@ -16,12 +18,8 @@ const Home = () => {
   return (
       <>
         {/*center-bar */}
-        <div className = 'col-span-2 w-full sm:w-2/3 lg:w-4/5 pl-3 mx-auto md:overflow-auto'>
-           
-            {/*mainbar */}
-            <MainBar/>
-        </div>
-
+          {/*mainbar */}
+          <MainBar/>
           {/*right-sidebar */}
         <div className = 'hidden lg:block'>
           <RightSideBar/>
