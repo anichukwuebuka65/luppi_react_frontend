@@ -5,7 +5,7 @@ import Header from '../components/Header'
 const Layout2 = ({reqCount}) => {
 
   return (
-    <div>
+    <div className='text-sm'>
         <Header count={reqCount}/>
         <Outlet/>
     </div>

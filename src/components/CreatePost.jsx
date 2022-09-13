@@ -3,21 +3,21 @@ import { useContext, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import imageKit from 'imagekit-javascript'
 import { AllContext } from '../context/AllContext';
+import {fetching,fetch_success,fetch_error,clear_error} from '../redux/reducers/PostSlice';
 
-const CreatePost = ({setImageError, updatePost,setPostError}) => {
+
+const CreatePost = ({setImageError, postFetch, loading, error,offset}) => {
+    const dispatch = useDispatch()
     const [post, setPost] = useState("")
     const [clicked, setClicked] = useState(false)
-    const [imageFile, setImageFile] = useState()
-    const [loading, setLoading] = useState(false)
+    const [imageFile, setImageFile] = useState(null)
     const {firstName, lastName} = useSelector(state => state.user)
-    const {axiosInstance, capitalizeFirstLetter} = useContext(AllContext)
-    
-    const dispatch = useDispatch()
+    const { capitalizeFirstLetter} = useContext(AllContext)
     const imagekit = new imageKit({
         publicKey: 'public_Xd2RM8ChiA2AeLH5NTe7kHEl8JQ=',
         urlEndpoint: 'https://ik.imagekit.io/feov916dg',
-        authenticationEndpoint: 'https://luppi.herokuapp.com/auth'
-        //authenticationEndpoint: 'http://localhost:5000/auth'
+        //authenticationEndpoint: 'https://luppi.herokuapp.com/auth'
+        authenticationEndpoint: 'http://localhost:5000/auth'
     })
 
     async function upload() {
@@ -25,33 +25,23 @@ const CreatePost = ({setImageError, updatePost,setPostError}) => {
         const capitalized = capitalizeFirstLetter(post)
         setClicked(true)
         setInterval(()=>setClicked(false),500)
-        setLoading(true)
             if (imageFile) {
                 const imageResult = await uploadImage()
                 setImageFile('')
                 if (imageResult.url) {
-                    const postResult = await uploadPost({
+                     addPosts({
                         imageUrl: imageResult.url,
-                        post: capitalized 
+                        post: capitalized,
                     })
-                    if (!postResult.data) setPostError("unable to upload post")
-                    if (postResult.data) updatePost({...postResult.data,user:{firstName,lastName}})
-                    setPost('')
-                    setLoading(false)
+                     setPost('')
                 } else {
                     setImageError('unable to upload image, try again')
                 }
             }
         
         if (!imageFile && post) {
-            const uploadResult = await uploadPost({post:capitalized})
-            if (!uploadResult.data) {
-                dispatch({type:'fetchError',payload: 'unable to upload post, pls try again'})
-                setLoading(false)
-            }
-            if (uploadResult.data) updatePost({...uploadResult.data,user:{firstName,lastName}})
-            setPost('')
-            setLoading(false)
+            addPosts({post: capitalized})
+            setPost("")
         } 
     }
 
@@ -68,16 +58,15 @@ const CreatePost = ({setImageError, updatePost,setPostError}) => {
     
     }
 
-    const uploadPost = async(fetchparams) => { 
-        try {
-            const response = await axiosInstance.post('posts', fetchparams)
-            return response
-            //dispatch({ type:'addPost', payload: response.data})
-        } catch (error) {
-             return error
-            //dispatch({type:'fetchError',payload: error.message}))
+    async function addPosts(data){
+        dispatch(fetching())
+        const result = await postFetch(data)
+        if (result === "error") {
+          dispatch(fetch_error("something went wrong, try again"))
+         return setTimeout(()=>dispatch(clear_error()),1000)
         }
-    }
+        dispatch(fetch_success({result,offset}))
+      }
 
   return (
     <div className=' border-2 rounded p-3 mb-5  bg-slate-200 shadow-md '>
@@ -95,8 +84,8 @@ const CreatePost = ({setImageError, updatePost,setPostError}) => {
             focus:outline-none border-2 border-neutral-200 overflow-hidden
             focus:border-neutral-300 focus:bg-white bg-slate-50 px-1.5"></textarea>
         </div>
-        <div className='float-right '>
-            
+        <div className='float-right flex space-x-3 mb-1.5'>
+            {imageFile && (<p className='rounded bg-slate-300 px-2 italic'>{imageFile.name}</p>)}
             <label className=' text-gray-500 mr-2 hover:cursor' htmlFor='imgInput'><i>photo</i><AddAPhotoIcon/></label>
             <input className="hidden" onChange={(e)=>{setImageFile(e.target.files[0])}} type="file" id="imgInput"/>
         </div>

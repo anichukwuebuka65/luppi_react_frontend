@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Home from "./pages_components/Home.jsx";
 import Groups from "./pages_components/Groups.jsx";
 import Friends from "./pages_components/Friends.jsx";
@@ -14,19 +14,23 @@ import Login from './pages_components/login.jsx'
 import Register from './pages_components/Register.jsx'
 import { useDispatch} from "react-redux";
 import axios from "axios";
+import PostWithComments from "./pages_components/PostWithComments.jsx";
+import MainBar from "./components/MainBar.jsx";
 
 const App = () => {
   const [chat, setChat] = useState(false)
   const [toggleSideBar, setToggleSideBar] = useState(false)
+  const [token, setToken] = useState("")
+  const [requestDetails, setRequestDetails] = useState([]) 
+  const [reqCount, setReqCount] = useState(0)
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const [token, setToken] = useState("")
-  const [requestDetails, setRequestDetails] = useState([])
-  const [reqCount, setReqCount] = useState(0)
+  const position = useRef(0)
+  const ref = useRef(true)
 
  const axiosInstance = axios.create({
-    baseURL: 'https://luppi.herokuapp.com/',
-    //baseURL: 'http://localhost:5000/',
+    //baseURL: 'https://luppi.herokuapp.com/',
+    baseURL: 'http://localhost:5000/',
     withCredentials: true,
     headers: {
       "Content-Type":"application/json",
@@ -60,6 +64,8 @@ const App = () => {
         requestDetails,
         setRequestDetails,
         capitalizeFirstLetter,
+        position,
+        ref
       }
 
   useEffect(() => {
@@ -77,22 +83,26 @@ const App = () => {
   return (
   <div >
       <AllContext.Provider value={contextValues}> 
-          <Routes>
-            <Route exact path="/" element={ token ? <Layout2 /> : <Login/>}>
-              <Route path="home" element={<Layout/>} >
-                  <Route index element={<Home/>} />
-                  <Route path="friends" element={<Friends/>} />
-              </Route>   
-              <Route path="groups" element={<Groups/>} />
-              <Route path="profilepage" element={<ProfilePage/>} />
-              <Route path="friendrequest" element={<FriendRequests/>} />
-              <Route path="notifications" element={<Notifications/>} />
-            </Route>
-            <Route path="/login" element={<Login/>}/>
-            <Route path="/register" element={<Register/>}/>
-            <Route path="*" element={<PageNotFound/>}/>
-
-          </Routes> 
+            <Routes>
+              <Route element={ token ? <Layout2 /> : <Login/>}>
+                <Route index element={<Layout/>} />
+                <Route element={<Layout/>} >
+                    <Route index element={<Home/>}/>
+                    <Route path="/home" element={<Home/>}>
+                      <Route index element={<MainBar/>}/>
+                      <Route path=":id" element={<PostWithComments/>}/>
+                    </Route>
+                    <Route path="friends" element={<Friends/>} />
+                </Route>   
+                <Route path="groups" element={<Groups/>} />
+                <Route path="profilepage" element={<ProfilePage/>} />
+                <Route path="friendrequest" element={<FriendRequests/>} />
+                <Route path="notifications" element={<Notifications/>} />
+              </Route>
+              <Route path="/login" element={<Login/>}/>
+              <Route path="/register" element={<Register/>}/>
+              <Route path="*" element={<PageNotFound/>}/>
+            </Routes> 
       </AllContext.Provider>    
   </div>   
   )     

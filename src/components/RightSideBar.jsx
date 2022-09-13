@@ -12,7 +12,6 @@ const RightSideBar = () => {
         const fetchUsers = async() => {
             try {
                 const {data} = await axiosInstance.get("users")
-                console.log(data)
                 setUsers(data)
             } catch (error) {
                 console.log(error)

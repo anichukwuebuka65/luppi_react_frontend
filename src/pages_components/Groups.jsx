@@ -1,5 +1,5 @@
 import GroupImage from "../components/GroupImage"
-import PostDetails from "../components/PostDetails"
+import PostDetails from "../components/postDetails/PostDetails"
 import GroupRightSideBar from "../components/GroupRightSideBar"
 const Groups = () => {
   const post = {

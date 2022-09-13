@@ -1,5 +1,5 @@
 import  { useContext } from 'react'
-import PostDetails from '../components/PostDetails'
+import PostDetails from '../components/postDetails/PostDetails'
 import {useSearchParams} from 'react-router-dom'
 //import { axiosInstance } from '../axios'
 import { useEffect,useState } from 'react'

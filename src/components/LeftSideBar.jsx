@@ -14,6 +14,7 @@ import GroupRightSideBar from './GroupRightSideBar.jsx';
 
 const LeftSideBar = () => {
     const userId = useSelector(state => state.user.id)
+    const {firstName, lastName} = useSelector(state => state.user)
     const {setToken,toggleChat,toggleSideBar,setToggleSideBar} = useContext(AllContext)
     let {pathname} = useLocation()
     const navigate = useNavigate()
@@ -21,19 +22,13 @@ const LeftSideBar = () => {
      function logOut() {
         setToken("")
         navigate('/login')
-        // try {
-        //     // const {data} = await axiosInstance.get('/logout')
-        //     // if (data === 'loggedOut' )
-        // } catch(error) {
-        //     //console.log(error)
-        // } 
+       
     }
 
   return (
     <div className={`${!toggleSideBar && 'hidden' }
-     ${pathname ===  "/home/friends" && 'lg:block' } 
+     ${(pathname ===  "/home/friends" || new RegExp(/\/home\/[0-9]+/).test(pathname)) && 'lg:block' } 
      ${pathname ===  "/home" && 'lg:block' } 
-  
      w-72 z-20 absolute h-[calc(100vh-56px)]  left-0 top-0`}> 
 
         <div className='bg-slate-100 shadow-lg md:shadow-none md:border-none border'>
@@ -42,7 +37,7 @@ const LeftSideBar = () => {
             {/*profileImage */}
             <div className='flex items-center p-2 hover:bg-slate-300 rounded'>
                 <ProfileImage classAttr={"h-7 w-7"}/>
-                <span className='font-semibold'><Link to={`/profilepage?Id=${userId}`}>Ani chukwuebuka</Link> </span>
+                <span className='font-semibold'><Link to={`/profilepage?Id=${userId}`}>{firstName} {lastName}</Link> </span>
             </div>
 
                 {/*sidebarItems */}

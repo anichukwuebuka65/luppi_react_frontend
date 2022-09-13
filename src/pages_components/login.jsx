@@ -35,7 +35,7 @@ const Login = () => {
             if (response.status === 200) {
                 const {data} = response
                 setToken(data.token)
-                 dispatch({type:'fetchUser', payload: data})
+                 dispatch({type:'fetchUserSuccess', payload: data})
                 sessionStorage.setItem("user", JSON.stringify(data))
                 setIsLoading(false)
                 navigate("/home")

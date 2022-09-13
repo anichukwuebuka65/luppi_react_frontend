@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react"
-import MainBar from "../components/MainBar.jsx"
+import { Outlet } from "react-router-dom"
 import RightSideBar from "../components/RightSideBar.jsx"
 import { AllContext } from "../context/AllContext.jsx"
 
@@ -15,16 +15,13 @@ const Home = () => {
     }
 },[])
 
-  return (
-      <>
-        {/*center-bar */}
-          {/*mainbar */}
-          <MainBar/>
-          {/*right-sidebar */}
-        <div className = 'hidden lg:block'>
-          <RightSideBar/>
-        </div>
-      </>    
+    return (
+        <>
+            <Outlet/>  
+            <div className = 'hidden lg:block'>
+                <RightSideBar/>
+            </div>
+        </>    
   )
 }
 
