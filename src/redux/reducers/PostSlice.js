@@ -34,11 +34,14 @@ const postSlice = createSlice({
         },
         incrementLike(state,{payload}){
             state.posts.map(post => {
-                if(post.id == payload) return post.like.likes++
+                if(post.id === payload) return post.like.likes++
                 return post
             })
+        },
+        delete_post(state,{payload}){
+           state.posts = state.posts.filter(post => post.id !== payload)
         }
     }
 })
 export const postReducer = postSlice.reducer
-export const {fetching,fetch_success,fetch_error,clear_error,incrementLike} = postSlice.actions
+export const {fetching,fetch_success,fetch_error,clear_error,incrementLike,delete_post} = postSlice.actions

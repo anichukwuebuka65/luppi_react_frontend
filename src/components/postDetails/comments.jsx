@@ -22,7 +22,7 @@ function reducer(state,{type,payload}){
 
 function Comments({id}) {
     const {firstName, lastName, profilePicture } = useSelector((state) => state.user)
-    const{commentsCount} = useSelector(state => state.posts.posts.find(post => post.id === parseInt(id)))
+    const count = useSelector(state => state.posts.posts.find(post => post.id === parseInt(id)))
     const [state, dispatch] = useReducer(reducer,{comments:[],loading:false,error:"",offset:0})
     const {comments,loading,error,offset} = state
     const {getFetch, postFetch} = useFetch("comment")
@@ -51,9 +51,9 @@ function Comments({id}) {
         </div>
             {error && <div className="italic bg-red">{error}</div>}
             {loading && <div className="italic ">loading...</div>}
-        {comments && comments.length !== "undefined" && comments?.length > 0 && comments.map((comment,i) =>{
+        {comments && comments.length !== "undefined" && comments?.length > 0 && comments.map((comment) =>{
         return(
-            <div key={i} className="flex pt-1.5 ml-6 pr-10">
+            <div key={comment.id} className="flex pt-1.5 ml-6 pr-10">
                 <ProfileImage image={comment?.user?.user_profile?.profilepicture ?? profilePicture} />
                 <div className="w-4/5">
                     <div className=" leading-none inline-block py-1.5 p-2 bg-slate-300 border shadow-sm rounded-md">
@@ -68,7 +68,7 @@ function Comments({id}) {
                 </div>
             </div>
         )})}
-        {commentsCount > comments.length && <button onClick={()=>fetchComments(id)} 
+        {count?.commentsCount > comments.length && <button onClick={()=>fetchComments(id)} 
         className="italic ml-10 font-bold opacity-90">load more comments..</button>}
     </>
   )

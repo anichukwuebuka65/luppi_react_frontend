@@ -2,8 +2,12 @@ import React from 'react'
 import PostMenu from "./postMenu"
 import ProfileImage from "../ProfileImage"
 import LikesWithShare from "./likesWithShare"
+import { useNavigate } from 'react-router-dom'
 
 const PostBody = ({post, deleteFetch}) => {
+    const navigate = useNavigate()
+
+    if (!post) return navigate("/home")
 
   return (
     <>

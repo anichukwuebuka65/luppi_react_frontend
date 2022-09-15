@@ -44,7 +44,7 @@ import LeftSideBar from './LeftSideBar'
     } 
 
   return (
-    <div className='lg:grid  pt-1.5 lg:pt-0 justify-around lg:grid-cols-4 bg-blue-500  h-12 content-center shadow-lg relative'>
+    <div className='lg:grid  pt-1.5 lg:pt-0 justify-around lg:grid-cols-4 bg-purple-800 h-12 content-center shadow-lg relative'>
         <div className='pl-7 hidden lg:block text-white'>
             <div className='text-4xl font-bold '>
                <Link to="/home">luppi</Link> 
@@ -53,29 +53,29 @@ import LeftSideBar from './LeftSideBar'
 
         <div className=' max-w-lg mx-auto lg:max-w-none lg:mx-0  lg:col-span-2 pr-9'>
             <ul className='  flex text-white justify-evenly items-center justify-items-center '>
-                <li className='hover:bg-blue-500 p-1.5  rounded'>
+                <li className='hover:bg-blue-500 p-1.5 rounded'>
                     <Link to='/home'>
-                        <HomeIcon fontSize="large"/>
+                        <HomeIcon sx={{fontSize:30}}/>
                     </Link>
                 </li>
                 <li  className='relative hover:bg-blue-500 p-1.5  rounded'>
                     <Link to='friendrequest'>
-                    <Person fontSize="large" />
+                    <Person sx={{fontSize:30}} />
                     { reqCount > 0 && <span className='w-6 h-6 text-center absolute top-0 left-6 rounded-full bg-red-800 '>{reqCount}</span>}
                     </Link>
                 </li>
-                <li  className='relative hover:cursor-pointer hover:bg-blue-500 p-1.5  rounded' onClick={() => toggleChat()}><span className=''><ChatIcon fontSize="large"/></span>
+                <li  className='relative hover:cursor-pointer hover:bg-blue-500 p-1.5  rounded' onClick={() => toggleChat()}><span className=''><ChatIcon sx={{fontSize:30}}/></span>
                    {messageCount > 0 && <span className='w-6 h-6 text-center absolute top-0 left-6 rounded-full bg-red-800 '>{messageCount}</span>}
                 </li>
                 <li  className='relative hover:bg-blue-500 p-1.5  rounded'>
                     <Link to="notifications">
-                        <NotificationsIcon fontSize="large"/>
+                        <NotificationsIcon sx={{fontSize:30}}/>
                         <span className='w-6 h-6 text-center absolute top-0 left-6 rounded-full bg-red-800 '>2</span>
                     </Link>    
                 </li>
                 <li onClick={()=>setToggleSideBar(state=>!state)} className='lg:hidden hover:bg-blue-500 p-1.5 rounded'>
                     <div >
-                        <MenuIcon fontSize="large"/>
+                        <MenuIcon sx={{fontSize:30}}/>
                     </div>    
                 </li>
                 

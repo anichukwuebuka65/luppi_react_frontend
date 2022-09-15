@@ -32,13 +32,15 @@ const useFetch = (url) => {
    }
    
    function deleteFetch(id) {
-        axiosInstance.delete(url + "?id=" + id)
-        .then((res) => {
-            return res.data
-        })
-        .catch(() => {
-            return "error"
-        })
+        return new Promise((resolve, reject) => {
+            axiosInstance.delete(url + "?postId=" + id)
+            .then((res) => {
+                resolve(res.data)
+            })
+            .catch((err) => {
+                reject("error")
+            })
+        })   
     }
 
     return {  

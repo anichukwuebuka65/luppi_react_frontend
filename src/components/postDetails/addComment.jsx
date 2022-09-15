@@ -21,8 +21,8 @@ function AddComment({dispatch, postFetch, id}) {
     return (
         <>
             <form className="flex w-full">
-                <input onChange={(e)=>setComment(e.target.value)} value={comment} className="rounded-full h-8 shadow-sm px-2 border-2 border-slate-300 focus:bg-slate-100 focus:border-slate-400 border-2  focus:outline-none w-3/4 "
-                    type="text" placeholder="Write Comments" />
+                <textarea onChange={(e)=>setComment(e.target.value)} value={comment} className="rounded-full placeholder:italic h-8 shadow-sm px-2 border-2 border-slate-300 focus:bg-slate-100 focus:h-14 focus:rounded-lg focus:border-slate-400 border-2  focus:outline-none w-3/4 "
+                    type="text" placeholder="write something"/>
                 <button onClick={addComment} className="bg-blue-400 shadow text-white p-2 mx-5 h-8 hover:bg-blue-600 rounded">Add</button>
             </form>
         </>      

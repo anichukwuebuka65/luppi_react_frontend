@@ -45,14 +45,13 @@ const MainBar = () => {
   }
 
   useEffect(() => {
-    
-    if(ref.current === true) { console.log("hi"); fetchPosts()}
+    if(ref.current === true) fetchPosts()
     ref.current = false
     postRef.current.scrollTop = position.current
  },[])
 
   return (
-    <div ref={postRef} className = 'col-span-2 w-full sm:w-2/3 lg:w-4/5 md:pl-3 mx-auto pb-4 mb-4 md:overflow-auto overflow-scroll' onScroll={()=>loadNextPosts()} >
+    <div ref={postRef} className = 'col-span-2 w-full sm:w-2/3 lg:w-4/5 md:pl-3 mx-auto pb-4 pt-0 mb-4 md:overflow-auto overflow-scroll' onScroll={()=>loadNextPosts()} >
       <CreatePost 
         postFetch={postFetch} 
         loading={loading}
@@ -62,7 +61,7 @@ const MainBar = () => {
         />
       {imageError && <div className="text-center italic text-red-500">{imageError}</div>}
       {error &&  <div className="text-center italic text-red-500">{error}</div>}
-      { PostList.length > 0  ?  PostList.map((post,i) => <PostDetails key={i} deleteFetch={deleteFetch} post={post}/>) :
+      { PostList.length > 0  ?  PostList.map((post) => <PostDetails key={post.id} post={post}/>) :
         !loading && <div className=' rounded opacity-90 p-2 shadow-md'>not post found</div>}
       { loading && (<div className='italic text-xl mt-5 text-center'>Loading...</div>)}  
     </div>

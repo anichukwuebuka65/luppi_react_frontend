@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {incrementLike} from "../../redux/reducers/PostSlice"
 
 function LikesWithShare({ post }) {
-    const {like} = useSelector(state => state.posts.posts.find(result => result.id == post.id))
+    const {like} = useSelector(state => state.posts.posts.find(result => result.id === post.id))
     const [shares] = useState(post.share?.shares)
     const [ifLiked,setIfLiked] = useState(false)
     const {axiosInstance} = useContext(AllContext)
@@ -35,7 +35,7 @@ function LikesWithShare({ post }) {
         <>
             <div className="flex justify-between py-px">
                 <div className=" ">
-                <small className="text-blue-500 mr-px"><ThumbUpIcon sx={{fontSize:15}}/></small>
+                <small className="text-purple-800 mr-px"><ThumbUpIcon sx={{fontSize:15}}/></small>
                 <small className="text-red-400 mr-2"><FavoriteIcon sx={{fontSize:15}}/></small>
                 <span>{like?.likes ? like.likes : 0}</span>
                 </div>

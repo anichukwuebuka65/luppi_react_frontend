@@ -91,7 +91,7 @@ const CreatePost = ({setImageError, postFetch, loading, error,offset}) => {
         </div>
         <div className='text-center' >
             <button onClick={upload} 
-            className={`w-full rounded text-white  tracking-wide font-semibold ${!clicked && "hover:bg-blue-600 bg-blue-500"}
+            className={`w-full rounded text-white  tracking-wide font-semibold ${!clicked && "hover:bg-purple-700 bg-purple-800"}
              ${clicked && " h-7"}`} 
             >Share</button>
         </div>

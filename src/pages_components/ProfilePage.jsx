@@ -74,13 +74,13 @@ const ProfilePage = () => {
                 <div className='relative'>
                     {userId !== parseInt(id) &&
                     <button onClick={() => addFriend(id)} 
-                     className={`rounded ${clicked && 'h-8'} bg-blue-500 hover:bg-blue-400 p-1.5 mx-2 text-white font-semibold mt-2`}>
+                     className={`rounded ${clicked && 'h-8'} bg-purple-800 hover:bg-blue-400 p-1.5 mx-2 text-white font-semibold mt-2`}>
                         Add Friend 
                     </button> }
                     {userId === parseInt(id) && 
                     <>
-                    <button className='rounded bg-blue-500 hover:bg-blue-400 p-1.5 mx-2 text-white font-semibold mt-2'>Add to Story</button>
-                    <button className='rounded bg-blue-500 hover:bg-blue-400 p-1.5 mx-2 text-white font-semibold mt-2'>Edit Profile</button>
+                    <button className='rounded bg-purple-800 hover:bg-purple-700 p-1.5 mx-2 text-white font-semibold mt-2'>Add to Story</button>
+                    <button className='rounded bg-purple-800 hover:bg-purple-700 p-1.5 mx-2 text-white font-semibold mt-2'>Edit Profile</button>
                     </>
                     }
                     {addedStatus && <small className='absolute top-12 left-3 border rounded opacity-90 italic border-slate-400 px-2'>{addedStatus}</small>}
