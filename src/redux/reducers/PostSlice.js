@@ -40,8 +40,16 @@ const postSlice = createSlice({
         },
         delete_post(state,{payload}){
            state.posts = state.posts.filter(post => post.id !== payload)
-        }
+        },
+       
     }
 })
 export const postReducer = postSlice.reducer
-export const {fetching,fetch_success,fetch_error,clear_error,incrementLike,delete_post} = postSlice.actions
+export const {
+    fetching,
+    fetch_success,
+    fetch_error,
+    clear_error,
+    incrementLike,
+    delete_post} 
+    = postSlice.actions

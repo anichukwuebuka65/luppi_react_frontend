@@ -1,7 +1,6 @@
 import  { useContext } from 'react'
 import PostDetails from '../components/postDetails/PostDetails'
-import {useSearchParams} from 'react-router-dom'
-//import { axiosInstance } from '../axios'
+import { useNavigate, useSearchParams} from 'react-router-dom'
 import { useEffect,useState } from 'react'
 import { useSelector } from 'react-redux'
 import { AllContext } from '../context/AllContext'
@@ -18,6 +17,7 @@ const ProfilePage = () => {
     const [addedStatus, setAddedStatus] = useState()
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(true)
+    const navigate = useNavigate()
     const {axiosInstance} = useContext(AllContext)
 
 
@@ -80,10 +80,10 @@ const ProfilePage = () => {
                     {userId === parseInt(id) && 
                     <>
                     <button className='rounded bg-purple-800 hover:bg-purple-700 p-1.5 mx-2 text-white font-semibold mt-2'>Add to Story</button>
-                    <button className='rounded bg-purple-800 hover:bg-purple-700 p-1.5 mx-2 text-white font-semibold mt-2'>Edit Profile</button>
+                    <button onClick={()=>navigate("/editprofile")} className='rounded bg-purple-800 hover:bg-purple-700 p-1.5 mx-2 text-white font-semibold mt-2'>Edit Profile</button>
                     </>
                     }
-                    {addedStatus && <small className='absolute top-12 left-3 border rounded opacity-90 italic border-slate-400 px-2'>{addedStatus}</small>}
+                    {addedStatus && <small  className='absolute top-12 left-3 border rounded opacity-90 italic border-slate-400 px-2'>{addedStatus}</small>}
                 </div>
             </div>
 

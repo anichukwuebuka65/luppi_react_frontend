@@ -18,7 +18,7 @@ const Home = () => {
     return (
         <>
             <Outlet/>  
-            <div className = 'hidden lg:block'>
+            <div className = 'hidden md:block'>
                 <RightSideBar/>
             </div>
         </>    

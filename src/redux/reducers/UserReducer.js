@@ -4,6 +4,7 @@ const fetchUserSuccess = createAction('fetchUserSuccess')
 const fetchUserError = createAction('fetchUserError')
 const isLoggedIn = createAction('islogged')
 const logOut = createAction('logout')
+const update_photo = createAction("update_photo")
 
 const initialState = {}
 
@@ -25,6 +26,9 @@ const UserReducer = createReducer(initialState, (builder) => {
     .addCase(logOut,(state, action) => {
         sessionStorage.removeItem('user')
         return { }
+    })
+    .addCase(update_photo,(state,{payload}) => {
+        state.profilepicture = payload
     })
 })
 

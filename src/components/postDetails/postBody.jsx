@@ -11,7 +11,7 @@ const PostBody = ({post, deleteFetch}) => {
 
   return (
     <>
-        <div className="bg-slate-50 shadow-md pb-5 mt-5 rounded-sm ">
+        <div className=" shadow-md bg-white pb-5 rounded-sm ">
             <div className="p-2 relative ">
             <div className="flex justify-between ">
                 <div className="flex  ">
@@ -30,7 +30,7 @@ const PostBody = ({post, deleteFetch}) => {
             <div>
             { post?.image && post.image !== null && post.image.imageUrl &&
             <img className="w-full object-fill" 
-            src={post.image.imageUrl} alt="profileImage" /> }
+            src={post.image.imageUrl} height="600" alt="profileImage" /> }
             </div>
             
             <div className="px-2">

@@ -27,9 +27,9 @@ const LeftSideBar = () => {
 
   return (
     <div className={`${!toggleSideBar && 'hidden' }
-     ${(pathname ===  "/home/friends" || new RegExp(/\/home\/[0-9]+/).test(pathname)) && 'lg:block' } 
-     ${pathname ===  "/home" && 'lg:block' } 
-     w-72 z-20 absolute h-[calc(100vh-56px)]  left-0 top-0`}> 
+     ${(pathname ===  "/home/friends" || new RegExp(/\/home\/[0-9]+/).test(pathname)) && 'md:block' } 
+     ${pathname ===  "/home" && 'md:block' } 
+     lg:w-72 w-52 z-20 absolute h-[calc(100vh-56px)]  left-0 top-0`}> 
 
         <div className='bg-slate-300 h-full -mt-2 shadow-lg md:shadow-none md:border-none border'>
             {pathname !== "/groups" &&

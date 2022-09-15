@@ -1,8 +1,54 @@
-import React from 'react'
+import React, { useState } from 'react'
+import AddAPhotoIcon from '@mui/icons-material/AddAPhoto'
+import imageKit from 'imagekit-javascript'
+import useFetch from '../components/functions/useFetch'
+import {useNavigate} from "react-router-dom"
+import { useDispatch, useSelector } from 'react-redux'
 
 const EditProfile = () => {
+  const [picture, setPicture] = useState()
+  const [clicked ,setclicked] = useState(false)
+  const id = useSelector(state => state.user.id)
+  const {postFetch} = useFetch("profile")
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const imagekit = new imageKit({
+    publicKey: 'public_Xd2RM8ChiA2AeLH5NTe7kHEl8JQ=',
+    urlEndpoint: 'https://ik.imagekit.io/feov916dg',
+    authenticationEndpoint: 'https://luppi.herokuapp.com/auth'
+    //authenticationEndpoint: 'http://localhost:5000/auth'
+})
+
+async function uploadImage(e){
+  e.preventDefault()
+    try {
+            const {url} = await imagekit.upload({
+                file: picture,
+                fileName: picture.name
+            })
+            await postFetch({url})
+            dispatch({type:"update_photo", payload:url})
+            navigate(`/profilepage?Id=${id}`)
+
+    } catch (error) {
+            console.log(error)  
+    }
+}
+
   return (
-    <div></div>
+    <form className='flex flex-col space-y-7 p-2 w-full mt-7 m-auto md:w-4/5'>
+      <input onChange={(e) => setPicture(e.target.value) } 
+      className=" placeholder:tracking-widest pl-3 h-10 rounded-md border-b-2 focus:outline-none border-purple-800" type="text" placeholder='age'/>
+      <input onChange={(e) => setPicture(e.target.value) }
+       className="placeholder:tracking-widest pl-3 h-10 rounded-md border-b-2 focus:outline-none border-purple-800" type="text" placeholder='gender'/>
+      <input onChange={(e) => setPicture(e.target.value) } 
+      className="placeholder:tracking-widest pl-3 h-10 rounded-md border-b-2 focus:outline-none border-purple-800" type="text" placeholder='country'/>
+      <label className=' text-purple-900 mr-2 hover:cursor' htmlFor='upload'><AddAPhotoIcon/></label>
+      <input onChange={(e)=> setPicture(e.target.files[0])} className="hidden" type="file" id="upload" />
+      <button onClick={uploadImage} className={`w-full rounded text-white h-7 tracking-wide font-semibold ${!clicked && "hover:bg-purple-700 bg-purple-800"}
+        ${clicked && " h-8"}`} 
+      >submit</button>
+    </form>
   )
 }
 

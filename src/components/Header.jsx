@@ -73,7 +73,7 @@ import LeftSideBar from './LeftSideBar'
                         <span className='w-6 h-6 text-center absolute top-0 left-6 rounded-full bg-red-800 '>2</span>
                     </Link>    
                 </li>
-                <li onClick={()=>setToggleSideBar(state=>!state)} className='lg:hidden hover:bg-blue-500 p-1.5 rounded'>
+                <li onClick={()=>setToggleSideBar(state=>!state)} className='md:hidden hover:bg-blue-500 p-1.5 rounded'>
                     <div >
                         <MenuIcon sx={{fontSize:30}}/>
                     </div>    

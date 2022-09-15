@@ -16,6 +16,7 @@ import { useDispatch} from "react-redux";
 import axios from "axios";
 import PostWithComments from "./pages_components/PostWithComments.jsx";
 import MainBar from "./components/MainBar.jsx";
+import EditProfile from "./pages_components/EditProfile.jsx";
 
 const App = () => {
   const [chat, setChat] = useState(false)
@@ -98,6 +99,7 @@ const App = () => {
                 <Route path="profilepage" element={<ProfilePage/>} />
                 <Route path="friendrequest" element={<FriendRequests/>} />
                 <Route path="notifications" element={<Notifications/>} />
+                <Route path="editprofile" element={<EditProfile/>} />
               </Route>
               <Route path="/login" element={<Login/>}/>
               <Route path="/register" element={<Register/>}/>
