@@ -10,21 +10,21 @@ const postSlice = createSlice({
         },
     reducers:{
         fetching(state){
-            return {...state, loading: true}
+            state.loading = true
         },
         fetch_success(state, {payload}){
-            if (!Array.isArray(payload)){
-                return { 
-                    posts : [].concat(payload.result,state.posts), 
-                    offset:payload.offset,
-                    loading: false
-                }
-            }
             return { 
-                posts : [].concat(state.posts, payload.result), 
-                offset:payload.offset,
+                posts : [].concat(state.posts, payload.res), 
+                offset:payload?.offset + payload?.res?.length,
                 loading: false
             }
+        },
+        addPost_success(state, action){
+             return { 
+                    posts : [].concat(action.payload.result,state.posts), 
+                    offset: action.payload.offset,
+                    loading: false
+                }
         },
         fetch_error (state, {payload}) {
             return {...state, error: payload, loading: false}

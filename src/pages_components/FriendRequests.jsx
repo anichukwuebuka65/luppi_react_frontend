@@ -3,16 +3,17 @@ import  { useContext, useEffect } from 'react'
 //import { axiosInstance } from '../axios'
 import { AllContext } from '../context/AllContext'
 import { useNavigate } from 'react-router-dom'
+import AxiosInstance from '../axios'
 
 const FriendRequests = () => {
-  const {axiosInstance,
-    setToggleSideBar,
+  const {setToggleSideBar,
     requestDetails, 
     setRequestDetails,
     setReqCount} = useContext(AllContext)
   const [acceptError, setAcceptError] = useState('')
   const [fetchError, setFetchError] = useState('')
   const navigate = useNavigate()
+  const axiosInstance = AxiosInstance()
 
 
   async function acceptRequest(id){

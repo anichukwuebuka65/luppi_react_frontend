@@ -3,10 +3,12 @@ import { useContext, useEffect } from "react"
 import FriendsSideBar from "../components/FriendsSideBar"
 import { AllContext } from "../context/AllContext"
 import {Link} from "react-router-dom"
+import AxiosInstance from "../axios"
 
 const Friends = () => {
-    const {setToggleSideBar, axiosInstance} = useContext(AllContext)
+    const {setToggleSideBar} = useContext(AllContext)
     const [friends, setFriends] = useState([])
+    const axiosInstance = AxiosInstance()
 
     useEffect(()=>{
         setToggleSideBar(false)
@@ -20,9 +22,9 @@ const Friends = () => {
        
         {/*center div */}
         <div className = 'col-span-2 w-4/5 bg-slate-200 border-zinc-300 border-2 rounded mx-auto overflow-auto'>
-            <div className="text-3xl font-bold p-6">All Friends</div>
+            <div className="text-xl font-bold p-6">All Friends</div>
             {friends?.length > 0 && friends.map(friend => (
-                <Link to={`/profilepage?Id=${friend?.id}`} key = {friend.id} className="flex space-x-3 p-3 hover:bg-slate-300 rounded">
+                <Link to={`/profilepage?Id=${friend?.id}`} key = {friend?.id} className="flex space-x-3 p-3 hover:bg-slate-300 rounded">
                     <div>
                         <img className="rounded-full h-14 w-14" src={friend?.user_profile?.profilepicture} alt="friends_profile_photo" />
                     </div>

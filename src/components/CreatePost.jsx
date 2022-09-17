@@ -1,8 +1,8 @@
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import { useContext, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import imageKit from 'imagekit-javascript'
 import { AllContext } from '../context/AllContext';
+import Imagekit from './functions/imagekit';
 import {fetching,fetch_success,fetch_error,clear_error} from '../redux/reducers/PostSlice';
 
 
@@ -13,12 +13,7 @@ const CreatePost = ({setImageError, postFetch, loading, error,offset}) => {
     const [imageFile, setImageFile] = useState(null)
     const {firstName, lastName} = useSelector(state => state.user)
     const { capitalizeFirstLetter} = useContext(AllContext)
-    const imagekit = new imageKit({
-        publicKey: 'public_Xd2RM8ChiA2AeLH5NTe7kHEl8JQ=',
-        urlEndpoint: 'https://ik.imagekit.io/feov916dg',
-        authenticationEndpoint: 'https://luppi.herokuapp.com/auth'
-        //authenticationEndpoint: 'http://localhost:5000/auth'
-    })
+    const imagekit = Imagekit()
 
     async function upload() {
         if (!post && !imageFile) return

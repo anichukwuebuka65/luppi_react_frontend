@@ -50,7 +50,7 @@ const LeftSideBar = () => {
                 <span className='mr-3 text-purple-800'><AccountBoxIcon fontSize='large'/></span>
                 <div className='font-bold text-xl text-emerald-900'>Profile</div>
             </Link>
-            <Link to="/home/friends" className='flex items-center mb-2  hover:bg-slate-300 rounded pl-2 '>
+            <Link to="/friends" className='flex items-center mb-2  hover:bg-slate-300 rounded pl-2 '>
                 <span className='mr-3 text-purple-800'><PeopleIcon fontSize='large'/></span>
                 <div className='font-bold text-xl text-emerald-900'>Friends</div>
             </Link>

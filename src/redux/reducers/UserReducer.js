@@ -11,7 +11,7 @@ const initialState = {}
 const UserReducer = createReducer(initialState, (builder) => {
     builder
     .addCase(fetchUserSuccess,(state, action) => {
-        return state = action.payload
+          return state = action.payload
     })
     .addCase(fetchUserError,(state, action) => {
         return {
@@ -25,7 +25,7 @@ const UserReducer = createReducer(initialState, (builder) => {
     })
     .addCase(logOut,(state, action) => {
         sessionStorage.removeItem('user')
-        return { }
+        state = { }
     })
     .addCase(update_photo,(state,{payload}) => {
         state.profilepicture = payload

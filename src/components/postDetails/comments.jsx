@@ -30,16 +30,18 @@ function Comments({id}) {
 
     async function fetchComments(id){
         dispatch({type:"fetching"})
-        const result = await getFetch(offset,id)
-        if(result === "error"){
+        await getFetch(offset,id)
+        .then((res) => {
+            dispatch({type:"fetch_success",payload:res})
+        })
+        .catch((err) => {
             dispatch({type:"fetch_error",error:"something went wrong, try again"})
             return dispatch({type:"clear_error"})
-        }
-        dispatch({type:"fetch_success",payload:result})
+        })
     }
 
     useEffect(() => {
-      ref &&  fetchComments(id)
+      ref.current &&  fetchComments(id)
       ref.current = false
     },[])
 

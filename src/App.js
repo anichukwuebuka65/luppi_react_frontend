@@ -12,62 +12,47 @@ import PageNotFound from "./pages_components/PageNotFound.jsx";
 import Layout2 from "./pages_components/Layout2.jsx";
 import Login from './pages_components/login.jsx'
 import Register from './pages_components/Register.jsx'
-import { useDispatch} from "react-redux";
-import axios from "axios";
+import { useDispatch, useSelector} from "react-redux";
 import PostWithComments from "./pages_components/PostWithComments.jsx";
 import MainBar from "./components/MainBar.jsx";
 import EditProfile from "./pages_components/EditProfile.jsx";
 
 const App = () => {
+  const token = useSelector(state => state.user.token)
   const [chat, setChat] = useState(false)
   const [toggleSideBar, setToggleSideBar] = useState(false)
-  const [token, setToken] = useState("")
   const [requestDetails, setRequestDetails] = useState([]) 
   const [reqCount, setReqCount] = useState(0)
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const position = useRef(0)
-  const ref = useRef(true)
-
- const axiosInstance = axios.create({
-    baseURL: 'https://luppi.herokuapp.com/',
-    //baseURL: 'http://localhost:5000/',
-    withCredentials: true,
-    headers: {
-      "Content-Type":"application/json",
-      "Authorization": token
-    }
- })
 
  const capitalizeFirstLetter = (word) => {
-    return word.substring(0,1).toUpperCase() + word.substring(1)
- }
- 
-  const toggleChat = (offOnly = false) => {
-    if(offOnly) {
-      setChat(false)
-    }
-    else{
-      setChat((state)=>state=!state)
-    }
+  return word.substring(0,1).toUpperCase() + word.substring(1)
+}
+
+const toggleChat = (offOnly = false) => {
+  if(offOnly) {
+    setChat(false)
   }
-  
-  const contextValues = {
-        chat,
-        setChat,
-        toggleChat,
-        toggleSideBar,
-        setToggleSideBar,
-        setToken,
-        axiosInstance,
-        reqCount,
-        setReqCount,
-        requestDetails,
-        setRequestDetails,
-        capitalizeFirstLetter,
-        position,
-        ref
-      }
+  else{
+    setChat((state)=>state=!state)
+  }
+}
+
+ const contextValues = {
+  chat,
+  setChat,
+  toggleChat,
+  toggleSideBar,
+  setToggleSideBar,
+  reqCount,
+  setReqCount,
+  requestDetails,
+  setRequestDetails,
+  capitalizeFirstLetter,
+  position,
+}         
 
   useEffect(() => {
     const checkAuth = () => {

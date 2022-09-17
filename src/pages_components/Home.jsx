@@ -6,8 +6,6 @@ import { AllContext } from "../context/AllContext.jsx"
 const Home = () => {
   const {setToggleSideBar} = useContext(AllContext)
 
-
-
   useEffect(()=>{
     setToggleSideBar(false)
     return ()=>{

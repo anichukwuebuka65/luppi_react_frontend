@@ -4,6 +4,8 @@ import imageKit from 'imagekit-javascript'
 import useFetch from '../components/functions/useFetch'
 import {useNavigate} from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux'
+import Imagekit from '../components/functions/imagekit';
+
 
 const EditProfile = () => {
   const [picture, setPicture] = useState()
@@ -12,12 +14,7 @@ const EditProfile = () => {
   const {postFetch} = useFetch("profile")
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const imagekit = new imageKit({
-    publicKey: 'public_Xd2RM8ChiA2AeLH5NTe7kHEl8JQ=',
-    urlEndpoint: 'https://ik.imagekit.io/feov916dg',
-    authenticationEndpoint: 'https://luppi.herokuapp.com/auth'
-    //authenticationEndpoint: 'http://localhost:5000/auth'
-})
+  const imagekit = Imagekit()
 
 async function uploadImage(e){
   e.preventDefault()

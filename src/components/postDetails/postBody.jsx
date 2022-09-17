@@ -2,12 +2,8 @@ import React from 'react'
 import PostMenu from "./postMenu"
 import ProfileImage from "../ProfileImage"
 import LikesWithShare from "./likesWithShare"
-import { useNavigate } from 'react-router-dom'
 
 const PostBody = ({post, deleteFetch}) => {
-    const navigate = useNavigate()
-
-    if (!post) return navigate("/home")
 
   return (
     <>
@@ -17,8 +13,8 @@ const PostBody = ({post, deleteFetch}) => {
                 <div className="flex  ">
                 <ProfileImage image={post?.user?.user_profile?.profilepicture}/>
                 <div className="font-semibold">
-                <div className="-mb-2 text-lg text-zinc-900">{post?.user?.firstName} {post?.user?.lastName}</div>
-                <small>2 days ago</small>
+                <div className="-mb-1.5 text-md text-zinc-900">{post?.user?.firstName} {post?.user?.lastName}</div>
+                <small className='text-sx pl-1.5 opacity-80'>2 days ago</small>
                 </div>
                 </div>
                 <PostMenu deleteFetch={deleteFetch} id={post?.id}/>

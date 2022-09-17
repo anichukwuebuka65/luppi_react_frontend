@@ -1,12 +1,12 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { AllContext } from "../context/AllContext";
+import AxiosInstance from "../axios";
 import ProfileImage from "./ProfileImage"
 
 const RightSideBar = () => {
     const onlineIcon = " absolute h-2.5 opacity-80 w-2.5 rounded-full bg-red-400 right-1.5 bottom-px border-black border-2";
     const [users, setUsers] = useState([])
-    const {axiosInstance} = useContext(AllContext)
+    const axiosInstance = AxiosInstance()
 
     useEffect(() => {
         const fetchUsers = async() => {

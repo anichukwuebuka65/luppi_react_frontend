@@ -2,6 +2,7 @@ import  { useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import {useState} from 'react'
 import { AllContext } from '../context/AllContext'
+import AxiosInstance from '../axios'
 //import { axiosInstance } from '../axios'
 
 const Register = () => {
@@ -15,7 +16,8 @@ const Register = () => {
     const [fetchErrMsg, setFetchErrMsg] = useState()
     const navigate = useNavigate()
     const [isLoading, setIsLoading] = useState(false)
-    const {axiosInstance, capitalizeFirstLetter} = useContext(AllContext)
+    const { capitalizeFirstLetter} = useContext(AllContext)
+    const axiosInstance = AxiosInstance()
 
 
     const nameRegex = /^[A-Za-z0-9]{3,15}$/;

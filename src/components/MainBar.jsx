@@ -1,19 +1,19 @@
 import CreatePost from "./CreatePost.jsx"
 import PostDetails from "./postDetails/PostDetails.jsx"
 import  { memo, useContext, useEffect, useMemo, useRef, useState } from "react"
-import useFetch from "./functions/useFetch.js"
-import { useDispatch, useSelector } from "react-redux"
-import {fetching,fetch_success,fetch_error,clear_error} from "../redux/reducers/PostSlice"
 import { AllContext } from "../context/AllContext.jsx"
-
+import useFetch from "./functions/useFetch.js"
+import {fetching,fetch_success,fetch_error,clear_error} from "../redux/reducers/PostSlice"
+import { useDispatch, useSelector } from "react-redux"
 
 const MainBar = () => {
   const {posts, loading, error, offset} = useSelector(state => state.posts)
   const [imageError, setImageError] = useState()
   const dispatch = useDispatch()
   const postRef = useRef()
-  const {getFetch, postFetch, deleteFetch} = useFetch("posts")
-  const {position, ref} = useContext(AllContext)
+  const ref = useRef(true)
+  const {position} = useContext(AllContext)
+  const {postFetch, getFetch} = useFetch("posts")
 
  
   const sortPosts = (posts) => {
@@ -27,12 +27,15 @@ const MainBar = () => {
 
   async function fetchPosts(){
     dispatch(fetching())
-    const result = await getFetch(offset)
-    if (result === "error") {
-      dispatch(fetch_error("something went wrong, try again"))
-      return setTimeout(()=>dispatch(clear_error()),1000)
-    }
-    dispatch(fetch_success({result,offset:posts.length}))
+    await getFetch(offset)
+    .then((res)=>{
+      dispatch(fetch_success({res, offset:posts.length}))
+    })
+    .catch((err) => {
+      console.log(err)
+        dispatch(fetch_error("something went wrong, try again"))
+        setTimeout(()=>dispatch(clear_error()),1000)
+    })  
   }
 
   function loadNextPosts(e){
@@ -62,7 +65,7 @@ const MainBar = () => {
         />
       {imageError && <div className="text-center italic text-red-500">{imageError}</div>}
       {error &&  <div className="text-center italic text-red-500">{error}</div>}
-      { PostList.length > 0  ?  PostList.map((post) => <PostDetails key={post.id} post={post}/>) :
+      { PostList.length > 0  ?  PostList.map((post) => <PostDetails key={post?.id} post={post}/>) :
         !loading && <div className='text-center opacity-90 p-3 mt-5 italic tracking-wider shadow-md'>No post found</div>}
       { loading && (<div className='italic text-xl mt-5 text-center'>Loading...</div>)}  
     </div>

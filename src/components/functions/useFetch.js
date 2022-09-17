@@ -1,17 +1,16 @@
-import { useContext} from "react"
-import { AllContext } from "../../context/AllContext"
+import AxiosInstance from "../../axios"
 
 const useFetch = (url) => {
-    const {axiosInstance} = useContext(AllContext)
-    
+    const axiosInstance = AxiosInstance()
+
     function getFetch (offset,id) {
         return new Promise((resolve, reject) => {
              axiosInstance.get(url + "?offset=" + offset + "&postId=" + id)
             .then((res) => {
                 resolve(res.data)
             })
-            .catch(() => {
-                reject("error")
+            .catch((err) => {
+                reject(err)
             })
         })
        
