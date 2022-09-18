@@ -13,7 +13,7 @@ const PostBody = ({post, deleteFetch}) => {
                 <div className="flex  ">
                 <ProfileImage image={post?.user?.user_profile?.profilepicture}/>
                 <div className="font-semibold">
-                <div className="-mb-1.5 text-md font-semibold text-zinc-900">{post?.user?.firstName} {post?.user?.lastName}</div>
+                <div className="-mb-1.5 text-md font-bold text-zinc-900">{post?.user?.firstName} {post?.user?.lastName}</div>
                 <small className='text-sx pl-1.5 opacity-80'>2 days ago</small>
                 </div>
                 </div>
