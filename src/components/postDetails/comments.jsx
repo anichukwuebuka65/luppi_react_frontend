@@ -60,7 +60,7 @@ function Comments({id}) {
                 <div className="w-4/5">
                     <div className=" leading-none inline-block py-1.5 p-2 bg-slate-300 border shadow-sm rounded-md">
                         <p className="font-bold mb-1.5">{comment?.user?.firstName ?? firstName} {comment?.user?.lastName ?? lastName}</p>
-                        <p className="text-xs ">{comment.comments}</p>
+                        <p className="text-xs ">{comment.comment}</p>
                     </div>
                     <div className="flex space-x-2">
                         <small>Like</small>
