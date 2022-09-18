@@ -7,7 +7,6 @@ const useFetch = (url) => {
         return new Promise((resolve, reject) => {
              axiosInstance.get(url + "?offset=" + offset + "&postId=" + id)
             .then((res) => {
-                console.log(res)
                 resolve(res.data)
             })
             .catch((err) => {
@@ -22,7 +21,6 @@ const useFetch = (url) => {
        return new Promise((resolve,reject) => {
             axiosInstance.post(url, data)
             .then((res) => {
-                console.log(res)
                     resolve(res.data)
                 })
             .catch(() => {

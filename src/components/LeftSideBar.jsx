@@ -10,6 +10,7 @@ import { AllContext } from '../context/AllContext.jsx';
 import LogoutIcon from '@mui/icons-material/Logout';
 import {  useDispatch, useSelector } from 'react-redux';
 import GroupRightSideBar from './GroupRightSideBar.jsx';
+import RightSideBar from './RightSideBar.jsx';
 
 const LeftSideBar = () => {
     const userId = useSelector(state => state.user.id)
@@ -70,6 +71,7 @@ const LeftSideBar = () => {
             </>
             }
              {pathname === "/groups" && <div className="p-2"><GroupRightSideBar/></div>}
+             <div className='md:hidden'><RightSideBar/></div>
         </div>
     </div>
   )

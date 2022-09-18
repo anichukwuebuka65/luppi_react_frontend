@@ -22,7 +22,7 @@ const RightSideBar = () => {
 
   return (
     <div className="h-full md:ml-3 ">
-        <div className="h-1/2 rounded md:bg-slate-200 bg-white p-3 mb-3">
+        <div className="h-1/2 rounded bg-slate-200 bg-white p-3 mb-3">
             <h1 className="font-semibold">People You May Know</h1>
 
             { users.length > 0 ? users.map((user) => (
@@ -34,7 +34,7 @@ const RightSideBar = () => {
            
           
         </div>
-        <div className="h-1/2  rounded  lg:bg-slate-200 bg-white p-3">
+        <div className="h-1/2  rounded  bg-slate-200 bg-white p-3">
             <h1  className="font-semibold">Online Friends</h1>
             <div className="flex my-4">
                   <ProfileImage/>
