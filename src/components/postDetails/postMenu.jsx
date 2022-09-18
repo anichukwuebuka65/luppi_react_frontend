@@ -22,7 +22,7 @@ function PostMenu({id}) {
     
     return (
         <>
-            <div onClick={(event)=>{event.stopPropagation(); setPostOptions(state => !state)}} className="hover:cursor-pointer"><MoreHorizIcon/></div>
+            <div onClick={(event)=>{event.stopPropagation(); setPostOptions(state => !state)}} className="hover:cursor-pointer"><MoreHorizIcon fontSize="small"/></div>
             { postOptions && 
             <div className="absolute shadow-md  top-12 right-2 rounded  p-2 bg-white">
                 <div className=" relative flex content-center  pr-3 flex-col">
