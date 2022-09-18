@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto'
-import imageKit from 'imagekit-javascript'
 import useFetch from '../components/functions/useFetch'
 import {useNavigate} from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux'

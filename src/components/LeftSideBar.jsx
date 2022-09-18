@@ -8,19 +8,19 @@ import {Link, useLocation, useNavigate} from "react-router-dom"
 import { useContext } from 'react';
 import { AllContext } from '../context/AllContext.jsx';
 import LogoutIcon from '@mui/icons-material/Logout';
-import {  useSelector } from 'react-redux';
-//import { axiosInstance } from '../axios.js';
+import {  useDispatch, useSelector } from 'react-redux';
 import GroupRightSideBar from './GroupRightSideBar.jsx';
 
 const LeftSideBar = () => {
     const userId = useSelector(state => state.user.id)
     const {firstName, lastName} = useSelector(state => state.user)
-    const {setToken,toggleChat,toggleSideBar,setToggleSideBar} = useContext(AllContext)
+    const {toggleChat,toggleSideBar} = useContext(AllContext)
+    const dispatch = useDispatch()
     let {pathname} = useLocation()
     const navigate = useNavigate()
 
      function logOut() {
-        setToken("")
+        dispatch({type:"logout"})
         navigate('/login')
        
     }
