@@ -56,7 +56,7 @@ const CreatePost = ({setImageError, postFetch, loading, error,offset}) => {
         dispatch(fetching())
         await postFetch(data)
         .then((res) => {
-            const result = {...res,firstName,lastName}
+            const result = {...res,user: {firstName,lastName}}
             dispatch(addPost_success({result,offset}))
         })
         .catch(() => {
