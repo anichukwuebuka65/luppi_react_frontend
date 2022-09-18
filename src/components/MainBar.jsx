@@ -53,7 +53,7 @@ const MainBar = () => {
  },[])
 
   return (
-    <div ref={postRef} className = 'col-span-2 w-full sm:w-2/3 md:w-full lg:w-4/5 md:pl-3 mx-auto pb-4 pt-0 mb-4 md:overflow-auto overflow-y-scroll'
+    <div ref={postRef} className = 'col-span-2 w-full sm:w-2/3 md:w-full lg:w-4/5 md:pl-3 mx-auto px-2 pb-4 pt-0 mb-4 md:overflow-auto overflow-y-scroll'
      onScroll={()=>loadNextPosts()} >
       <CreatePost 
         postFetch={postFetch} 
