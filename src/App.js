@@ -26,6 +26,7 @@ const App = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const position = useRef(0)
+  const ref = useRef(true)
 
  const capitalizeFirstLetter = (word) => {
   return word.substring(0,1).toUpperCase() + word.substring(1)
@@ -41,6 +42,7 @@ const toggleChat = (offOnly = false) => {
 }
 
  const contextValues = {
+  ref,
   chat,
   setChat,
   toggleChat,

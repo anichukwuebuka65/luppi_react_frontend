@@ -11,8 +11,7 @@ const MainBar = () => {
   const [imageError, setImageError] = useState()
   const dispatch = useDispatch()
   const postRef = useRef()
-  const ref = useRef(true)
-  const {position} = useContext(AllContext)
+  const {position, ref} = useContext(AllContext)
   const {postFetch, getFetch} = useFetch("posts")
 
  
