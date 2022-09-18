@@ -19,7 +19,7 @@ const PostBody = ({post, deleteFetch}) => {
                 </div>
                 <PostMenu deleteFetch={deleteFetch} id={post?.id}/>
             </div>
-                {post?.post && <p className="my-2.5 rounded text-xs tracking-wide p-2"> {post?.post}</p>}
+                {post?.post && <p className="my-2.5 rounded text-sm tracking-wide p-2"> {post?.post}</p>}
             </div>
             
             {/*image */}
