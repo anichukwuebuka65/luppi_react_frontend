@@ -22,6 +22,7 @@ const useFetch = (url) => {
        return new Promise((resolve,reject) => {
             axiosInstance.post(url, data)
             .then((res) => {
+                console.log(res)
                     resolve(res.data)
                 })
             .catch(() => {

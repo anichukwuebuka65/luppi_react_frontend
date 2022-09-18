@@ -50,17 +50,18 @@ const CreatePost = ({setImageError, postFetch, loading, error,offset}) => {
         } catch (error) {
                 return error  
         }
-    
     }
 
     async function addPosts(data){
         dispatch(fetching())
-        const result = await postFetch(data)
-        if (result === "error") {
-          dispatch(fetch_error("something went wrong, try again"))
-         return setTimeout(()=>dispatch(clear_error()),1000)
-        }
-        dispatch(fetch_success({result,offset}))
+        await postFetch(data)
+        .then((res) => {
+            dispatch(fetch_success({res,offset}))
+        })
+        .catch(() => {
+            dispatch(fetch_error("something went wrong, try again"))
+            setTimeout(()=>dispatch(clear_error()),1000)
+        })
       }
 
   return (
