@@ -20,6 +20,7 @@ const postSlice = createSlice({
             }
         },
         addPost_success(state, action){
+            console.log(action.payload)
              return { 
                     posts : [].concat(action.payload.result,state.posts), 
                     offset: action.payload.offset,
@@ -48,6 +49,7 @@ export const postReducer = postSlice.reducer
 export const {
     fetching,
     fetch_success,
+    addPost_success,
     fetch_error,
     clear_error,
     incrementLike,

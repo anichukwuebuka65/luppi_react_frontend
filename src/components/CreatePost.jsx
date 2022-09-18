@@ -3,7 +3,7 @@ import { useContext, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AllContext } from '../context/AllContext';
 import Imagekit from './functions/imagekit';
-import {fetching,fetch_success,fetch_error,clear_error} from '../redux/reducers/PostSlice';
+import {fetching,addPost_success,fetch_error,clear_error} from '../redux/reducers/PostSlice';
 
 
 const CreatePost = ({setImageError, postFetch, loading, error,offset}) => {
@@ -57,7 +57,7 @@ const CreatePost = ({setImageError, postFetch, loading, error,offset}) => {
         await postFetch(data)
         .then((res) => {
             const result = {...res,firstName,lastName}
-            dispatch(fetch_success({result,offset}))
+            dispatch(addPost_success({result,offset}))
         })
         .catch(() => {
             dispatch(fetch_error("something went wrong, try again"))
