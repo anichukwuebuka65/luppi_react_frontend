@@ -48,7 +48,7 @@ const postSlice = createSlice({
     },
     extraReducers:(builder) => {
         builder
-        .addCase(logOut,(state)=>null)
+        .addCase(logOut,(state)=>({}))
     }
 })
 export const postReducer = postSlice.reducer

@@ -37,9 +37,9 @@ const ProfilePage = () => {
         async function fetchProfile() {
             try {
                 const {data} = await axiosInstance.get(`profile?id=${id}`)
-                setPosts(data.userPosts)
-                setUser(data.profile.user)
-                setProfilePic(data.profile.profilepicture)
+                setPosts(data?.userPosts)
+                setUser(data?.profile.user)
+                setProfilePic(data?.profile.profilepicture)
                 setFriendsCount(data.friendsCount)
                 setLoading(false)
             } catch (error) {
