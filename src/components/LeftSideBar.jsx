@@ -30,9 +30,9 @@ const LeftSideBar = () => {
     <div className={`${!toggleSideBar && 'hidden' }
      ${(pathname ===  "/home/friends" || new RegExp(/\/home\/[0-9]+/).test(pathname)) && 'md:block' } 
      ${pathname ===  "/home" && 'md:block' } 
-     lg:w-72 w-52 z-20 absolute h-[calc(100vh-56px)]  left-0 top-0`}> 
+     lg:w-72 w-52 -mt-2 relative z-20 h-[calc(100vh-56px)] overflow-auto `}> 
 
-        <div className='bg-slate-300 h-full -mt-2 shadow-lg md:shadow-none md:border-none border'>
+        <div className='bg-slate-300 h-full p-2 shadow-lg md:shadow-none md:border-none border'>
             {pathname !== "/groups" &&
             <>
             {/*profileImage */}

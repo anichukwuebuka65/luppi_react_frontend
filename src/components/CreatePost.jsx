@@ -66,7 +66,7 @@ const CreatePost = ({setImageError, postFetch, loading, error,offset}) => {
       }
 
   return (
-    <div className=' border rounded p-3 shadow-md '>
+    <div className=' border mb-6 rounded p-3 shadow-md '>
         <div>
             <p className='font-semibold'>{firstName} {lastName}</p>
             <small>share with:

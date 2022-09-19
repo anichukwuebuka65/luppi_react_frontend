@@ -25,7 +25,7 @@ const UserReducer = createReducer(initialState, (builder) => {
     })
     .addCase(logOut,(state, action) => {
         sessionStorage.removeItem('user')
-        state = { }
+        return state = {}
     })
     .addCase(update_photo,(state,{payload}) => {
         state.profilepicture = payload

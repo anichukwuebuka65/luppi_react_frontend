@@ -1,4 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createAction, createSlice } from "@reduxjs/toolkit"
+
+const logOut = createAction("logout")
 
 const postSlice = createSlice({
     name: "posts",
@@ -43,6 +45,10 @@ const postSlice = createSlice({
            state.posts = state.posts.filter(post => post.id !== payload)
         },
        
+    },
+    extraReducers:(builder) => {
+        builder
+        .addCase(logOut,(state)=>null)
     }
 })
 export const postReducer = postSlice.reducer

@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom'
 import {useState} from 'react'
 import { AllContext } from '../context/AllContext'
 import AxiosInstance from '../axios'
-//import { axiosInstance } from '../axios'
 
 const Register = () => {
     const [firstname, setFirstname] = useState("")
@@ -20,22 +19,24 @@ const Register = () => {
     const axiosInstance = AxiosInstance()
 
 
-    const nameRegex = /^[A-Za-z0-9]{3,15}$/;
-    const pwdRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%]).{8,20}$/;
-    const emailRegex =  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+    //const nameRegex = /^[A-Za-z0-9]{3,15}$/;
+    //const pwdRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%]).{8,20}$/;
+    //const emailRegex =  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 
     const validate = () => {
-        const validFirstname = nameRegex.test(firstname)
-        const validLastname = nameRegex.test(lastname)
-        const validPwd = pwdRegex.test(pwd)
-        const validEmail = emailRegex.test(email)
+        // const validFirstname = nameRegex.test(firstname)
+        // const validLastname = nameRegex.test(lastname)
+        // const validPwd = pwdRegex.test(pwd)
+        // const validEmail = emailRegex.test(email)
 
-        if(!validFirstname || !validLastname) 
-            return setErrMsg("Names must be alphanumerical,more than 3 and less than 15 characters!")
-        if(!validEmail) 
-            return setErrMsg("invalid email!")
-        if(!validPwd  ) 
-            return setErrMsg("Password must contain atleast one uppercase letter, one lowercase letter, a number and one special character!")
+        // if(!validFirstname || !validLastname) 
+        //     return setErrMsg("Names must be alphanumerical,more than 3 and less than 15 characters!")
+        // if(!validEmail) 
+        //     return setErrMsg("invalid email!")
+        // if(!validPwd  ) 
+          //  return setErrMsg("Password must contain atleast one uppercase letter, one lowercase letter, a number and one special character!")
+        if(!pwd || !firstname || !lastname || !email)
+            return setErrMsg("fill all fields")  
         if(pwd !== confirmPwd) 
             return setErrMsg("Passwords do not match!")
         return "validated"

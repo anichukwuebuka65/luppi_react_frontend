@@ -18,7 +18,7 @@ import MainBar from "./components/MainBar.jsx";
 import EditProfile from "./pages_components/EditProfile.jsx";
 
 const App = () => {
-  const token = useSelector(state => state.user.token)
+  const token = useSelector(state => state.user?.token)
   const [chat, setChat] = useState(false)
   const [toggleSideBar, setToggleSideBar] = useState(false)
   const [requestDetails, setRequestDetails] = useState([]) 
@@ -69,7 +69,7 @@ const toggleChat = (offOnly = false) => {
   },[])
 
   return (
-  <div >
+  <div className="">
       <AllContext.Provider value={contextValues}> 
             <Routes>
               <Route element={ token ? <Layout2 /> : <Login/>}>

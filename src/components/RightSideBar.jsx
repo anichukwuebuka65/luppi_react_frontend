@@ -27,7 +27,11 @@ const RightSideBar = () => {
 
             { users.length > 0 ? users.map((user) => (
                  <Link to={`/profilepage?Id=${user.id}`} key={user.id} className="flex my-4 hover:bg-slate-300 rounded">
-                    <ProfileImage onlineIcon={onlineIcon} image={user.user_profile?.profilepicture}/>
+                    <div className="relative">
+                        <img src={user?.user_profile?.profilepicture} alt="profile_picture"
+                            className=" h-9 w-9 mr-2 object-cover rounded-full" />
+                        <p className={onlineIcon}></p>
+                    </div> 
                     <p>{user.firstName} {user.lastName}</p>
                 </Link>
             )) : <div> no users found</div>}

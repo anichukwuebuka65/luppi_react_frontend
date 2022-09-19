@@ -53,7 +53,7 @@ const MainBar = () => {
  },[])
 
   return (
-    <div ref={postRef} className = 'col-span-2 w-full sm:w-2/3 md:w-full lg:w-4/5 md:pl-3 mx-auto pb-4 pt-0 mb-4 md:overflow-auto overflow-y-scroll'
+    <div ref={postRef} className = 'overflow-auto md:col-span-2 w-full sm:w-2/3 md:w-full lg:w-4/5 md:pl-3 mx-auto pb-4 pt-0 mb-4 '
      onScroll={()=>loadNextPosts()} >
       <CreatePost 
         postFetch={postFetch} 
@@ -64,7 +64,7 @@ const MainBar = () => {
         />
       {imageError && <div className="text-center italic text-red-500">{imageError}</div>}
       {error &&  <div className="text-center italic text-red-500">{error}</div>}
-      { PostList.length > 0  ?  PostList.map((post) => <PostDetails key={post?.id} post={post}/>) :
+      { PostList.length > 0  ?  PostList.map((post,i) => <PostDetails i={i} key={post?.id} post={post}/>) :
         !loading && <div className='text-center opacity-90 p-3 mt-5 italic tracking-wider shadow-md'>No post found</div>}
       { loading && (<div className='italic text-xl mt-5 text-center'>Loading...</div>)}  
     </div>
