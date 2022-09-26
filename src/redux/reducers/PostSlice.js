@@ -30,6 +30,7 @@ const postSlice = createSlice({
                 }
         },
         fetch_error (state, {payload}) {
+            console.log(payload)
             return {...state, error: payload, loading: false}
         },
         clear_error (state) {

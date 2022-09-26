@@ -45,7 +45,7 @@ import AxiosInstance from '../axios'
     } 
 
   return (
-    <div className='lg:grid  pt-1.5 lg:pt-0 justify-around lg:grid-cols-4 bg-purple-800 h-12 content-center shadow-lg '>
+    <div className='fixed right-0 left-0 top-0 z-40 lg:grid  pt-1.5 lg:pt-0 justify-around lg:grid-cols-4 bg-purple-800 h-12 content-center shadow-lg '>
         <div className='pl-7 hidden lg:block text-white'>
             <div className='text-4xl font-bold '>
                <Link to="/home">luppi</Link> 

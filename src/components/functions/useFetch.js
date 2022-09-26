@@ -3,7 +3,7 @@ import AxiosInstance from "../../axios"
 const useFetch = (url) => {
     const axiosInstance = AxiosInstance()
 
-    function getFetch (offset,id) {
+    function getFetch (offset=0,id) {
         return new Promise((resolve, reject) => {
              axiosInstance.get(url + "?offset=" + offset + "&postId=" + id)
             .then((res) => {

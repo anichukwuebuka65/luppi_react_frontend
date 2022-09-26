@@ -13,10 +13,8 @@ const Layout = () => {
   },[setToggleSideBar])
 
   return (
-    <div  className=" relative md:px-3 py-2 md:grid overflow:hidden md:grid-cols-4 h-[calc(100vh-56px)] ">
-        <div className=''>
-          
-        </div>
+    <div  className=" md:px-3 py-2  md:grid overflow:hidden md:grid-cols-4 h-[calc(100vh-60px)]">
+        <div className=''></div>
         <Outlet/>
         
     </div>
