@@ -5,7 +5,7 @@ function AxiosInstance() {
   const token = useSelector((state) => state.user.token);
   return axios.create({
     baseURL: "https://luppi.onrender.com/",
-    //baseURL: 'http://localhost:5000/',
+    //baseURL: "http://localhost:5000/",
     withCredentials: true,
     headers: {
       "Content-Type": "application/json",
